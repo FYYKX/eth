@@ -31,7 +31,7 @@ router.get('/eth', function (req, res, next) {
 });
 
 router.get('/eth.json', function (req, res, next) {
-  ticker.ethereum(function (results) {
+  ticker.eth(function (results) {
     var low = 0;
     results.forEach(function (item) {
       if (low === 0 || item.ask < low) {
