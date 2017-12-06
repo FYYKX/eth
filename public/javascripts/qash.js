@@ -24,7 +24,7 @@ $(function () {
           ticker[i].percentage = percentage;
         }
 
-        if (chance > 0.08 && chance > last) {
+        if (chance > 0.05 && chance > last) {
           new Notification("QASHETH", {
             body: "Sell QASH at " + exchange + " " + chance,
             icon: "/images/qash.png"
