@@ -21,6 +21,9 @@ $(function () {
         "data": "exchange"
       },
       {
+        "data": "country"
+      },
+      {
         "data": "ask"
       },
       {
@@ -42,5 +45,5 @@ $(function () {
 
   setInterval(function () {
     table.ajax.reload();
-  }, 5 * 1000);
+  }, 10 * 1000);
 });

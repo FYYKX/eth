@@ -1,19 +1,19 @@
 var request = require('request');
 var async = require('async');
 
-var btc = function (callback) {
+var btc = function(callback) {
   request.get({
     url: "http://api.fixer.io/latest?base=USD&symbols=KRW,IDR",
     json: true
-  }, function (error, response, body) {
+  }, function(error, response, body) {
     var krw = body.rates.KRW;
     var idr = body.rates.IDR;
     async.parallel([
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.bithumb.com/public/ticker/BTC",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "bithumb",
@@ -26,11 +26,11 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.korbit.co.kr/v1/ticker/detailed",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "korbit",
@@ -43,11 +43,11 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.coinone.co.kr/orderbook/",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             callback(error, {
               "exchange": "coinone",
               "country": "Korea",
@@ -56,11 +56,11 @@ var btc = function (callback) {
             });
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://getbtc.org/api/stats",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "getbtc",
@@ -73,11 +73,11 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.quoine.com/products/1",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "quoine",
@@ -90,11 +90,11 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.itbit.com/v1/markets/XBTUSD/ticker",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "itbit",
@@ -107,11 +107,11 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://vip.bitcoin.co.id/api/btc_idr/ticker",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "bitcoin",
@@ -124,11 +124,11 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.gatecoin.com/Public/LiveTickers",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               var btcusd = body.tickers.find(item => item.currencyPair === 'BTCUSD');
               callback(error, {
@@ -142,11 +142,11 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.bitfinex.com/v1/pubticker/btcusd",
             json: true
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "bitfinex",
@@ -159,14 +159,14 @@ var btc = function (callback) {
             }
           });
         },
-        function (callback) {
+        function(callback) {
           request.get({
             url: "https://api.gdax.com/products/BTC-USD/ticker",
             json: true,
             headers: {
               'User-Agent': 'request'
             }
-          }, function (error, response, body) {
+          }, function(error, response, body) {
             try {
               callback(error, {
                 "exchange": "gdax",
@@ -178,9 +178,29 @@ var btc = function (callback) {
               return callback(e);
             }
           });
+        },
+        function(callback) {
+          request.get({
+            url: "https://poloniex.com/public?command=returnTicker",
+            json: true,
+            headers: {
+              'User-Agent': 'request'
+            }
+          }, function(error, response, body) {
+            try {
+              callback(error, {
+                "exchange": "poloniex",
+                "country": "",
+                "bid": parseFloat(body.USDT_BTC.highestBid),
+                "ask": parseFloat(body.USDT_BTC.lowestAsk)
+              });
+            } catch (e) {
+              return callback(e);
+            }
+          });
         }
       ],
-      function (err, results) {
+      function(err, results) {
         if (err) {
           callback([]);
         } else {
@@ -191,13 +211,13 @@ var btc = function (callback) {
   });
 };
 
-var eth = function (callback) {
+var eth = function(callback) {
   async.parallel([
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.quoine.com/products/27",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "quoine",
@@ -210,11 +230,11 @@ var eth = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.bitfinex.com/v1/pubticker/ethusd",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(null, {
               "exchange": "bitfinex",
@@ -227,14 +247,14 @@ var eth = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.gdax.com/products/ETH-USD/ticker",
           json: true,
           headers: {
             'User-Agent': 'request'
           }
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "gdax",
@@ -247,11 +267,11 @@ var eth = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-ETH",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "bittrex",
@@ -264,11 +284,11 @@ var eth = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://poloniex.com/public?command=returnTicker",
           json: true
-        }, function (error, reponse, body) {
+        }, function(error, reponse, body) {
           try {
             callback(error, {
               "exchange": "poloniex",
@@ -282,19 +302,19 @@ var eth = function (callback) {
         });
       }
     ],
-    function (err, results) {
+    function(err, results) {
       callback(results);
     }
   );
 };
 
-var qash = function (callback) {
+var qash = function(callback) {
   async.parallel([
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.quoine.com/products/51",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "quoine",
@@ -307,11 +327,11 @@ var qash = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.qryptos.com/products/31",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "qryptos",
@@ -324,11 +344,11 @@ var qash = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.bitfinex.com/v1/pubticker/QSHETH",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "bitfinex",
@@ -341,11 +361,11 @@ var qash = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.huobi.pro/market/detail/merged?symbol=qasheth",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "huobi",
@@ -359,19 +379,19 @@ var qash = function (callback) {
         });
       }
     ],
-    function (err, results) {
+    function(err, results) {
       callback(results);
     }
   );
 };
 
-var qe = function (callback) {
+var qe = function(callback) {
   async.parallel([
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.quoine.com/products/51",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "<span class='badge badge-primary'>quoine</span>",
@@ -384,11 +404,11 @@ var qe = function (callback) {
           }
         });
       },
-      function (callback) {
+      function(callback) {
         request.get({
           url: "https://api.qryptos.com/products/31",
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           try {
             callback(error, {
               "exchange": "<span class='badge badge-warning'>qryptos</span>",
@@ -402,7 +422,7 @@ var qe = function (callback) {
         });
       }
     ],
-    function (err, results) {
+    function(err, results) {
       callback(results);
     }
   );
