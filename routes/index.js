@@ -14,14 +14,16 @@ router.get('/btc.json', function(req, res, next) {
   ticker.btc(function(results) {
     var low = 0;
     results.forEach(function(item) {
-      if (low === 0 || item.ask < low) {
-        low = item.ask;
+      if (item) {
+        if (low === 0 || item.ask < low) {
+          low = item.ask;
+        }
       }
     });
 
     res.json({
       ask: low,
-      ticker: results
+      ticker: results.filter(item => item != null)
     });
   });
 });
@@ -34,30 +36,35 @@ router.get('/eth.json', function(req, res, next) {
   ticker.eth(function(results) {
     var low = 0;
     results.forEach(function(item) {
-      if (low === 0 || item.ask < low) {
-        low = item.ask;
+      if (item) {
+        if (low === 0 || item.ask < low) {
+          low = item.ask;
+        }
       }
     });
 
     res.json({
       ask: low,
-      ticker: results
+      ticker: results.filter(item => item != null)
     });
   });
 });
 
-router.get('/qash', function(req, res, next) {
-  res.render("qash");
+router.get('/qe', function(req, res, next) {
+  res.render("qe");
 });
 
-router.get('/qash/ticker.json', function(req, res, next) {
-  ticker.qash(function(results) {
+router.get('/qe.json', function(req, res, next) {
+  orderbook.product(51, 31, 'QSHETH', function(results) {
     var low = 0;
-    results.forEach(function(item) {
-      if (low === 0 || item.ask < low) {
-        low = item.ask;
-      }
-    });
+    results
+      .forEach(function(item) {
+        if (item) {
+          if (low === 0 || item.ask < low) {
+            low = item.ask;
+          }
+        }
+      });
     res.json({
       ask: low,
       ticker: results
@@ -65,8 +72,12 @@ router.get('/qash/ticker.json', function(req, res, next) {
   });
 });
 
-router.get('/qash/orderbook.json', function(req, res, next) {
-  orderbook.qash(function(results) {
+router.get('/eb', function(req, res, next) {
+  res.render("eb");
+});
+
+router.get('/eb.json', function(req, res, next) {
+  orderbook.product(37, 4, 'ETHBTC', function(results) {
     var low = 0;
     results.forEach(function(item) {
       if (item) {
@@ -82,21 +93,44 @@ router.get('/qash/orderbook.json', function(req, res, next) {
   });
 });
 
-router.get('/qe', function(req, res, next) {
-  res.render("qe");
+router.get('/qb', function(req, res, next) {
+  res.render("qb");
 });
 
-router.get('/qe.json', function(req, res, next) {
-  ticker.qe(function(results) {
+router.get('/qb.json', function(req, res, next) {
+  orderbook.product(52, 32, 'QSHBTC', function(results) {
     var low = 0;
     results.forEach(function(item) {
-      if (low === 0 || item.ask < low) {
-        low = item.ask;
+      if (item) {
+        if (low === 0 || item.ask < low) {
+          low = item.ask;
+        }
       }
     });
     res.json({
       ask: low,
       ticker: results
+    });
+  });
+});
+
+router.get('/qu', function(req, res, next) {
+  res.render("qu");
+});
+
+router.get('/qu.json', function(req, res, next) {
+  orderbook.product(57, null, 'QSHUSD', function(results) {
+    var low = 0;
+    results.forEach(function(item) {
+      if (item) {
+        if (low === 0 || item.ask < low) {
+          low = item.ask;
+        }
+      }
+    });
+    res.json({
+      ask: low,
+      ticker: results.filter(item => item != null)
     });
   });
 });

@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var cron = require('node-cron');
 var ticker = require('./routes/ticker');
@@ -31,7 +30,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -83,7 +81,7 @@ var btc = cron.schedule('*/3 * * * * *', function () {
 }, false);
 
 var ethereum = cron.schedule('*/3 * * * * *', function () {
-  ticker.ethereum(function (results) {
+  ticker.eth(function (results) {
     var low = 0;
     var lowExchange = '';
 

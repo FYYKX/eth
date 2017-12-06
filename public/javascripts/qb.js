@@ -9,7 +9,7 @@ $(function() {
 
   var table = $("table").DataTable({
     "ajax": {
-      "url": "qe.json",
+      "url": "qb.json",
       "dataSrc": function(json) {
         var ask = json.ask;
         var ticker = json.ticker;
@@ -27,7 +27,7 @@ $(function() {
         }
 
         if (chance > 0.05 && chance > last) {
-          new Notification("QASHETH", {
+          new Notification("QASHBTC", {
             body: "Sell QASH at " + exchange + " " + chance,
             icon: "/images/qash.png"
           });

@@ -1,10 +1,12 @@
 extends layout
 
 block content
+  div(class='page-header')
+    h1 QASHBTC
   table(class='display')
     thead
       tr
-        th Exchange
+        th Action
         th Ask
         th Bid
         th Percentage
@@ -12,4 +14,4 @@ block content
         th Spread
 
 block script
-  script(src='/javascripts/qash.js')
+  script(src='/javascripts/qb.js')
