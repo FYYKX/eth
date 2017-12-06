@@ -1,6 +1,6 @@
-$(function () {
+$(function() {
   if ("Notification" in window) {
-    Notification.requestPermission().then(function (result) {
+    Notification.requestPermission().then(function(result) {
       console.log(result);
     });
   }
@@ -10,7 +10,7 @@ $(function () {
   var table = $("table").DataTable({
     "ajax": {
       "url": "qash/orderbook.json",
-      "dataSrc": function (json) {
+      "dataSrc": function(json) {
         var ask = json.ask;
         var ticker = json.ticker;
         var chance = 0;
@@ -22,6 +22,8 @@ $(function () {
             exchange = ticker[i].exchange;
           }
           ticker[i].percentage = percentage;
+          ticker[i].spread = ticker[i].ask - ticker[i].bid;
+          ticker[i].sp = ((ticker[i].spread / ticker[i].bid) * 100).toFixed(2) + "%";
         }
 
         if (chance > 0.05 && chance > last) {
@@ -35,13 +37,10 @@ $(function () {
       }
     },
     "order": [
-      [4, "desc"]
+      [3, "desc"]
     ],
     "columns": [{
-      "data": "exchange"
-    },
-      {
-        "data": "country"
+        "data": "exchange"
       },
       {
         "data": "ask"
@@ -54,12 +53,15 @@ $(function () {
       },
       {
         "data": "amount"
+      },
+      {
+        "data": "sp"
       }
     ],
     "columnDefs": [{
-      "targets": 4,
+      "targets": 3,
       "data": "percentage",
-      "render": function (data, type, row, meta) {
+      "render": function(data, type, row, meta) {
         var css = data > 0 ? "label-success" : "label-danger";
         return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
       }
@@ -67,7 +69,7 @@ $(function () {
   });
 
   //API users should not make more than 300 requests per 5 minute
-  setInterval(function () {
+  setInterval(function() {
     table.ajax.reload();
   }, 5 * 1000);
 });
