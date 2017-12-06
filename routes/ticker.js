@@ -394,7 +394,7 @@ var qe = function(callback) {
         }, function(error, response, body) {
           try {
             callback(error, {
-              "exchange": "<span class='badge badge-primary'>quoine</span>",
+              "exchange": "<span class='label label-primary'>quoine</span>",
               "country": "",
               "bid": body.market_bid,
               "ask": body.market_ask
@@ -411,7 +411,7 @@ var qe = function(callback) {
         }, function(error, response, body) {
           try {
             callback(error, {
-              "exchange": "<span class='badge badge-warning'>qryptos</span>",
+              "exchange": "<span class='label label-warning'>qryptos</span>",
               "country": "",
               "bid": body.market_bid,
               "ask": body.market_ask

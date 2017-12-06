@@ -1,6 +1,9 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
 }
 
 a {

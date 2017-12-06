@@ -6,14 +6,14 @@ var orderbook = require('./orderbook');
 
 var router = express.Router();
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
   res.render("btc");
 });
 
-router.get('/btc.json', function (req, res, next) {
-  ticker.btc(function (results) {
+router.get('/btc.json', function(req, res, next) {
+  ticker.btc(function(results) {
     var low = 0;
-    results.forEach(function (item) {
+    results.forEach(function(item) {
       if (low === 0 || item.ask < low) {
         low = item.ask;
       }
@@ -26,14 +26,14 @@ router.get('/btc.json', function (req, res, next) {
   });
 });
 
-router.get('/eth', function (req, res, next) {
+router.get('/eth', function(req, res, next) {
   res.render("eth")
 });
 
-router.get('/eth.json', function (req, res, next) {
-  ticker.eth(function (results) {
+router.get('/eth.json', function(req, res, next) {
+  ticker.eth(function(results) {
     var low = 0;
-    results.forEach(function (item) {
+    results.forEach(function(item) {
       if (low === 0 || item.ask < low) {
         low = item.ask;
       }
@@ -46,14 +46,14 @@ router.get('/eth.json', function (req, res, next) {
   });
 });
 
-router.get('/qash', function (req, res, next) {
+router.get('/qash', function(req, res, next) {
   res.render("qash");
 });
 
-router.get('/qash/ticker.json', function (req, res, next) {
-  ticker.qash(function (results) {
+router.get('/qash/ticker.json', function(req, res, next) {
+  ticker.qash(function(results) {
     var low = 0;
-    results.forEach(function (item) {
+    results.forEach(function(item) {
       if (low === 0 || item.ask < low) {
         low = item.ask;
       }
@@ -65,10 +65,10 @@ router.get('/qash/ticker.json', function (req, res, next) {
   });
 });
 
-router.get('/qash/orderbook.json', function (req, res, next) {
-  orderbook.qash(function (results) {
+router.get('/qash/orderbook.json', function(req, res, next) {
+  orderbook.qash(function(results) {
     var low = 0;
-    results.forEach(function (item) {
+    results.forEach(function(item) {
       if (item) {
         if (low === 0 || item.ask < low) {
           low = item.ask;
@@ -82,14 +82,14 @@ router.get('/qash/orderbook.json', function (req, res, next) {
   });
 });
 
-router.get('/qe', function (req, res, next) {
+router.get('/qe', function(req, res, next) {
   res.render("qe");
 });
 
-router.get('/qe.json', function (req, res, next) {
-  ticker.qe(function (results) {
+router.get('/qe.json', function(req, res, next) {
+  ticker.qe(function(results) {
     var low = 0;
-    results.forEach(function (item) {
+    results.forEach(function(item) {
       if (low === 0 || item.ask < low) {
         low = item.ask;
       }
@@ -101,27 +101,27 @@ router.get('/qe.json', function (req, res, next) {
   });
 });
 
-router.get('/qes', function (req, res, next) {
+router.get('/qes', function(req, res, next) {
   res.render("qes");
 });
 
-router.get('/qes.json', function (req, res, next) {
+router.get('/qes.json', function(req, res, next) {
   async.parallel({
-      qryptos: function (callback) {
+      qryptos: function(callback) {
         request.get({
           url: 'https://api.qryptos.com/products/31',
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           if (!error && response.statusCode === 200) {
             callback(null, body);
           }
         });
       },
-      quoine: function (callback) {
+      quoine: function(callback) {
         request.get({
           url: 'https://api.quoine.com/products',
           json: true
-        }, function (error, response, body) {
+        }, function(error, response, body) {
           if (!error && response.statusCode === 200) {
             var ethqash = body
               .filter(item => ['ETHSGD', 'QASHSGD'].includes(item.currency_pair_code));
@@ -130,7 +130,7 @@ router.get('/qes.json', function (req, res, next) {
         });
       }
     },
-    function (err, result) {
+    function(err, result) {
       var data = [];
 
       var qash_eth = result.qryptos.market_bid;
@@ -144,7 +144,7 @@ router.get('/qes.json', function (req, res, next) {
       var percentage = (sell - buy) / buy;
 
       data.push({
-        action: 'Buy QASHSGD',
+        action: "<span class='label label-primary'>Buy QASHSGD</span>",
         sell: sell,
         buy: buy,
         percentage: percentage
@@ -161,7 +161,7 @@ router.get('/qes.json', function (req, res, next) {
       percentage = (sell - buy) / buy;
 
       data.push({
-        action: 'SELL QASHSGD',
+        action: "<span class='label label-primary'>SELL QASHSGD</span>",
         sell: sell,
         buy: buy,
         percentage: percentage

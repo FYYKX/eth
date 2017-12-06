@@ -60,8 +60,8 @@ $(function () {
       "targets": 4,
       "data": "percentage",
       "render": function (data, type, row, meta) {
-        var css = data > 0 ? "badge-success" : "badge-danger";
-        return "<span class='badge " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
+        var css = data > 0 ? "label-success" : "label-danger";
+        return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
       }
     }]
   });
@@ -69,5 +69,5 @@ $(function () {
   //API users should not make more than 300 requests per 5 minute
   setInterval(function () {
     table.ajax.reload();
-  }, 3 * 1000);
+  }, 5 * 1000);
 });

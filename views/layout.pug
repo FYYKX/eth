@@ -2,24 +2,38 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel='stylesheet', href='//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    nav(class='navbar navbar-expand-md navbar-dark bg-dark fixed-top')
-      div(class='collapse navbar-collapse')
-        ul(class='navbar-nav')
-          li(class='nav-item')
-            a(class='nav-link', href='/') BTC
-          li(class='nav-item')
-            a(class='nav-link', href='/eth') ETH
-          li(class='nav-item')
-            a(class='nav-link', href='/qash') QASH
-          li(class='nav-item')
-            a(class='nav-link', href='/qes') QASH ETH SGD
-          li(class='nav-item')
-            a(class='nav-link', href='/qe') QASH ETH
-    block content
-    script(src='//code.jquery.com/jquery-1.12.4.js')
+    div(class='container')
+      nav(class='navbar navbar-default')
+        div(class="container-fluid")
+          div(class="navbar-header")
+            button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
+              span(class="sr-only") Toggle navigation
+              span(class="icon-bar")
+              span(class="icon-bar")
+              span(class="icon-bar")
+            a(class='navbar-brand', href='/') LIBAI
+          div(class='navbar-collapse collapse', id='navbar')
+            ul(class='nav navbar-nav')
+              li
+                a(class='nav-link', href='/') BTC
+              li
+                a(class='nav-link', href='/eth') ETH
+              li
+                a(class='nav-link', href='/qash') QASH
+              li(class='dropdown')
+                a(href="#", class="dropdown-toggle", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Quoinex Qryptos 
+                  span(class="caret")
+                ul(class='dropdown-menu')
+                  li
+                    a(class='dropdown-item', href='/qes') QASH ETH SGD
+                  li
+                    a(class='dropdown-item', href='/qe') QASH ETH
+      block content
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     script(src='//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')
     block script
