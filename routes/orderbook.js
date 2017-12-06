@@ -10,7 +10,7 @@ var qash = function (callback) {
         }, function (error, response, body) {
           try {
             callback(error, {
-              "exchange": "quoine",
+              "exchange": "<span class='badge badge-primary'>quoine</span>",
               "country": "",
               "bid": parseFloat(body.buy_price_levels[0][0]),
               "bid_amount": parseFloat(body.buy_price_levels[0][1]),
@@ -30,7 +30,7 @@ var qash = function (callback) {
         }, function (error, response, body) {
           try {
             callback(error, {
-              "exchange": "qryptos",
+              "exchange": "<span class='badge badge-warning'>qryptos</span>",
               "country": "",
               "bid": parseFloat(body.buy_price_levels[0][0]),
               "bid_amount": parseFloat(body.buy_price_levels[0][1]),
@@ -50,7 +50,7 @@ var qash = function (callback) {
         }, function (error, response, body) {
           try {
             callback(error, {
-              "exchange": "bitfinex",
+              "exchange": "<span class='badge badge-success'>bitfinex</span>",
               "country": "",
               "bid": parseFloat(body.bids[0].price),
               "bid_amount": parseFloat(body.bids[0].amount),
