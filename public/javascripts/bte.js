@@ -1,7 +1,7 @@
 $(function() {
-  var table = $("table").DataTable({
+  var table = $("#bte").DataTable({
     "ajax": {
-      "url": "be.json",
+      "url": "bte.json",
       "dataSrc": function(json) {
         console.log(json);
         return json;
@@ -42,5 +42,5 @@ $(function() {
 
   setInterval(function() {
     table.ajax.reload();
-  }, 5 * 1000);
+  }, 15 * 1000);
 });

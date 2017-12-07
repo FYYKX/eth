@@ -209,11 +209,11 @@ router.get('/qes.json', function(req, res, next) {
     });
 });
 
-router.get('/be', function(req, res, next) {
-  res.render("be");
+router.get('/bte', function(req, res, next) {
+  res.render("bte");
 });
 
-router.get('/be.json', function(req, res, next) {
+router.get('/bte.json', function(req, res, next) {
   request.get({
     url: 'https://api.quoine.com/products',
     json: true
@@ -256,6 +256,70 @@ router.get('/be.json', function(req, res, next) {
       res.json(data);
     }
   });
+});
+
+router.get('/qtb', function(req, res, next) {
+  res.render("qtb");
+});
+
+router.get('/qtb.json', function(req, res, next) {
+  async.parallel({
+      qsheth: function(callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
+          json: true
+        }, function(error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      qshbtc: function(callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
+          json: true
+        }, function(error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      ethbtc: function(callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/ethbtc',
+          json: true
+        }, function(error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      }
+    },
+    function(err, result) {
+      var data = [];
+
+      var qash_btc = result.qshbtc.bid;
+      var qash_eth_btc = result.qsheth.bid * result.ethbtc.ask;
+
+      data.push({
+        currency: "QASH",
+        eth: "",
+        btc: qash_btc,
+        percentage: 0
+      });
+      data.push({
+        currency: "QASH",
+        eth: result.qsheth.bid,
+        btc: qash_eth_btc,
+        percentage: (qash_eth_btc - qash_btc) / qash_btc
+      });
+      res.json(data);
+    }
+  );
+});
+
+router.get('/cycle', function(req, res, next) {
+  res.render("cycle");
 });
 
 module.exports = router;
