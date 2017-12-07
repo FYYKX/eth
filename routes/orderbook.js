@@ -6,7 +6,7 @@ var product = function(quoineID, qryptosID, bitfinexID, callback) {
       function(callback) {
         request.get({
           url: "https://api.quoine.com/products/" + quoineID + "/price_levels",
-          json: true
+          json: true,
         }, function(error, response, body) {
           try {
             callback(error, {

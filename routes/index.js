@@ -88,7 +88,7 @@ router.get('/eb.json', function(req, res, next) {
     });
     res.json({
       ask: low,
-      ticker: results
+      ticker: results.filter(item => item != null)
     });
   });
 });
@@ -207,6 +207,55 @@ router.get('/qes.json', function(req, res, next) {
 
       res.json(data);
     });
+});
+
+router.get('/be', function(req, res, next) {
+  res.render("be");
+});
+
+router.get('/be.json', function(req, res, next) {
+  request.get({
+    url: 'https://api.quoine.com/products',
+    json: true
+  }, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var btc_sgd = body.find(item => item.currency_pair_code === 'BTCSGD');
+      var btc_usd = body.find(item => item.currency_pair_code === 'BTCUSD');
+
+      var eth_btc = body.find(item => item.currency_pair_code === 'ETHBTC');
+      var eth_usd = body.find(item => item.currency_pair_code === 'ETHUSD');
+      var eth_sgd = body.find(item => item.currency_pair_code === 'ETHSGD');
+
+      var data = [];
+
+      var btc_eth = 1 / eth_btc.market_ask;
+      var btc_usd_eth = btc_usd.market_bid / eth_usd.market_ask;
+      var btc_sgd_eth = btc_sgd.market_bid / eth_sgd.market_ask;
+
+      data.push({
+        currency: "BTCETH",
+        usd: "",
+        sgd: "",
+        eth: btc_eth,
+        percentage: 0
+      });
+      data.push({
+        currency: "BTCUSD",
+        usd: btc_usd.market_bid,
+        sgd: "",
+        eth: btc_usd_eth,
+        percentage: (btc_usd_eth - btc_eth) / btc_eth
+      });
+      data.push({
+        currency: "BTCSGD",
+        usd: "",
+        sgd: btc_sgd.market_bid,
+        eth: btc_sgd_eth,
+        percentage: (btc_sgd_eth - btc_eth) / btc_eth
+      });
+      res.json(data);
+    }
+  });
 });
 
 module.exports = router;
