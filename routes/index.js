@@ -180,6 +180,8 @@ router.get('/qes.json', function(req, res, next) {
       data.push({
         action: "<span class='label label-primary'>Buy QASHSGD</span>",
         sell: sell,
+        qash_eth: "<span class='label label-warning'>" + qash_eth + "</span>",
+        eth_sgd: "<span class='label label-primary'>" + eth_sgd + "</span>",
         buy: buy,
         percentage: percentage
       });
@@ -197,6 +199,8 @@ router.get('/qes.json', function(req, res, next) {
       data.push({
         action: "<span class='label label-primary'>SELL QASHSGD</span>",
         sell: sell,
+        qash_eth: "<span class='label label-warning'>" + qash_eth + "</span>",
+        eth_sgd: "<span class='label label-primary'>" + eth_sgd + "</span>",
         buy: buy,
         percentage: percentage
       });
