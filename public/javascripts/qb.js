@@ -9,7 +9,7 @@ $(function() {
 
   var table = $("#qb").DataTable({
     "ajax": {
-      "url": "qb.json",
+      "url": $("#qq").val() ? "qb_qq.json" : "qb.json",
       "dataSrc": function(json) {
         var ask = json.ask;
         var ticker = json.ticker;

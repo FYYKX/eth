@@ -46,23 +46,27 @@ var product = function(quoineID, qryptosID, bitfinexID, callback) {
         }
       },
       function(callback) {
-        request.get({
-          url: "https://api.bitfinex.com/v1/book/" + bitfinexID,
-          json: true
-        }, function(error, response, body) {
-          try {
-            callback(error, {
-              "exchange": "<span class='label label-success'>bitfinex</span>",
-              "bid": parseFloat(body.bids[0].price),
-              "bid_amount": parseFloat(body.bids[0].amount),
-              "ask": parseFloat(body.asks[0].price),
-              "ask_amount": parseFloat(body.asks[0].amount),
-              "amount": Math.min(parseFloat(body.bids[0].amount), parseFloat(body.asks[0].amount))
-            });
-          } catch (e) {
-            return callback(e);
-          }
-        });
+        if (bitfinexID != null) {
+          request.get({
+            url: "https://api.bitfinex.com/v1/book/" + bitfinexID,
+            json: true
+          }, function(error, response, body) {
+            try {
+              callback(error, {
+                "exchange": "<span class='label label-success'>bitfinex</span>",
+                "bid": parseFloat(body.bids[0].price),
+                "bid_amount": parseFloat(body.bids[0].amount),
+                "ask": parseFloat(body.asks[0].price),
+                "ask_amount": parseFloat(body.asks[0].amount),
+                "amount": Math.min(parseFloat(body.bids[0].amount), parseFloat(body.asks[0].amount))
+              });
+            } catch (e) {
+              return callback(e);
+            }
+          });
+        } else {
+          return callback(null, null);
+        }
       }
     ],
     function(err, results) {

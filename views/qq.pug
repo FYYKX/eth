@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  input(type='hidden', id='qq', value=qq)
+
+  h3 QASHETH
+  table(class='display', id='qe')
+    thead
+      tr
+        th Exchange
+        th Ask
+        th Bid
+        th Percentage
+        th Amount
+        th Spread
+
+  h3 QASHBTC
+  table(class='display', id='qb')
+    thead
+      tr
+        th Action
+        th Ask
+        th Bid
+        th Percentage
+        th Amount
+        th Spread
+
+block script
+  script(src='/javascripts/qe.js')
+  script(src='/javascripts/qb.js')

@@ -54,6 +54,10 @@ router.get('/qash', function(req, res, next) {
   res.render("qash");
 });
 
+router.get('/qq', function(req, res, next) {
+  res.render('qq', {qq: 'qq'});
+});
+
 router.get('/qe', function(req, res, next) {
   res.render("qe");
 });
@@ -76,23 +80,18 @@ router.get('/qe.json', function(req, res, next) {
   });
 });
 
-router.get('/eb', function(req, res, next) {
-  res.render("eb");
-});
-
-router.get('/eb.json', function(req, res, next) {
-  orderbook.product(37, 4, 'ETHBTC', function(results) {
+router.get('/qe_qq.json', function(req, res, next) {
+  orderbook.product(51, 31, null, function(results) {
     var low = 0;
-    results.forEach(function(item) {
-      if (item) {
-        if (low === 0 || item.ask < low) {
-          low = item.ask;
-        }
+    var data = results.filter(item => item != null);
+    data.forEach(function(item) {
+      if (low === 0 || item.ask < low) {
+        low = item.ask;
       }
     });
     res.json({
       ask: low,
-      ticker: results.filter(item => item != null)
+      ticker: data
     });
   });
 });
@@ -118,6 +117,22 @@ router.get('/qb.json', function(req, res, next) {
   });
 });
 
+router.get('/qb_qq.json', function(req, res, next) {
+  orderbook.product(52, 32, null, function(results) {
+    var low = 0;
+    var data = results.filter(item => item != null);
+    data.forEach(function(item) {
+      if (low === 0 || item.ask < low) {
+        low = item.ask;
+      }
+    });
+    res.json({
+      ask: low,
+      ticker: data
+    });
+  });
+});
+
 router.get('/qu', function(req, res, next) {
   res.render("qu");
 });
@@ -138,6 +153,28 @@ router.get('/qu.json', function(req, res, next) {
     });
   });
 });
+
+router.get('/eb', function(req, res, next) {
+  res.render("eb");
+});
+
+router.get('/eb.json', function(req, res, next) {
+  orderbook.product(37, 4, 'ETHBTC', function(results) {
+    var low = 0;
+    results.forEach(function(item) {
+      if (item) {
+        if (low === 0 || item.ask < low) {
+          low = item.ask;
+        }
+      }
+    });
+    res.json({
+      ask: low,
+      ticker: results.filter(item => item != null)
+    });
+  });
+});
+
 
 router.get('/qes', function(req, res, next) {
   res.render("qes");
