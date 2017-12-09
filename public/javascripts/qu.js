@@ -7,7 +7,7 @@ $(function() {
 
   var last = 0;
 
-  var table = $("table").DataTable({
+  var table = $("#qu").DataTable({
     "ajax": {
       "url": "qu.json",
       "dataSrc": function(json) {

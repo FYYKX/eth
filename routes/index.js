@@ -50,6 +50,10 @@ router.get('/eth.json', function(req, res, next) {
   });
 });
 
+router.get('/qash', function(req, res, next) {
+  res.render("qash");
+});
+
 router.get('/qe', function(req, res, next) {
   res.render("qe");
 });
