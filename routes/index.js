@@ -299,6 +299,43 @@ router.get('/bte.json', function(req, res, next) {
   });
 });
 
+router.get('/ste', function(req, res, next) {
+  res.render("ste");
+});
+
+router.get('/ste.json', function(req, res, next) {
+  request.get({
+    url: 'https://api.quoine.com/products',
+    json: true
+  }, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var qash_eth = body.find(item => item.currency_pair_code === 'QASHETH');
+      var qash_sgd = body.find(item => item.currency_pair_code === 'QASHSGD');
+
+      var eth_sgd = body.find(item => item.currency_pair_code === 'ETHSGD');
+
+      var data = [];
+
+      var sgd_eth = 1 / eth_sgd.market_ask;
+      var sgd_qash_eth = (1 / qash_sgd.market_ask) * qash_eth.market_bid;
+
+      data.push({
+        currency: "SGDETH",
+        qash: "",
+        eth: sgd_eth,
+        percentage: 0
+      });
+      data.push({
+        currency: "SGDQASHETH",
+        qash: 1 / qash_sgd.market_ask,
+        eth: sgd_qash_eth,
+        percentage: (sgd_qash_eth - sgd_eth) / sgd_eth
+      });
+      res.json(data);
+    }
+  });
+});
+
 router.get('/qtb', function(req, res, next) {
   res.render("qtb");
 });
