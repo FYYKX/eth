@@ -37,7 +37,7 @@ $(function() {
       }
     },
     "order": [
-      [3, "desc"]
+      [1, "desc"]
     ],
     "columns": [{
         "data": "exchange"
