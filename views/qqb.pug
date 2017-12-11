@@ -1,8 +1,7 @@
 extends layout
 
 block content
-  div(class='page-header')
-    h1 QASHETH
+  h3 QASHETH
   table(class='display', id='qe')
     thead
       tr
@@ -13,8 +12,7 @@ block content
         th Amount
         th Spread
 
-  div(class='page-header')
-    h1 QASHBTC
+  h3 QASHBTC
   table(class='display', id='qb')
     thead
       tr
@@ -25,8 +23,7 @@ block content
         th Amount
         th Spread
 
-  div(class='page-header')
-    h1 QASHUSD
+  h3 QASHUSD
   table(class='display', id='qu')
     thead
       tr
@@ -37,8 +34,19 @@ block content
         th Amount
         th Spread
 
+  h3 ETHBTC
+  table(class='display', id='eb')
+    thead
+      tr
+        th Action
+        th Ask
+        th Bid
+        th Percentage
+        th Amount
+        th Spread
+
 block script
   script(src='/javascripts/qe.js')
   script(src='/javascripts/qb.js')
   script(src='/javascripts/qu.js')
-
+  script(src='/javascripts/eb.js')

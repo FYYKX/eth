@@ -5,7 +5,7 @@ $(function() {
     });
   }
 
-  var table = $("table").DataTable({
+  var table = $("#qes").DataTable({
     "ajax": {
       "url": "qes.json",
       "dataSrc": function(json) {

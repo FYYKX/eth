@@ -50,8 +50,8 @@ router.get('/eth.json', function(req, res, next) {
   });
 });
 
-router.get('/qash', function(req, res, next) {
-  res.render("qash");
+router.get('/qqb', function(req, res, next) {
+  res.render("qqb");
 });
 
 router.get('/qq', function(req, res, next) {
