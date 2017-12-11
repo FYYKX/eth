@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  div(class='page-header')
+    h1 Quoinex
+  table(class='display', id='spread')
+    thead
+      tr
+        th Currency
+        th Ask
+        th Bid
+        th Spread
+        th Spread Percentage
+        th 24h Volumn
+
+block script
+  script(src='/javascripts/spread.js')

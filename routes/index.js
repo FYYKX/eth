@@ -6,14 +6,14 @@ var orderbook = require('./orderbook');
 
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render("btc");
 });
 
-router.get('/btc.json', function(req, res, next) {
-  ticker.btc(function(results) {
+router.get('/btc.json', function (req, res, next) {
+  ticker.btc(function (results) {
     var low = 0;
-    results.forEach(function(item) {
+    results.forEach(function (item) {
       if (item) {
         if (low === 0 || item.ask < low) {
           low = item.ask;
@@ -28,14 +28,14 @@ router.get('/btc.json', function(req, res, next) {
   });
 });
 
-router.get('/eth', function(req, res, next) {
+router.get('/eth', function (req, res, next) {
   res.render("eth")
 });
 
-router.get('/eth.json', function(req, res, next) {
-  ticker.eth(function(results) {
+router.get('/eth.json', function (req, res, next) {
+  ticker.eth(function (results) {
     var low = 0;
-    results.forEach(function(item) {
+    results.forEach(function (item) {
       if (item) {
         if (low === 0 || item.ask < low) {
           low = item.ask;
@@ -50,29 +50,28 @@ router.get('/eth.json', function(req, res, next) {
   });
 });
 
-router.get('/qqb', function(req, res, next) {
+router.get('/qqb', function (req, res, next) {
   res.render("qqb");
 });
 
-router.get('/qq', function(req, res, next) {
-  res.render('qq', {qq: 'qq'});
+router.get('/qq', function (req, res, next) {
+  res.render('qq', { qq: 'qq' });
 });
 
-router.get('/qe', function(req, res, next) {
+router.get('/qe', function (req, res, next) {
   res.render("qe");
 });
 
-router.get('/qe.json', function(req, res, next) {
-  orderbook.product(51, 31, 'QSHETH', function(results) {
+router.get('/qe.json', function (req, res, next) {
+  orderbook.product(51, 31, 'QSHETH', function (results) {
     var low = 0;
-    results
-      .forEach(function(item) {
-        if (item) {
-          if (low === 0 || item.ask < low) {
-            low = item.ask;
-          }
+    results.forEach(function (item) {
+      if (item) {
+        if (low === 0 || item.ask < low) {
+          low = item.ask;
         }
-      });
+      }
+    });
     res.json({
       ask: low,
       ticker: results
@@ -80,11 +79,11 @@ router.get('/qe.json', function(req, res, next) {
   });
 });
 
-router.get('/qe_qq.json', function(req, res, next) {
-  orderbook.product(51, 31, null, function(results) {
+router.get('/qe_qq.json', function (req, res, next) {
+  orderbook.product(51, 31, null, function (results) {
     var low = 0;
     var data = results.filter(item => item != null);
-    data.forEach(function(item) {
+    data.forEach(function (item) {
       if (low === 0 || item.ask < low) {
         low = item.ask;
       }
@@ -96,14 +95,14 @@ router.get('/qe_qq.json', function(req, res, next) {
   });
 });
 
-router.get('/qb', function(req, res, next) {
+router.get('/qb', function (req, res, next) {
   res.render("qb");
 });
 
-router.get('/qb.json', function(req, res, next) {
-  orderbook.product(52, 32, 'QSHBTC', function(results) {
+router.get('/qb.json', function (req, res, next) {
+  orderbook.product(52, 32, 'QSHBTC', function (results) {
     var low = 0;
-    results.forEach(function(item) {
+    results.forEach(function (item) {
       if (item) {
         if (low === 0 || item.ask < low) {
           low = item.ask;
@@ -117,11 +116,11 @@ router.get('/qb.json', function(req, res, next) {
   });
 });
 
-router.get('/qb_qq.json', function(req, res, next) {
-  orderbook.product(52, 32, null, function(results) {
+router.get('/qb_qq.json', function (req, res, next) {
+  orderbook.product(52, 32, null, function (results) {
     var low = 0;
     var data = results.filter(item => item != null);
-    data.forEach(function(item) {
+    data.forEach(function (item) {
       if (low === 0 || item.ask < low) {
         low = item.ask;
       }
@@ -133,14 +132,14 @@ router.get('/qb_qq.json', function(req, res, next) {
   });
 });
 
-router.get('/qu', function(req, res, next) {
+router.get('/qu', function (req, res, next) {
   res.render("qu");
 });
 
-router.get('/qu.json', function(req, res, next) {
-  orderbook.product(57, null, 'QSHUSD', function(results) {
+router.get('/qu.json', function (req, res, next) {
+  orderbook.product(57, null, 'QSHUSD', function (results) {
     var low = 0;
-    results.forEach(function(item) {
+    results.forEach(function (item) {
       if (item) {
         if (low === 0 || item.ask < low) {
           low = item.ask;
@@ -154,14 +153,14 @@ router.get('/qu.json', function(req, res, next) {
   });
 });
 
-router.get('/eb', function(req, res, next) {
+router.get('/eb', function (req, res, next) {
   res.render("eb");
 });
 
-router.get('/eb.json', function(req, res, next) {
-  orderbook.product(37, 4, 'ETHBTC', function(results) {
+router.get('/eb.json', function (req, res, next) {
+  orderbook.product(37, 4, 'ETHBTC', function (results) {
     var low = 0;
-    results.forEach(function(item) {
+    results.forEach(function (item) {
       if (item) {
         if (low === 0 || item.ask < low) {
           low = item.ask;
@@ -176,36 +175,36 @@ router.get('/eb.json', function(req, res, next) {
 });
 
 
-router.get('/qes', function(req, res, next) {
+router.get('/qes', function (req, res, next) {
   res.render("qes");
 });
 
-router.get('/qes.json', function(req, res, next) {
+router.get('/qes.json', function (req, res, next) {
   async.parallel({
-      qryptos: function(callback) {
-        request.get({
-          url: 'https://api.qryptos.com/products/31',
-          json: true
-        }, function(error, response, body) {
-          if (!error && response.statusCode === 200) {
-            callback(null, body);
-          }
-        });
-      },
-      quoine: function(callback) {
-        request.get({
-          url: 'https://api.quoine.com/products',
-          json: true
-        }, function(error, response, body) {
-          if (!error && response.statusCode === 200) {
-            var ethqash = body
-              .filter(item => ['ETHSGD', 'QASHSGD'].includes(item.currency_pair_code));
-            callback(null, ethqash);
-          }
-        });
-      }
+    qryptos: function (callback) {
+      request.get({
+        url: 'https://api.qryptos.com/products/31',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, body);
+        }
+      });
     },
-    function(err, result) {
+    quoine: function (callback) {
+      request.get({
+        url: 'https://api.quoine.com/products',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          var ethqash = body
+            .filter(item => ['ETHSGD', 'QASHSGD'].includes(item.currency_pair_code));
+          callback(null, ethqash);
+        }
+      });
+    }
+  },
+    function (err, result) {
       var data = [];
 
       var qash_eth = result.qryptos.market_bid;
@@ -250,15 +249,15 @@ router.get('/qes.json', function(req, res, next) {
     });
 });
 
-router.get('/bte', function(req, res, next) {
+router.get('/bte', function (req, res, next) {
   res.render("bte");
 });
 
-router.get('/bte.json', function(req, res, next) {
+router.get('/bte.json', function (req, res, next) {
   request.get({
     url: 'https://api.quoine.com/products',
     json: true
-  }, function(error, response, body) {
+  }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       var btc_sgd = body.find(item => item.currency_pair_code === 'BTCSGD');
       var btc_usd = body.find(item => item.currency_pair_code === 'BTCUSD');
@@ -299,15 +298,15 @@ router.get('/bte.json', function(req, res, next) {
   });
 });
 
-router.get('/ste', function(req, res, next) {
+router.get('/ste', function (req, res, next) {
   res.render("ste");
 });
 
-router.get('/ste.json', function(req, res, next) {
+router.get('/ste.json', function (req, res, next) {
   request.get({
     url: 'https://api.quoine.com/products',
     json: true
-  }, function(error, response, body) {
+  }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       var qash_eth = body.find(item => item.currency_pair_code === 'QASHETH');
       var qash_sgd = body.find(item => item.currency_pair_code === 'QASHSGD');
@@ -336,44 +335,44 @@ router.get('/ste.json', function(req, res, next) {
   });
 });
 
-router.get('/qtb', function(req, res, next) {
+router.get('/qtb', function (req, res, next) {
   res.render("qtb");
 });
 
-router.get('/qtb.json', function(req, res, next) {
+router.get('/qtb.json', function (req, res, next) {
   async.parallel({
-      qsheth: function(callback) {
-        request.get({
-          url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
-          json: true
-        }, function(error, response, body) {
-          if (!error && response.statusCode === 200) {
-            callback(null, body);
-          }
-        });
-      },
-      qshbtc: function(callback) {
-        request.get({
-          url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
-          json: true
-        }, function(error, response, body) {
-          if (!error && response.statusCode === 200) {
-            callback(null, body);
-          }
-        });
-      },
-      ethbtc: function(callback) {
-        request.get({
-          url: 'https://api.bitfinex.com/v1/pubticker/ethbtc',
-          json: true
-        }, function(error, response, body) {
-          if (!error && response.statusCode === 200) {
-            callback(null, body);
-          }
-        });
-      }
+    qsheth: function (callback) {
+      request.get({
+        url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, body);
+        }
+      });
     },
-    function(err, result) {
+    qshbtc: function (callback) {
+      request.get({
+        url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, body);
+        }
+      });
+    },
+    ethbtc: function (callback) {
+      request.get({
+        url: 'https://api.bitfinex.com/v1/pubticker/ethbtc',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, body);
+        }
+      });
+    }
+  },
+    function (err, result) {
       var data = [];
 
       var qash_btc = result.qshbtc.bid;
@@ -396,8 +395,26 @@ router.get('/qtb.json', function(req, res, next) {
   );
 });
 
-router.get('/cycle', function(req, res, next) {
+router.get('/cycle', function (req, res, next) {
   res.render("cycle");
+});
+
+router.get("/spread", function (req, res, next) {
+  res.render("spread");
+});
+
+router.get("/spread.json", function (req, res, next) {
+  request.get({
+    url: 'https://api.quoine.com/products',
+    json: true
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var data = body
+        .filter(item => item.market_ask > 0)
+        .filter(item => item.volume_24h > 0);
+      res.json(data);
+    }
+  });
 });
 
 module.exports = router;
