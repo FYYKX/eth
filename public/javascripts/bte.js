@@ -1,8 +1,8 @@
-$(function() {
+$(function () {
   var table = $("#bte").DataTable({
     "ajax": {
       "url": "bte.json",
-      "dataSrc": function(json) {
+      "dataSrc": function (json) {
         console.log(json);
         return json;
       }
@@ -10,7 +10,8 @@ $(function() {
     "order": [
       [3, "desc"]
     ],
-    "columns": [{
+    "columns": [
+      {
         "data": "currency"
       },
       {
@@ -29,7 +30,7 @@ $(function() {
     "columnDefs": [{
       "targets": 4,
       "data": "percentage",
-      "render": function(data, type, row, meta) {
+      "render": function (data, type, row, meta) {
         if (data != 0) {
           var css = data > 0 ? "label-success" : "label-danger";
           return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
@@ -40,7 +41,7 @@ $(function() {
     }]
   });
 
-  setInterval(function() {
+  setInterval(function () {
     table.ajax.reload();
   }, 15 * 1000);
 });

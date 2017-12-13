@@ -1,9 +1,9 @@
-$(function() {
+$(function () {
   var table = $("table").DataTable({
     "paging": false,
     "ajax": {
       "url": "btc.json",
-      "dataSrc": function(json) {
+      "dataSrc": function (json) {
         var ask = json.ask;
         var ticker = json.ticker;
         for (var i = 0, ien = ticker.length; i < ien; i++) {
@@ -17,7 +17,8 @@ $(function() {
     "order": [
       [4, "desc"]
     ],
-    "columns": [{
+    "columns": [
+      {
         "data": "exchange"
       },
       {
@@ -36,14 +37,14 @@ $(function() {
     "columnDefs": [{
       "targets": 4,
       "data": "percentage",
-      "render": function(data, type, row, meta) {
+      "render": function (data, type, row, meta) {
         var css = data > 0 ? "label-success" : "label-danger";
         return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
       }
     }]
   });
 
-  setInterval(function() {
+  setInterval(function () {
     table.ajax.reload();
-  }, 10 * 1000);
+  }, 15 * 1000);
 });
