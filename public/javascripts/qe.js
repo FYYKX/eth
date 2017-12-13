@@ -66,7 +66,7 @@ $(function () {
         "data": "amount"
       },
       {
-        "data": "spread"
+        "data": "sp"
       }
     ],
     "columnDefs": [{
