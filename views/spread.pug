@@ -2,8 +2,22 @@ extends layout
 
 block content
   div(class='page-header')
-    h1 Quoinex
-  table(class='display', id='spread')
+    h1 
+      span(class='label label-primary') Quoinex
+  table(class='display', id='quoine')
+    thead
+      tr
+        th Currency
+        th Ask
+        th Bid
+        th Spread
+        th Spread Percentage
+        th 24h Volumn
+
+  div(class='page-header')
+    h1 
+      span(class='label label-warning') Qryptos
+  table(class='display', id='qryptos')
     thead
       tr
         th Currency
@@ -14,4 +28,5 @@ block content
         th 24h Volumn
 
 block script
-  script(src='/javascripts/spread.js')
+  script(src='/javascripts/spread_quoine.js')
+  script(src='/javascripts/spread_qryptos.js')

@@ -397,7 +397,7 @@ router.get("/spread", function (req, res, next) {
 
 router.get("/spread.json", function (req, res, next) {
   request.get({
-    url: 'https://api.quoine.com/products',
+    url: 'https://api.' + req.query.exchange + '.com/products',
     json: true
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
