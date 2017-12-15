@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  div(class='page-header')
+    h1 Quoinex Order
+  select#id
+    option(value="51") QASHETH
+    option(value="52") QASHBTC
+    option(value="57") QASHUSD
+    option(value="59") QASHSGD
+    
+  table(class='display', id='order')
+    thead
+      tr
+        th Side
+        th Price
+        th Amount
+        th Percentage
+
+block script
+  script(src='/javascripts/order.js')

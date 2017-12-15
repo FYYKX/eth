@@ -409,4 +409,40 @@ router.get("/spread.json", function (req, res, next) {
   });
 });
 
+router.get("/order", function (req, res, next) {
+  res.render("order");
+});
+
+router.get("/order.json", function (req, res, next) {
+  request.get({
+    url: 'https://api.quoine.com/products/' + req.query.id + '/price_levels?full=1',
+    json: true
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var sell_low = body.sell_price_levels[0][0];
+      var sell = body.sell_price_levels.map(item => {
+        return {
+          side: "<span class='label label-danger'>sell</span>",
+          price: item[0],
+          amount: item[1],
+          percentage: item[0] / sell_low
+        }
+      });
+
+      var buy_high = body.buy_price_levels[0][0];
+      var buy = body.buy_price_levels.map(item => {
+        return {
+          side: "<span class='label label-success'>buy</span>",
+          price: item[0],
+          amount: item[1],
+          percentage: item[0] / buy_high
+        }
+      });
+
+      var data = sell.concat(buy);
+      res.json(data);
+    }
+  });
+});
+
 module.exports = router;
