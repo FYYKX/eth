@@ -1,7 +1,7 @@
 $(function () {
-    var table = $("#spread").DataTable({
+    var table = $("#qryptos").DataTable({
         "ajax": {
-            "url": "spread.json",
+            "url": "spread.json?exchange=qryptos",
             "dataSrc": function (json) {
                 for (var i = 0, ien = json.length; i < ien; i++) {
                     json[i].spread = json[i].market_ask - json[i].market_bid;
