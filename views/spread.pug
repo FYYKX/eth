@@ -27,6 +27,17 @@ block content
         th Spread Percentage
         th 24h Volumn
 
+  div(class='page-header')
+    h1 
+      span(class='label label-info') Poloniex
+  table(class='display', id='poloniex')
+    thead
+      tr
+        th Currency
+        th Price
+
+
 block script
   script(src='/javascripts/spread_quoine.js')
   script(src='/javascripts/spread_qryptos.js')
+  script(src='/javascripts/poloniex.js')

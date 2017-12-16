@@ -409,6 +409,32 @@ router.get("/spread.json", function (req, res, next) {
   });
 });
 
+router.get('/poloniex.json', function (req, res) {
+  request.get({
+    url: 'https://poloniex.com/public?command=returnTicker',
+    json: true
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var btc_str = body.BTC_STR;
+      var usdt_str = body.USDT_STR;
+      var usdt_eth = body.USDT_ETH;
+
+      var data = [];
+      data.push({
+        currency: "XLMBTC",
+        price: btc_str.last
+      });
+      data.push({
+        currency: "XLMETH",
+        price: usdt_str.last / usdt_eth.last
+      });
+
+      res.json(data);
+    }
+  });
+
+});
+
 router.get("/order", function (req, res, next) {
   res.render("order");
 });
