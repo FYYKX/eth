@@ -67,5 +67,5 @@ $(function () {
     //API users should not make more than 300 requests per 5 minute
     setInterval(function () {
         table.ajax.reload();
-    }, 15 * 1000);
+    }, 30 * 1000);
 });

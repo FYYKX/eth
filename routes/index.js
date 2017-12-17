@@ -419,15 +419,23 @@ router.get('/poloniex.json', function (req, res) {
       var btc_str = body.BTC_STR;
       var usdt_str = body.USDT_STR;
       var usdt_eth = body.USDT_ETH;
+      var btc_xem = body.BTC_XEM;
 
       var data = [];
       data.push({
         currency: "XLMBTC",
-        price: btc_str.last
+        price: btc_str.last,
+        change: btc_str.percentChange
       });
       data.push({
         currency: "XLMETH",
-        price: usdt_str.last / usdt_eth.last
+        price: usdt_str.last / usdt_eth.last,
+        change: usdt_str.percentChange
+      });
+      data.push({
+        currency: "XEMBTC",
+        price: btc_xem.last,
+        change: btc_xem.percentChange
       });
 
       res.json(data);
