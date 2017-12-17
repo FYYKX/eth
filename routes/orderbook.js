@@ -11,7 +11,7 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
         }, function (error, response, body) {
           try {
             callback(null, {
-              "exchange": "<span class='label label-primary'>quoine</span>",
+              "exchange": "quoine",
               "bid": parseFloat(body.buy_price_levels[0][0]),
               "bid_amount": parseFloat(body.buy_price_levels[0][1]),
               "ask": parseFloat(body.sell_price_levels[0][0]),
@@ -31,7 +31,7 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
           }, function (error, response, body) {
             try {
               callback(null, {
-                "exchange": "<span class='label label-warning'>qryptos</span>",
+                "exchange": "qryptos",
                 "bid": parseFloat(body.buy_price_levels[0][0]),
                 "bid_amount": parseFloat(body.buy_price_levels[0][1]),
                 "ask": parseFloat(body.sell_price_levels[0][0]),
@@ -54,7 +54,7 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
           }, function (error, response, body) {
             try {
               callback(null, {
-                "exchange": "<span class='label label-success'>bitfinex</span>",
+                "exchange": "bitfinex",
                 "bid": parseFloat(body.bids[0].price),
                 "bid_amount": parseFloat(body.bids[0].amount),
                 "ask": parseFloat(body.asks[0].price),
