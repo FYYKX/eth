@@ -1,49 +1,54 @@
 extends layout
 
 block content
-  h3 QASHETH
-  table(class='display', id='qe')
-    thead
-      tr
-        th Exchange
-        th Ask
-        th Bid
-        th Percentage
-        th Amount
-        th Spread
+  div.row
+    div.col-md-6.col-sm-12
+      h3 QASHETH
+      table.display#qe
+        thead
+          tr
+            th Exchange
+            th Ask
+            th Bid
+            th Percentage
+            th Amount
+            th Spread
 
-  h3 QASHBTC
-  table(class='display', id='qb')
-    thead
-      tr
-        th Action
-        th Ask
-        th Bid
-        th Percentage
-        th Amount
-        th Spread
+    div.col-md-6.col-sm-12
+      h3 QASHBTC
+      table.display#qb
+        thead
+          tr
+            th Action
+            th Ask
+            th Bid
+            th Percentage
+            th Amount
+            th Spread
 
-  h3 QASHUSD
-  table(class='display', id='qu')
-    thead
-      tr
-        th Exchange
-        th Ask
-        th Bid
-        th Percentage
-        th Amount
-        th Spread
+    div.col-md-6.col-sm-12
+      h3 QASHUSD
+      table.display#qu
+        thead
+          tr
+            th Exchange
+            th Ask
+            th Bid
+            th Percentage
+            th Amount
+            th Spread
 
-  h3 ETHBTC
-  table(class='display', id='eb')
-    thead
-      tr
-        th Action
-        th Ask
-        th Bid
-        th Percentage
-        th Amount
-        th Spread
+    div.col-md-6.col-sm-12
+      h3 ETHBTC
+      table.display#eb
+        thead
+          tr
+            th Action
+            th Ask
+            th Bid
+            th Percentage
+            th Amount
+            th Spread
 
 block script
   script(src='/javascripts/qe.js')
