@@ -22,6 +22,11 @@ $(function () {
             exchange = ticker[i].exchange;
           }
           ticker[i].percentage = percentage;
+          if (percentage > 0) {
+            ticker[i].amount = ticker[i].bid_amount;
+          } else {
+            ticker[i].amount = ticker[i].ask_amount;
+          }
           ticker[i].spread = ticker[i].ask - ticker[i].bid;
           ticker[i].sp = ((ticker[i].spread / ticker[i].bid) * 100).toFixed(2) + "%";
 

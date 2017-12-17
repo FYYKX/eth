@@ -209,7 +209,7 @@ router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
       var percentage = (sell - buy) / buy;
 
       data.push({
-        action: "<span class='label label-primary'>Buy QASHSGD</span>",
+        action: "Buy QASHSGD",
         sell: sell,
         qash_eth: "<span class='label label-warning'>" + qash_eth + "</span>",
         eth_sgd: "<span class='label label-primary'>" + eth_sgd + "</span>",
@@ -228,7 +228,7 @@ router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
       percentage = (sell - buy) / buy;
 
       data.push({
-        action: "<span class='label label-primary'>SELL QASHSGD</span>",
+        action: "SELL QASHSGD",
         sell: sell,
         qash_eth: "<span class='label label-warning'>" + qash_eth + "</span>",
         eth_sgd: "<span class='label label-primary'>" + eth_sgd + "</span>",

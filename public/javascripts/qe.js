@@ -22,6 +22,7 @@ $(function () {
             exchange = ticker[i].exchange;
           }
           ticker[i].percentage = percentage;
+          
           if (percentage > 0) {
             ticker[i].amount = ticker[i].bid_amount;
           } else {
