@@ -16,7 +16,6 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
               "bid_amount": parseFloat(body.buy_price_levels[0][1]),
               "ask": parseFloat(body.sell_price_levels[0][0]),
               "ask_amount": parseFloat(body.sell_price_levels[0][1]),
-              "amount": Math.min(parseFloat(body.buy_price_levels[0][1]), parseFloat(body.sell_price_levels[0][1]))
             });
           } catch (e) {
             return callback(e);
@@ -36,7 +35,6 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
                 "bid_amount": parseFloat(body.buy_price_levels[0][1]),
                 "ask": parseFloat(body.sell_price_levels[0][0]),
                 "ask_amount": parseFloat(body.sell_price_levels[0][1]),
-                "amount": Math.min(parseFloat(body.buy_price_levels[0][1]), parseFloat(body.sell_price_levels[0][1]))
               });
             } catch (e) {
               return callback(e);
@@ -59,7 +57,6 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
                 "bid_amount": parseFloat(body.bids[0].amount),
                 "ask": parseFloat(body.asks[0].price),
                 "ask_amount": parseFloat(body.asks[0].amount),
-                "amount": Math.min(parseFloat(body.bids[0].amount), parseFloat(body.asks[0].amount))
               });
             } catch (e) {
               return callback(e);
@@ -71,6 +68,9 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
       }
     ],
     function (err, results) {
+      if (err) {
+        console.log(err);
+      }
       callback(results.filter(item => item != null));
     }
   );
