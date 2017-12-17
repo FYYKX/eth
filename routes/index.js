@@ -402,8 +402,9 @@ router.get("/spread.json", function (req, res, next) {
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       var data = body
+        .filter(item => item.disabled == false)
         .filter(item => item.market_ask > 0)
-        .filter(item => item.volume_24h > 0);
+        .filter(item => item.volume_24h > 100);
       res.json(data);
     }
   });
