@@ -18,7 +18,7 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
               "ask_amount": parseFloat(body.sell_price_levels[0][1]),
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       },
@@ -37,7 +37,7 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
                 "ask_amount": parseFloat(body.sell_price_levels[0][1]),
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         } else {
@@ -59,7 +59,7 @@ var product = function (quoineID, qryptosID, bitfinexID, callback) {
                 "ask_amount": parseFloat(body.asks[0].amount),
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         } else {
