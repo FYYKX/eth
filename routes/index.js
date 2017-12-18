@@ -421,6 +421,7 @@ router.get('/poloniex.json', function (req, res) {
       var usdt_eth = body.USDT_ETH;
       var btc_xem = body.BTC_XEM;
       var btc_etc = body.BTC_ETC;
+      var btc_xrp = body.BTC_XRP;
 
       var data = [];
       data.push({
@@ -442,6 +443,11 @@ router.get('/poloniex.json', function (req, res) {
         currency: "ETCBTC",
         price: btc_etc.last,
         change: btc_etc.percentChange
+      });
+      data.push({
+        currency: "XRPBTC",
+        price: btc_xrp.last,
+        change: btc_xrp.percentChange
       });
 
       res.json(data);
