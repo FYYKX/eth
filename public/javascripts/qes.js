@@ -53,5 +53,5 @@ $(function () {
 
   setInterval(function () {
     table.ajax.reload();
-  }, 15 * 1000);
+  }, 30 * 1000);
 });
