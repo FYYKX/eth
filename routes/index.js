@@ -128,7 +128,7 @@ router.get('/qb_qq.json', cache('10 seconds'), function (req, res, next) {
 });
 
 router.get('/qu', function (req, res, next) {
-  res.render("qu");
+  res.render('qu');
 });
 
 router.get('/qu.json', cache('10 seconds'), function (req, res, next) {
@@ -144,6 +144,84 @@ router.get('/qu.json', cache('10 seconds'), function (req, res, next) {
       ticker: results
     });
   });
+});
+
+router.get('/qus.json', cache('10 seconds'), function (req, res, next) {
+  async.parallel({
+    rates: function (callback) {
+      request.get({
+        url: "http://api.fixer.io/latest?base=SGD&symbols=USD",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, body);
+        } catch (e) {
+          return callback(e);
+        }
+      });
+    },
+    quoine: function (callback) {
+      request.get({
+        url: "https://api.quoine.com/products",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, body);
+        } catch (e) {
+          return callback(e);
+        }
+      });
+    },
+    bitfinex: function (callback) {
+      request.get({
+        url: "https://api.bitfinex.com/v1/pubticker/QSHUSD",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, body);
+        } catch (e) {
+          return callback(e);
+        }
+      });
+    }
+  },
+    function (err, results) {
+      var data = [];
+      var qash_usd = results.quoine.find(item => item.currency_pair_code == 'QASHUSD');
+      var qash_sgd = results.quoine.find(item => item.currency_pair_code == 'QASHSGD');
+      var sgd_usd = results.rates.rates.USD;
+
+      data.push({
+        exchange: "quoine",
+        ask: qash_usd.market_ask,
+        bid: qash_usd.market_bid
+      });
+      data.push({
+        exchange: "quoine",
+        sgd_usd: sgd_usd,
+        ask_sgd: qash_sgd.market_ask,
+        ask: qash_sgd.market_ask * sgd_usd,
+        bid_sgd: qash_sgd.market_bid,
+        bid: qash_sgd.market_bid * sgd_usd
+      });
+      data.push({
+        exchange: "bitfinex",
+        ask: results.bitfinex.ask,
+        bid: results.bitfinex.bid
+      });
+
+      var low = 0;
+      data.forEach(function (item) {
+        if (low === 0 || item.ask < low) {
+          low = item.ask;
+        }
+      });
+      res.json({
+        ask: low,
+        ticker: data
+      });
+    }
+  );
 });
 
 router.get('/qqb.json', cache('10 seconds'), function (req, res, next) {
