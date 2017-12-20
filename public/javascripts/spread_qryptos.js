@@ -7,6 +7,9 @@ $(function () {
                     json[i].percentage = (json[i].market_ask - json[i].market_bid) / json[i].market_bid;
                     if (json[i].coinmarketcap) {
                         json[i].price = json[i].coinmarketcap["price_" + json[i].quoted_currency.toLowerCase()];
+                        if (json[i].market_bid < json[i].price) {
+                            json[i].market_bid = "<span class='label label-info'>" + json[i].market_bid + "</span>";
+                        }
                     } else {
                         json[i].price = "";
                     }
