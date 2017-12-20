@@ -10,12 +10,10 @@ block content
         th Currency
         th Ask
         th Bid
-        th Spread
         th Percentage
         th 24h Volumn
         th 24h Change
-        th Last Price
-        th Last Quantity
+        th Disabled
 
   div(class='page-header')
     h1 
@@ -26,25 +24,12 @@ block content
         th Currency
         th Ask
         th Bid
-        th Spread
         th Percentage
         th 24h Volumn
+        th Coinmarketcap Price
         th 24h Change
-        th Last Price
-        th Last Quantity
-
-  div(class='page-header')
-    h1 
-      span(class='label label-info') Poloniex
-  table(class='display', id='poloniex')
-    thead
-      tr
-        th Currency
-        th Price
-        th Change
-
+        th Disabled
 
 block script
   script(src='/javascripts/spread_quoine.js')
   script(src='/javascripts/spread_qryptos.js')
-  script(src='/javascripts/poloniex.js')

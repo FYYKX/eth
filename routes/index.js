@@ -396,17 +396,33 @@ router.get("/spread", function (req, res, next) {
 });
 
 router.get("/spread.json", function (req, res, next) {
-  request.get({
-    url: 'https://api.' + req.query.exchange + '.com/products',
-    json: true
-  }, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var data = body
-        .filter(item => item.disabled == false)
-        .filter(item => item.market_ask > 0)
-        .filter(item => item.volume_24h > 100);
-      res.json(data);
+  async.parallel({
+    coinmarketcap: function (callback) {
+      request.get({
+        url: 'https://api.coinmarketcap.com/v1/ticker/?convert=ETH',
+        json: true
+      }, function (error, response, body) {
+        callback(null, body);
+      })
+    },
+    quoine: function (callback) {
+      request.get({
+        url: 'https://api.' + req.query.exchange + '.com/products',
+        json: true
+      }, function (error, response, body) {
+        var data = body
+          .filter(item => item.market_ask > 0)
+          .filter(item => item.volume_24h > 100);
+        callback(null, data);
+      });
     }
+  }, function (err, results) {
+    var data = results.quoine.map(item => {
+      item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == item.base_currency);
+      return item;
+    });
+
+    res.json(data);
   });
 });
 
