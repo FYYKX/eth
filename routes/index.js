@@ -533,10 +533,14 @@ router.get("/spread.json", function (req, res, next) {
       });
     }
   }, function (err, results) {
-    var data = results.quoine.map(item => {
-      item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == item.base_currency);
-      return item;
-    });
+    var data = results.quoine
+      .map(item => {
+        item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
+        item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h
+        item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == item.base_currency);
+        return item;
+      })
+      .filter(item => item.percentage > 0.1);
 
     res.json(data);
   });

@@ -4,7 +4,6 @@ $(function () {
             "url": "spread.json?exchange=qryptos",
             "dataSrc": function (json) {
                 for (var i = 0, ien = json.length; i < ien; i++) {
-                    json[i].percentage = (json[i].market_ask - json[i].market_bid) / json[i].market_bid;
                     if (json[i].coinmarketcap) {
                         json[i].price = json[i].coinmarketcap["price_" + json[i].quoted_currency.toLowerCase()];
                         json[i].coin_percentage = (json[i].market_ask - json[i].price) / json[i].price;
@@ -19,7 +18,6 @@ $(function () {
                     } else {
                         json[i].price = "";
                     }
-                    json[i].change_24h = (json[i].market_bid - json[i].last_price_24h) / json[i].last_price_24h
                 }
 
                 return json;
