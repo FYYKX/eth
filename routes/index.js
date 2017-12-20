@@ -146,6 +146,45 @@ router.get('/qu.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
+router.get('/qqb.json', cache('10 seconds'), function (req, res, next) {
+  ticker.qash(function (results) {
+    var data = results.map(item => {
+      item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
+      item.qryptos = item.exchange != 'qryptos' ? (item.bid - results[1].ask) / results[1].ask : '';
+      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      return item;
+    });
+
+    var high = 0;
+    var buy = '';
+    var sell = '';
+    data.forEach(function (item) {
+      if (item.quoine > high) {
+        high = item.quoine;
+        sell = item.exchange;
+        buy = 'quoine';
+      }
+      if (item.qryptos > high) {
+        high = item.qryptos;
+        sell = item.exchange;
+        buy = 'qryptos';
+      }
+      if (item.bitfinex > high) {
+        high = item.bitfinex;
+        sell = item.exchange;
+        buy = 'bitfinex';
+      }
+    });
+
+    res.json({
+      chance: high,
+      buy: buy,
+      sell: sell,
+      ticker: data
+    });
+  })
+});
+
 router.get('/eb', function (req, res, next) {
   res.render("eb");
 });
@@ -164,7 +203,6 @@ router.get('/eb.json', cache('10 seconds'), function (req, res, next) {
     });
   });
 });
-
 
 router.get('/qes', function (req, res, next) {
   res.render("qes");

@@ -27,7 +27,7 @@ $(function () {
           } else {
             ticker[i].amount = ticker[i].ask_amount;
           }
-          
+
           ticker[i].spread = ticker[i].ask - ticker[i].bid;
           ticker[i].sp = ((ticker[i].spread / ticker[i].bid) * 100).toFixed(2) + "%";
 

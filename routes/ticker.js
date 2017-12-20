@@ -209,96 +209,97 @@ var btc = function (callback) {
 };
 
 var eth = function (callback) {
-  async.parallel([
-    function (callback) {
-      request.get({
-        url: "https://api.quoine.com/products/27",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "quoine",
-            "country": "",
-            "bid": body.market_bid,
-            "ask": body.market_ask
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.bitfinex.com/v1/pubticker/ethusd",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "bitfinex",
-            "country": "",
-            "bid": parseFloat(body.bid),
-            "ask": parseFloat(body.ask)
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.gdax.com/products/ETH-USD/ticker",
-        json: true,
-        headers: {
-          'User-Agent': 'request'
-        }
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "gdax",
-            "country": "",
-            "bid": parseFloat(body.bid),
-            "ask": parseFloat(body.ask)
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-ETH",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "bittrex",
-            "country": "",
-            "bid": parseFloat(body.result.Bid),
-            "ask": parseFloat(body.result.Ask)
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://poloniex.com/public?command=returnTicker",
-        json: true
-      }, function (error, reponse, body) {
-        try {
-          callback(null, {
-            "exchange": "poloniex",
-            "country": "",
-            "bid": parseFloat(body.USDT_ETH.highestBid),
-            "ask": parseFloat(body.USDT_ETH.lowestAsk)
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    }
-  ],
+  async.parallel(
+    [
+      function (callback) {
+        request.get({
+          url: "https://api.quoine.com/products/27",
+          json: true
+        }, function (error, response, body) {
+          try {
+            callback(null, {
+              "exchange": "quoine",
+              "country": "",
+              "bid": body.market_bid,
+              "ask": body.market_ask
+            });
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      },
+      function (callback) {
+        request.get({
+          url: "https://api.bitfinex.com/v1/pubticker/ethusd",
+          json: true
+        }, function (error, response, body) {
+          try {
+            callback(null, {
+              "exchange": "bitfinex",
+              "country": "",
+              "bid": parseFloat(body.bid),
+              "ask": parseFloat(body.ask)
+            });
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      },
+      function (callback) {
+        request.get({
+          url: "https://api.gdax.com/products/ETH-USD/ticker",
+          json: true,
+          headers: {
+            'User-Agent': 'request'
+          }
+        }, function (error, response, body) {
+          try {
+            callback(null, {
+              "exchange": "gdax",
+              "country": "",
+              "bid": parseFloat(body.bid),
+              "ask": parseFloat(body.ask)
+            });
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      },
+      function (callback) {
+        request.get({
+          url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-ETH",
+          json: true
+        }, function (error, response, body) {
+          try {
+            callback(null, {
+              "exchange": "bittrex",
+              "country": "",
+              "bid": parseFloat(body.result.Bid),
+              "ask": parseFloat(body.result.Ask)
+            });
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      },
+      function (callback) {
+        request.get({
+          url: "https://poloniex.com/public?command=returnTicker",
+          json: true
+        }, function (error, reponse, body) {
+          try {
+            callback(null, {
+              "exchange": "poloniex",
+              "country": "",
+              "bid": parseFloat(body.USDT_ETH.highestBid),
+              "ask": parseFloat(body.USDT_ETH.lowestAsk)
+            });
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      }
+    ],
     function (err, results) {
       callback(results);
     }
@@ -306,83 +307,6 @@ var eth = function (callback) {
 };
 
 var qash = function (callback) {
-  async.parallel([
-    function (callback) {
-      request.get({
-        url: "https://api.quoine.com/products/51",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "quoine",
-            "country": "",
-            "bid": body.market_bid,
-            "ask": body.market_ask
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.qryptos.com/products/31",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "qryptos",
-            "country": "",
-            "bid": body.market_bid,
-            "ask": body.market_ask
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.bitfinex.com/v1/pubticker/QSHETH",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "bitfinex",
-            "country": "",
-            "bid": body.bid,
-            "ask": body.ask
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.huobi.pro/market/detail/merged?symbol=qasheth",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "huobi",
-            "country": "",
-            "bid": body.tick.bid[0],
-            "ask": body.tick.ask[0]
-          });
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    }
-  ],
-    function (err, results) {
-      callback(results);
-    }
-  );
-};
-
-var qe = function (callback) {
   async.parallel(
     [
       function (callback) {
@@ -392,8 +316,7 @@ var qe = function (callback) {
         }, function (error, response, body) {
           try {
             callback(null, {
-              "exchange": "<span class='label label-primary'>quoine</span>",
-              "country": "",
+              "exchange": "quoine",
               "bid": body.market_bid,
               "ask": body.market_ask
             });
@@ -409,10 +332,25 @@ var qe = function (callback) {
         }, function (error, response, body) {
           try {
             callback(null, {
-              "exchange": "<span class='label label-warning'>qryptos</span>",
-              "country": "",
+              "exchange": "qryptos",
               "bid": body.market_bid,
               "ask": body.market_ask
+            });
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      },
+      function (callback) {
+        request.get({
+          url: "https://api.bitfinex.com/v1/pubticker/QSHETH",
+          json: true
+        }, function (error, response, body) {
+          try {
+            callback(null, {
+              "exchange": "bitfinex",
+              "bid": body.bid,
+              "ask": body.ask
             });
           } catch (e) {
             return callback(e);
@@ -421,7 +359,7 @@ var qe = function (callback) {
       }
     ],
     function (err, results) {
-      callback(results.filter(item => item != null));
+      callback(results);
     }
   );
 };
@@ -429,6 +367,5 @@ var qe = function (callback) {
 module.exports = {
   btc: btc,
   eth: eth,
-  qash: qash,
-  qe: qe
+  qash: qash
 };
