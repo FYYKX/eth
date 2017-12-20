@@ -9,13 +9,13 @@ $(function () {
                         json[i].price = json[i].coinmarketcap["price_" + json[i].quoted_currency.toLowerCase()];
                         json[i].coin_percentage = (json[i].market_ask - json[i].price) / json[i].price;
 
-                        var css;
-                        if (json[i].market_bid < json[i].price) {
-                            css = "label-info";
-                        } else {
-                            css = "label-warning";
+                        if (json[i].market_ask <= json[i].price) {
+                            json[i].market_ask = "<span class='label label-danger'>" + json[i].market_bid + "</span>";
                         }
-                        json[i].market_bid = "<span class='label " + css + "'>" + json[i].market_bid + "</span>";
+
+                        if (json[i].market_bid >= json[i].price) {
+                            json[i].market_bid = "<span class='label label-warning'>" + json[i].market_bid + "</span>";
+                        }
                     } else {
                         json[i].price = "";
                     }
