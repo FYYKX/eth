@@ -359,7 +359,7 @@ var qash = function (callback) {
       }
     ],
     function (err, results) {
-      callback(results);
+      callback(results.filter(item => item != null));
     }
   );
 };
