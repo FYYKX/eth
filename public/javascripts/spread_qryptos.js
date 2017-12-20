@@ -9,7 +9,7 @@ $(function () {
                         json[i].coin_percentage = (json[i].market_ask - json[i].price) / json[i].price;
 
                         if (json[i].market_ask <= json[i].price) {
-                            json[i].market_ask = "<span class='label label-danger'>" + json[i].market_bid + "</span>";
+                            json[i].market_ask = "<span class='label label-danger'>" + json[i].market_ask + "</span>";
                         }
 
                         if (json[i].market_bid >= json[i].price) {
