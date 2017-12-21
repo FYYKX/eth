@@ -528,7 +528,7 @@ router.get("/spread.json", function (req, res, next) {
       }, function (error, response, body) {
         var data = body
           .filter(item => item.market_ask > 0)
-          .filter(item => item.volume_24h > 10);
+          .filter(item => item.volume_24h > 50);
         callback(null, data);
       });
     }
