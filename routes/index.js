@@ -206,8 +206,8 @@ router.get('/qus.json', cache('10 seconds'), function (req, res, next) {
       });
       data.push({
         exchange: "bitfinex",
-        ask: results.bitfinex.ask,
-        bid: results.bitfinex.bid
+        ask: results.bitfinex.ask ? results.bitfinex.ask : 0,
+        bid: results.bitfinex.bid ? results.bitfinex.bid : 0
       });
 
       var low = 0;
