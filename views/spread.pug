@@ -17,21 +17,7 @@ block content
         th Coin Bid Percentage
         th 24h Change
         th Disabled
-  
-  div(class='page-header')
-    h1 
-      span(class='label label-primary') Quoinex
-  table(class='display', id='quoine')
-    thead
-      tr
-        th Currency
-        th Ask
-        th Bid
-        th Percentage
-        th 24h Volumn
-        th 24h Change
-        th Disabled
-  
+
   div.page-header
     h1 
       span(class='label label-info') Coin Market Cap
@@ -47,6 +33,21 @@ block content
         th Change 24h
         th Change 7d
         th 1h vs 24h
+
+  div(class='page-header')
+    h1 
+      span(class='label label-primary') Quoinex
+  table(class='display', id='quoine')
+    thead
+      tr
+        th Currency
+        th Ask
+        th Bid
+        th Percentage
+        th 24h Volumn
+        th 24h Change
+        th Disabled
+  
 
 block script
   script(src='/javascripts/spread_quoine.js')
