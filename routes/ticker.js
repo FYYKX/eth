@@ -23,7 +23,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.data.sell_price) / krw
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -40,7 +40,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.ask) / krw
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -49,12 +49,16 @@ var btc = function (callback) {
             url: "https://api.coinone.co.kr/orderbook/",
             json: true
           }, function (error, response, body) {
-            callback(null, {
-              "exchange": "coinone",
-              "country": "Korea",
-              "bid": parseFloat(body.bid[0].price) / krw,
-              "ask": parseFloat(body.ask[0].price) / krw
-            });
+            try {
+              callback(null, {
+                "exchange": "coinone",
+                "country": "Korea",
+                "bid": parseFloat(body.bid[0].price) / krw,
+                "ask": parseFloat(body.ask[0].price) / krw
+              });
+            } catch (e) {
+              return callback(null, null);
+            }
           });
         },
         function (callback) {
@@ -70,7 +74,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.stats.ask)
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -87,7 +91,7 @@ var btc = function (callback) {
                 "ask": body.market_ask
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -104,7 +108,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.ask)
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -121,7 +125,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.ticker.sell) / idr
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -139,7 +143,7 @@ var btc = function (callback) {
                 "ask": parseFloat(btcusd.ask)
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -156,7 +160,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.ask)
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -176,7 +180,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.ask)
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         },
@@ -196,7 +200,7 @@ var btc = function (callback) {
                 "ask": parseFloat(body.USDT_BTC.lowestAsk)
               });
             } catch (e) {
-              return callback(e);
+              return callback(null, null);
             }
           });
         }
@@ -224,7 +228,7 @@ var eth = function (callback) {
               "ask": body.market_ask
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       },
@@ -241,7 +245,7 @@ var eth = function (callback) {
               "ask": parseFloat(body.ask)
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       },
@@ -261,7 +265,7 @@ var eth = function (callback) {
               "ask": parseFloat(body.ask)
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       },
@@ -278,7 +282,7 @@ var eth = function (callback) {
               "ask": parseFloat(body.result.Ask)
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       },
@@ -295,7 +299,7 @@ var eth = function (callback) {
               "ask": parseFloat(body.USDT_ETH.lowestAsk)
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       }
@@ -321,7 +325,7 @@ var qash = function (callback) {
               "ask": body.market_ask
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       },
@@ -337,7 +341,7 @@ var qash = function (callback) {
               "ask": body.market_ask
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       },
@@ -353,7 +357,7 @@ var qash = function (callback) {
               "ask": body.ask
             });
           } catch (e) {
-            return callback(e);
+            return callback(null, null);
           }
         });
       }
