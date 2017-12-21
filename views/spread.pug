@@ -31,7 +31,24 @@ block content
         th 24h Volumn
         th 24h Change
         th Disabled
+  
+  div.page-header
+    h1 
+      span(class='label label-info') Coin Market Cap
+  table.display#cmc
+    thead
+      tr
+        th Symbol
+        th Name
+        th USD
+        th SGD
+        th BTC
+        th Change 1h
+        th Change 24h
+        th Change 7d
+        th 1h vs 24h
 
 block script
   script(src='/javascripts/spread_quoine.js')
+  script(src='/javascripts/cmc.js')
   script(src='/javascripts/spread_qryptos.js')
