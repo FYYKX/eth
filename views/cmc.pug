@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  div.page-header
+    h1 Coin Market Cap
+  table.display#cmc
+    thead
+      tr
+        th Symbol
+        th Name
+        th USD
+        th SGD
+        th BTC
+        th Change 1h
+        th Change 24h
+        th Change 7d
+        th 1h vs 24h
+
+block script
+  script(src='/javascripts/cmc.js')
