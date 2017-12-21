@@ -628,4 +628,143 @@ router.get("/order.json", function (req, res, next) {
   });
 });
 
+router.get("/qqbp", function (req, res, next) {
+  res.render("qqbp");
+});
+
+router.get("/qqbp.json", function (req, res, next) {
+  async.parallel({
+    quoine: function (callback) {
+      request.get({
+        url: "https://api.quoine.com/products",
+        json: true
+      }, function (error, response, body) {
+        callback(null, body);
+      });
+    },
+    qryptos: function (callback) {
+      request.get({
+        url: "https://api.qryptos.com/products",
+        json: true
+      }, function (error, response, body) {
+        callback(null, body);
+      });
+    },
+    bitfinex: function (callback) {
+      async.map([
+        'btcusd',
+        'bchusd',
+        'neousd',
+        'ethbtc',
+        'ethusd',
+        'btceur',
+        'zecbtc',
+        'xmrbtc',
+        'ethbtc',
+        'etcbtc',
+        'xrpbtc',
+        'ltcbtc',
+        'bchbtc',
+        'neobtc',
+        'omgbtc',
+        'omgeth',
+        'neoeth',
+        'qtmusd',
+        'qtmbtc',
+        'qtmeth',
+        'qshusd',
+        'qshbtc',
+        'qsheth'],
+        fetch,
+        function (err, results) {
+          callback(null, results);
+        }
+      );
+    },
+    poloniex: function (callback) {
+      request.get({
+        url: "https://poloniex.com/public?command=returnTicker",
+        json: true
+      }, function (error, response, body) {
+        callback(null, body);
+      });
+    }
+  }, function (err, results) {
+    var data =
+      results.quoine.concat(results.qryptos)
+        .map(item => {
+          return {
+            pair: item.currency_pair_code,
+            quoine: {
+              ask: item.market_ask,
+              bid: item.market_bid
+            },
+            bitfinex: getBitfinex(item, results.bitfinex),
+            poloniex: getPoloniex(item, results.poloniex)
+          };
+        });
+
+    res.json(data);
+  });
+});
+
+var fetch = function (symbol, callback) {
+  request.get({
+    url: "https://api.bitfinex.com/v1/pubticker/" + symbol,
+    json: true
+  }, function (error, response, body) {
+    body.symbol = symbol;
+    callback(null, body);
+  });
+}
+
+function getBitfinex(q, b) {
+  var quoted_currency = q.quoted_currency;
+  var base_currency = q.base_currency;
+
+  if (base_currency == 'QASH') {
+    base_currency = 'QSH';
+  } else if (base_currency == 'QTUM') {
+    base_currency = 'QTM';
+  }
+  var pair = (base_currency + quoted_currency).toLowerCase();
+
+  var ask = '';
+  var bid = '';
+  var ticker = b.find(item => item.symbol == pair);
+  if (ticker) {
+    ask = ticker.ask;
+    bid = ticker.bid;
+  }
+
+  return {
+    ask: ask,
+    bid: bid
+  }
+}
+
+function getPoloniex(q, p) {
+  var quoted_currency = q.quoted_currency;
+  var base_currency = q.base_currency;
+  var pair;
+  if (quoted_currency == 'USD') {
+    pair = 'USDT_' + base_currency;
+  } else {
+    pair = quoted_currency + '_' + base_currency;
+  }
+
+  var ask = '';
+  var bid = '';
+  if (p[pair]) {
+    ask = p[pair].lowestAsk;
+    bid = p[pair].highestBid;
+  }
+
+  return {
+    ask: ask,
+    bid: bid
+  }
+}
+
+
 module.exports = router;
