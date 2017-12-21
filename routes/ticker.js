@@ -353,8 +353,8 @@ var qash = function (callback) {
           try {
             callback(null, {
               "exchange": "bitfinex",
-              "bid": body.bid,
-              "ask": body.ask
+              "bid": body.bid ? body.bid : 0,
+              "ask": body.ask ? body.ask : 0
             });
           } catch (e) {
             return callback(null, null);
