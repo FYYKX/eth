@@ -21,11 +21,14 @@ $(function () {
         "data": "qash"
       },
       {
+        "data": "sgd"
+      },
+      {
         "data": "percentage"
       }
     ],
     "columnDefs": [{
-      "targets": 4,
+      "targets": 5,
       "render": function (data, type, row, meta) {
         if (data != 0) {
           var css = data > 0 ? "label-success" : "label-danger";

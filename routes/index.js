@@ -471,6 +471,7 @@ router.get('/stq.json', cache('10 seconds'), function (req, res, next) {
         eth: "",
         btc: "",
         qash: sgd_qash,
+        sgd: 1 / sgd_qash,
         percentage: 0
       });
       data.push({
@@ -478,6 +479,7 @@ router.get('/stq.json', cache('10 seconds'), function (req, res, next) {
         eth: 1 / eth_sgd.market_ask,
         btc: "",
         qash: sgd_eth_qash,
+        sgd: 1 / sgd_eth_qash,
         percentage: (sgd_eth_qash - sgd_qash) / sgd_qash
       });
       data.push({
@@ -485,6 +487,7 @@ router.get('/stq.json', cache('10 seconds'), function (req, res, next) {
         eth: "",
         btc: 1 / btc_sgd.market_ask,
         qash: sgd_btc_qash,
+        sgd: 1 / sgd_btc_qash,
         percentage: (sgd_btc_qash - sgd_qash) / sgd_qash
       });
       res.json(data);
