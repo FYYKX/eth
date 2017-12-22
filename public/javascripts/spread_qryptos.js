@@ -5,16 +5,22 @@ $(function () {
             "dataSrc": function (json) {
                 for (var i = 0, ien = json.length; i < ien; i++) {
                     if (json[i].coinmarketcap) {
-                        json[i].price = json[i].coinmarketcap["price_" + json[i].quoted_currency.toLowerCase()];
-                        json[i].coin_ask = (json[i].market_ask - json[i].price) / json[i].price;
-                        json[i].coin_bid = (json[i].market_bid - json[i].price) / json[i].price;
+                        if (json[i].coinmarketcap["price_" + json[i].quoted_currency.toLowerCase()]) {
+                            json[i].price = json[i].coinmarketcap["price_" + json[i].quoted_currency.toLowerCase()];
+                            json[i].coin_ask = (json[i].market_ask - json[i].price) / json[i].price;
+                            json[i].coin_bid = (json[i].market_bid - json[i].price) / json[i].price;
 
-                        if (json[i].market_ask <= json[i].price) {
-                            json[i].market_ask = "<span class='label label-danger'>" + json[i].market_ask + "</span>";
-                        }
+                            if (json[i].market_ask <= json[i].price) {
+                                json[i].market_ask = "<span class='label label-danger'>" + json[i].market_ask + "</span>";
+                            }
 
-                        if (json[i].market_bid >= json[i].price) {
-                            json[i].market_bid = "<span class='label label-warning'>" + json[i].market_bid + "</span>";
+                            if (json[i].market_bid >= json[i].price) {
+                                json[i].market_bid = "<span class='label label-warning'>" + json[i].market_bid + "</span>";
+                            }
+                        } else {
+                            json[i].price = "";
+                            json[i].coin_ask = "";
+                            json[i].coin_bid = "";
                         }
                     } else {
                         json[i].price = "";
