@@ -442,6 +442,56 @@ router.get('/ste.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
+router.get('/stq', function (req, res, next) {
+  res.render("stq");
+});
+
+router.get('/stq.json', cache('10 seconds'), function (req, res, next) {
+  request.get({
+    url: 'https://api.quoine.com/products',
+    json: true
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var eth_sgd = body.find(item => item.currency_pair_code === 'ETHSGD');
+      var qash_eth = body.find(item => item.currency_pair_code === 'QASHETH');
+
+      var btc_sgd = body.find(item => item.currency_pair_code === 'BTCSGD');
+      var qash_btc = body.find(item => item.currency_pair_code === 'QASHBTC');
+
+      var qash_sgd = body.find(item => item.currency_pair_code === 'QASHSGD');
+
+      var data = [];
+
+      var sgd_qash = 1 / qash_sgd.market_ask;
+      var sgd_eth_qash = (1 / eth_sgd.market_ask) / qash_eth.market_bid;
+      var sgd_btc_qash = (1 / btc_sgd.market_ask) / qash_btc.market_bid;
+
+      data.push({
+        currency: "SGDQASH",
+        eth: "",
+        btc: "",
+        qash: sgd_qash,
+        percentage: 0
+      });
+      data.push({
+        currency: "SGDETHQASH",
+        eth: 1 / eth_sgd.market_ask,
+        btc: "",
+        qash: sgd_eth_qash,
+        percentage: (sgd_eth_qash - sgd_qash) / sgd_qash
+      });
+      data.push({
+        currency: "SGDBTCQASH",
+        eth: "",
+        btc: 1 / btc_sgd.market_ask,
+        qash: sgd_btc_qash,
+        percentage: (sgd_btc_qash - sgd_qash) / sgd_qash
+      });
+      res.json(data);
+    }
+  });
+});
+
 router.get('/qtb', function (req, res, next) {
   res.render("qtb");
 });

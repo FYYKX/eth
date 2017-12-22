@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div.page-header
+    h1 Quoine SGD to QASH
+  table.display#stq
+    thead
+      tr
+        th Currency
+        th ETH
+        th BTC
+        th QASH
+        th Percentage
+
+block script
+  script(src='/javascripts/stq.js')
