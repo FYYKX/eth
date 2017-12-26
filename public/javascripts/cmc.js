@@ -45,6 +45,11 @@ $(function () {
         }]
     });
 
+    $('input[type=search]').on('keyup', function () {
+        console.log('cmc');
+        table.search(this.value).draw();
+    });
+
     setInterval(function () {
         table.ajax.reload();
     }, 60 * 1000);

@@ -98,6 +98,11 @@ $(function () {
         ]
     });
 
+    $('input[type=search]').on('keyup', function () {
+        console.log('qryptos');
+        table.search(this.value).draw();
+    });
+
     //API users should not make more than 300 requests per 5 minute
     setInterval(function () {
         table.ajax.reload();

@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  div(class='page-header')
-    h1 
-      span(class='label label-warning') Qryptos
-  table(class='display', id='qryptos')
+  div.page-header
+    h3
+      span.label.label-warning Qryptos
+  table.display#qryptos
     thead
       tr
         th Currency
@@ -19,8 +19,8 @@ block content
         th Disabled
 
   div.page-header
-    h1 
-      span(class='label label-info') Coin Market Cap
+    h3
+      span.label.label-info Coin Market Cap
   table.display#cmc
     thead
       tr
@@ -34,10 +34,10 @@ block content
         th Change 7d
         th 1h vs 24h
 
-  div(class='page-header')
-    h1 
-      span(class='label label-primary') Quoinex
-  table(class='display', id='quoine')
+  div.page-header
+    h3
+      span.label.label-primary Quoinex
+  table.display#quoine
     thead
       tr
         th Currency
@@ -50,6 +50,6 @@ block content
   
 
 block script
-  script(src='/javascripts/spread_quoine.js')
-  script(src='/javascripts/cmc.js')
   script(src='/javascripts/spread_qryptos.js')
+  script(src='/javascripts/cmc.js')
+  script(src='/javascripts/spread_quoine.js')
