@@ -2,7 +2,19 @@ $(function () {
     var table = $("#qqbp").DataTable({
         "ajax": {
             "url": "qqbp.json",
-            "dataSrc": ""
+            "dataSrc": function (json) {
+                for (var i = 0, ien = json.length; i < ien; i++) {
+                    if (json[i].bitfinex.bid > json[i].quoine.ask) {
+                        json[i].bitfinex.bid = "<span class='label label-success'>" + json[i].bitfinex.bid + "</span>";
+                    }
+
+                    if (json[i].poloniex.bid > json[i].quoine.ask) {
+                        json[i].poloniex.bid = "<span class='label label-success'>" + json[i].poloniex.bid + "</span>";
+                    }
+                }
+
+                return json;
+            }
         },
         "order": [
             [0, "desc"]
