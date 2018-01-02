@@ -6,49 +6,25 @@ $(function () {
   }
 
   var last = 0;
-
   var table = $("#qb").DataTable({
     "ajax": {
-      "url": $("#qq").val() ? "qb_qq.json" : "qb.json",
+      "url": "qqb.json",
+      "data": function (d) {
+        d.currency = "BTC";
+      },
       "dataSrc": function (json) {
-        var ask = json.ask;
-        var ticker = json.ticker;
-        var chance = 0;
-        var exchange = '';
-        for (var i = 0, ien = ticker.length; i < ien; i++) {
-          var percentage = (ticker[i].bid - ask) / ask;
-          if (percentage > chance) {
-            chance = percentage;
-            exchange = ticker[i].exchange;
-          }
-          ticker[i].percentage = percentage;
-
-          if (percentage > 0) {
-            ticker[i].amount = ticker[i].bid_amount;
-          } else {
-            ticker[i].amount = ticker[i].ask_amount;
-          }
-          
-          ticker[i].spread = ticker[i].ask - ticker[i].bid;
-          ticker[i].sp = ((ticker[i].spread / ticker[i].bid) * 100).toFixed(2) + "%";
-          if (ticker[i].ask == ask) {
-            ticker[i].ask = "<span class='label label-danger'>" + ticker[i].ask + "</span>";
-          }
-        }
-
-        if (chance > 0.05 && chance > last) {
+        var chance = json.chance;
+        if (chance > 0.01 && chance > last) {
           new Notification("QASHBTC " + (chance * 100).toFixed(2) + "%", {
-            body: "Sell QASH at " + exchange,
+            body: "Sell at " + json.sell + " Buy at " + json.buy,
             icon: "/images/qash.png"
           });
           last = chance;
         }
-        return ticker;
+        return json.ticker;
       }
     },
-    "order": [
-      [1, "desc"]
-    ],
+    "ordering": false,
     "columns": [
       {
         "data": "exchange"
@@ -60,13 +36,13 @@ $(function () {
         "data": "bid"
       },
       {
-        "data": "percentage"
+        "data": "quoine"
       },
       {
-        "data": "amount"
+        "data": "qryptos"
       },
       {
-        "data": "sp"
+        "data": "bitfinex"
       }
     ],
     "columnDefs": [
@@ -78,11 +54,14 @@ $(function () {
         }
       },
       {
-        "targets": 3,
-        "data": "percentage",
+        "targets": [3, 4, 5],
         "render": function (data, type, row, meta) {
-          var css = data > 0 ? "label-success" : "label-danger";
-          return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
+          if (data) {
+            var css = data > 0 ? "label-success" : "label-danger";
+            return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
+          } else {
+            return "";
+          }
         }
       }]
   });

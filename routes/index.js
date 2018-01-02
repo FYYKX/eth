@@ -57,25 +57,6 @@ router.get('/qq', function (req, res, next) {
   res.render('qq', { qq: 'qq' });
 });
 
-router.get('/qe', function (req, res, next) {
-  res.render("qe");
-});
-
-router.get('/qe.json', cache('10 seconds'), function (req, res, next) {
-  orderbook.product(51, 31, 'QSHETH', function (results) {
-    var low = 0;
-    results.forEach(function (item) {
-      if (low === 0 || item.ask < low) {
-        low = item.ask;
-      }
-    });
-    res.json({
-      ask: low,
-      ticker: results
-    });
-  });
-});
-
 router.get('/qe_qq.json', cache('10 seconds'), function (req, res, next) {
   orderbook.product(51, 31, null, function (results) {
     var low = 0;
@@ -92,23 +73,43 @@ router.get('/qe_qq.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
-router.get('/qb', function (req, res, next) {
-  res.render("qb");
-});
-
 router.get('/qb.json', cache('10 seconds'), function (req, res, next) {
-  orderbook.product(52, 32, 'QSHBTC', function (results) {
-    var low = 0;
-    results.forEach(function (item) {
-      if (low === 0 || item.ask < low) {
-        low = item.ask;
+  ticker.qash(52, 32, 'QSHBTC', function (results) {
+    var data = results.map(item => {
+      item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
+      item.qryptos = item.exchange != 'qryptos' ? (item.bid - results[1].ask) / results[1].ask : '';
+      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      return item;
+    });
+
+    var high = 0;
+    var buy = '';
+    var sell = '';
+    data.forEach(function (item) {
+      if (item.quoine > high) {
+        high = item.quoine;
+        sell = item.exchange;
+        buy = 'quoine';
+      }
+      if (item.qryptos > high) {
+        high = item.qryptos;
+        sell = item.exchange;
+        buy = 'qryptos';
+      }
+      if (item.bitfinex > high) {
+        high = item.bitfinex;
+        sell = item.exchange;
+        buy = 'bitfinex';
       }
     });
+
     res.json({
-      ask: low,
-      ticker: results
+      chance: high,
+      buy: buy,
+      sell: sell,
+      ticker: data
     });
-  });
+  })
 });
 
 router.get('/qb_qq.json', cache('10 seconds'), function (req, res, next) {
@@ -224,8 +225,17 @@ router.get('/qus.json', cache('10 seconds'), function (req, res, next) {
   );
 });
 
-router.get('/qqb.json', cache('10 seconds'), function (req, res, next) {
-  ticker.qash(function (results) {
+router.get('/qqb.json/:currency?', cache('10 seconds'), function (req, res, next) {
+  var quoine = 51;
+  var qryptos = 31;
+  var bitfinex = 'QSHETH';
+  if (req.query.currency == 'BTC') {
+    quoine = 52;
+    qryptos = 32;
+    bitfinex = 'QSHBTC';
+  }
+
+  ticker.qash(quoine, qryptos, bitfinex, function (results) {
     var data = results.map(item => {
       item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
       item.qryptos = item.exchange != 'qryptos' ? (item.bid - results[1].ask) / results[1].ask : '';

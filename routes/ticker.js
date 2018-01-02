@@ -310,58 +310,57 @@ var eth = function (callback) {
   );
 };
 
-var qash = function (callback) {
-  async.parallel(
-    [
-      function (callback) {
-        request.get({
-          url: "https://api.quoine.com/products/51",
-          json: true
-        }, function (error, response, body) {
-          try {
-            callback(null, {
-              "exchange": "quoine",
-              "bid": body.market_bid,
-              "ask": body.market_ask
-            });
-          } catch (e) {
-            return callback(null, null);
-          }
-        });
-      },
-      function (callback) {
-        request.get({
-          url: "https://api.qryptos.com/products/31",
-          json: true
-        }, function (error, response, body) {
-          try {
-            callback(null, {
-              "exchange": "qryptos",
-              "bid": body.market_bid,
-              "ask": body.market_ask
-            });
-          } catch (e) {
-            return callback(null, null);
-          }
-        });
-      },
-      function (callback) {
-        request.get({
-          url: "https://api.bitfinex.com/v1/pubticker/QSHETH",
-          json: true
-        }, function (error, response, body) {
-          try {
-            callback(null, {
-              "exchange": "bitfinex",
-              "bid": body.bid ? body.bid : 0,
-              "ask": body.ask ? body.ask : 0
-            });
-          } catch (e) {
-            return callback(null, null);
-          }
-        });
-      }
-    ],
+var qash = function (quoine, qryptos, bitfinex, callback) {
+  async.parallel([
+    function (callback) {
+      request.get({
+        url: "https://api.quoine.com/products/" + quoine,
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "quoine",
+            "bid": body.market_bid,
+            "ask": body.market_ask
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    },
+    function (callback) {
+      request.get({
+        url: "https://api.qryptos.com/products/" + qryptos,
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "qryptos",
+            "bid": body.market_bid,
+            "ask": body.market_ask
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    },
+    function (callback) {
+      request.get({
+        url: "https://api.bitfinex.com/v1/pubticker/" + bitfinex,
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "bitfinex",
+            "bid": body.bid ? body.bid : 0,
+            "ask": body.ask ? body.ask : 0
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    }
+  ],
     function (err, results) {
       callback(results.filter(item => item != null));
     }
