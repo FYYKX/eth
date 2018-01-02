@@ -51,19 +51,7 @@ block content
               span.label.qryptos qryptos
             th 
               span.label.bitfinex bitfinex
-
-    div.col-md-6
-      h3 QASH USD SGD
-      table.display#qus
-        thead
-          tr
-            th Exchange
-            th Ask
-            th Bid
-            th Percentage
-            th SGDUSD
-            th Spread
-    
+              
     div.col-md-6
       h3 QASHBTC
       table.display#qb
@@ -78,8 +66,20 @@ block content
               span.label.qryptos qryptos
             th 
               span.label.bitfinex bitfinex
+    
+    div.col-md-6
+      h3 QASH USD SGD
+      table.display#qus
+        thead
+          tr
+            th Exchange
+            th Ask
+            th Bid
+            th Percentage
+            th SGDUSD
+            th Spread
 
 block script
   script(src='/javascripts/qe.js')
-  script(src='/javascripts/qus.js')
   script(src='/javascripts/qb.js')
+  script(src='/javascripts/qus.js')

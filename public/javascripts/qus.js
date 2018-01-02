@@ -34,13 +34,13 @@ $(function () {
                     }
                 }
 
-                if (chance > 0.05 && chance > last) {
-                    new Notification("QASHUSD " + (chance * 100).toFixed(2) + "%", {
-                        body: "Sell QASH at " + exchange,
-                        icon: "/images/qash.png"
-                    });
-                    last = chance;
-                }
+                // if (chance > 0.05 && chance > last) {
+                //     new Notification("QASHUSD " + (chance * 100).toFixed(2) + "%", {
+                //         body: "Sell QASH at " + exchange,
+                //         icon: "/images/qash.png"
+                //     });
+                //     last = chance;
+                // }
                 return ticker;
             }
         },
