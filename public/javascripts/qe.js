@@ -14,7 +14,7 @@ $(function () {
           },
           "dataSrc": function (json) {
               var chance = json.chance;
-              if (chance > 0.01 && change > last) {
+              if (chance > 0.01 && chance > last) {
                   if ($("#" + json.sell + "_sell").val() == "YES" && $("#" + json.buy + "_buy").val == "YES") {
                       new Notification("QASHETH " + (chance * 100).toFixed(2) + "%", {
                           body: "Sell at " + json.sell + " Buy at " + json.buy,
