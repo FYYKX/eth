@@ -11,8 +11,8 @@ $(function () {
             "url": "qqb.json",
             "dataSrc": function (json) {
                 var chance = json.chance;
-                if (chance > 0.01) {
-                    if ($(json.sell + "_sell").val() == "YES" && $(json.buy + "_buy").val == "YES") {
+                if (chance > -0.01) {
+                    if ($("#" + json.sell + "_sell").val() == "YES" && $("#" + json.buy + "_buy").val == "YES") {
                         new Notification("QASHETH " + (chance * 100).toFixed(2) + "%", {
                             body: "Sell at " + json.sell + " Buy at " + json.buy,
                             icon: "/images/qash.png"
