@@ -366,8 +366,8 @@ router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
     });
 });
 
-router.get('/bte', function (req, res, next) {
-  res.render("bte");
+router.get('/quoine', function (req, res, next) {
+  res.render('quoine');
 });
 
 router.get('/bte.json', cache('10 seconds'), function (req, res, next) {
@@ -415,10 +415,6 @@ router.get('/bte.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
-router.get('/ste', function (req, res, next) {
-  res.render("ste");
-});
-
 router.get('/ste.json', cache('10 seconds'), function (req, res, next) {
   request.get({
     url: 'https://api.quoine.com/products',
@@ -450,10 +446,6 @@ router.get('/ste.json', cache('10 seconds'), function (req, res, next) {
       res.json(data);
     }
   });
-});
-
-router.get('/stq', function (req, res, next) {
-  res.render("stq");
 });
 
 router.get('/stq.json', cache('10 seconds'), function (req, res, next) {
@@ -505,8 +497,8 @@ router.get('/stq.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
-router.get('/qtb', function (req, res, next) {
-  res.render("qtb");
+router.get('/bitfinex', function (req, res, next) {
+  res.render('bitfinex');
 });
 
 router.get('/qtb.json', cache('10 seconds'), function (req, res, next) {
