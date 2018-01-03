@@ -16,10 +16,28 @@ block content
     div.col-md-6
       div.page-header
         h1 Bitfinex BTC to QASH
+      table.display#btq
+        thead
+          tr
+            th Currency
+            th USD
+            th QASH
+            th Percentage
+            th QASHUSD
 
     div.col-md-6
       div.page-header
         h1 Bitfinex ETH to QASH
+      table.display#etq
+        thead
+          tr
+            th Currency
+            th USD
+            th QASH
+            th Percentage
+            th QASHUSD
 
 block script
   script(src='/javascripts/qtb.js')
+  script(src='/javascripts/btq.js')
+  script(src='/javascripts/etq.js')

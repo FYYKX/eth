@@ -558,6 +558,124 @@ router.get('/qtb.json', cache('10 seconds'), function (req, res, next) {
   );
 });
 
+router.get('/btq.json', cache('10 seconds'), function (req, res, next) {
+  async.parallel(
+    {
+      qshbtc: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      btcusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/btcusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      qshusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      }
+    },
+    function (err, result) {
+      var data = [];
+
+      var btc_qash = 1 / result.qshbtc.bid;
+      var btc_usd_qash = result.btcusd.bid / result.qshusd.ask;
+
+      data.push({
+        currency: "BTC",
+        usd: "",
+        qash: btc_qash,
+        qash_usd: result.btcusd.bid / btc_qash,
+        percentage: 0
+      });
+      data.push({
+        currency: "BTC",
+        usd: result.btcusd.bid,
+        qash: btc_usd_qash,
+        qash_usd: result.btcusd.bid / btc_usd_qash,
+        percentage: (btc_usd_qash - btc_qash) / btc_qash
+      });
+      res.json(data);
+    }
+  );
+});
+
+router.get('/etq.json', cache('10 seconds'), function (req, res, next) {
+  async.parallel(
+    {
+      qsheth: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      ethusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/ethusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      qshusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      }
+    },
+    function (err, result) {
+      var data = [];
+
+      var eth_qash = 1 / result.qsheth.bid;
+      var eth_usd_qash = result.ethusd.bid / result.qshusd.ask;
+
+      data.push({
+        currency: "ETH",
+        usd: "",
+        qash: eth_qash,
+        qash_usd: result.ethusd.bid / eth_qash,
+        percentage: 0
+      });
+      data.push({
+        currency: "ETH",
+        usd: result.ethusd.bid,
+        qash: eth_usd_qash,
+        qash_usd: result.ethusd.bid / eth_usd_qash,
+        percentage: (eth_usd_qash - eth_qash) / eth_qash
+      });
+      res.json(data);
+    }
+  );
+});
+
 router.get('/cycle', function (req, res, next) {
   res.render("cycle");
 });
