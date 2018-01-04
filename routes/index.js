@@ -34,7 +34,7 @@ router.get('/eth', function (req, res, next) {
 });
 
 router.get('/eth.json', function (req, res, next) {
-  ticker.eth(function (results) {
+  ticker.ethusd(function (results) {
     var low = 0;
     results.forEach(function (item) {
       if (low === 0 || item.ask < low) {
@@ -270,24 +270,56 @@ router.get('/qqb.json/:currency?', cache('10 seconds'), function (req, res, next
       sell: sell,
       ticker: data
     });
-  })
+  });
 });
 
-router.get('/eb', function (req, res, next) {
-  res.render("eb");
-});
+router.get('/eb.json', cache('20 seconds'), function (req, res, next) {
+  ticker.ethbtc(function (results) {
+    var data = results.map(item => {
+      item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
+      item.qryptos = item.exchange != 'qryptos' ? (item.bid - results[1].ask) / results[1].ask : '';
+      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.bittrex = item.exchange != 'bittrex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      return item;
+    });
 
-router.get('/eb.json', cache('10 seconds'), function (req, res, next) {
-  orderbook.product(37, 4, 'ETHBTC', function (results) {
-    var low = 0;
-    results.forEach(function (item) {
-      if (low === 0 || item.ask < low) {
-        low = item.ask;
+    var high = 0;
+    var buy = '';
+    var sell = '';
+    data.forEach(function (item) {
+      if (item.quoine > high) {
+        high = item.quoine;
+        sell = item.exchange;
+        buy = 'quoine';
+      }
+      if (item.qryptos > high) {
+        high = item.qryptos;
+        sell = item.exchange;
+        buy = 'qryptos';
+      }
+      if (item.bitfinex > high) {
+        high = item.bitfinex;
+        sell = item.exchange;
+        buy = 'bitfinex';
+      }
+      if (item.poloniex > high) {
+        high = item.poloniex;
+        sell = item.exchange;
+        buy = 'poloniex';
+      }
+      if (item.bittrex > high) {
+        high = item.bittrex;
+        sell = item.exchange;
+        buy = 'bittrex';
       }
     });
+
     res.json({
-      ask: low,
-      ticker: results
+      chance: high,
+      buy: buy,
+      sell: sell,
+      ticker: data
     });
   });
 });

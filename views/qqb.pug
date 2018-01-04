@@ -22,7 +22,7 @@ block content
       table.display#qb
         thead
           tr
-            th Action
+            th Exchange
             th Ask
             th Bid
             th 
@@ -44,7 +44,27 @@ block content
             th SGDUSD
             th Spread
 
+    div.col-md-12
+      h3 ETHBTC
+      table.display#eb
+        thead
+          tr
+            th Exchange
+            th Ask
+            th Bid
+            th 
+              span.label.quoine quoine
+            th 
+              span.label.qryptos qryptos
+            th 
+              span.label.bitfinex bitfinex
+            th 
+              span.label.poloniex poloniex
+            th 
+              span.label.bittrex bittrex
+
 block script
   script(src='/javascripts/qe.js')
   script(src='/javascripts/qb.js')
   script(src='/javascripts/qus.js')
+  script(src='/javascripts/eb.js')
