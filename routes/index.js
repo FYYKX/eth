@@ -73,7 +73,7 @@ router.get('/qe_qq.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
-router.get('/qb.json', cache('10 seconds'), function (req, res, next) {
+router.get('/qb.json', cache('20 seconds'), function (req, res, next) {
   ticker.qash(52, 32, 'QSHBTC', function (results) {
     var data = results.map(item => {
       item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
@@ -128,11 +128,7 @@ router.get('/qb_qq.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
-router.get('/qu', function (req, res, next) {
-  res.render('qu');
-});
-
-router.get('/qu.json', cache('10 seconds'), function (req, res, next) {
+router.get('/qu.json', cache('20 seconds'), function (req, res, next) {
   orderbook.product(57, null, 'QSHUSD', function (results) {
     var low = 0;
     results.forEach(function (item) {
