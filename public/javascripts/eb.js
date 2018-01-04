@@ -9,7 +9,6 @@ $(function () {
   var table = $("#eb").DataTable({
     "ajax": {
       "url": "eb.json",
-      "data": "",
       "dataSrc": function (json) {
         var chance = json.chance;
         if (chance > 0.01 && chance > last) {

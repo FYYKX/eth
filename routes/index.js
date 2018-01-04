@@ -324,6 +324,51 @@ router.get('/eb.json', cache('20 seconds'), function (req, res, next) {
   });
 });
 
+router.get('/eu.json', cache('20 seconds'), function (req, res, next) {
+  ticker.ethusd(function (results) {
+    var data = results.map(item => {
+      item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
+      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.bittrex = item.exchange != 'bittrex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      return item;
+    });
+
+    var high = 0;
+    var buy = '';
+    var sell = '';
+    data.forEach(function (item) {
+      if (item.quoine > high) {
+        high = item.quoine;
+        sell = item.exchange;
+        buy = 'quoine';
+      }
+      if (item.bitfinex > high) {
+        high = item.bitfinex;
+        sell = item.exchange;
+        buy = 'bitfinex';
+      }
+      if (item.poloniex > high) {
+        high = item.poloniex;
+        sell = item.exchange;
+        buy = 'poloniex';
+      }
+      if (item.bittrex > high) {
+        high = item.bittrex;
+        sell = item.exchange;
+        buy = 'bittrex';
+      }
+    });
+
+    res.json({
+      chance: high,
+      buy: buy,
+      sell: sell,
+      ticker: data
+    });
+  });
+});
+
 router.get('/qes', function (req, res, next) {
   res.render("qes");
 });

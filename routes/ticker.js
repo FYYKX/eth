@@ -222,7 +222,6 @@ var ethusd = function (callback) {
         try {
           callback(null, {
             "exchange": "quoine",
-            "country": "",
             "bid": body.market_bid,
             "ask": body.market_ask
           });
@@ -239,46 +238,8 @@ var ethusd = function (callback) {
         try {
           callback(null, {
             "exchange": "bitfinex",
-            "country": "",
             "bid": parseFloat(body.bid),
             "ask": parseFloat(body.ask)
-          });
-        } catch (e) {
-          return callback(null, null);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.gdax.com/products/ETH-USD/ticker",
-        json: true,
-        headers: {
-          'User-Agent': 'request'
-        }
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "gdax",
-            "country": "",
-            "bid": parseFloat(body.bid),
-            "ask": parseFloat(body.ask)
-          });
-        } catch (e) {
-          return callback(null, null);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-ETH",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "bittrex",
-            "country": "",
-            "bid": parseFloat(body.result.Bid),
-            "ask": parseFloat(body.result.Ask)
           });
         } catch (e) {
           return callback(null, null);
@@ -293,9 +254,24 @@ var ethusd = function (callback) {
         try {
           callback(null, {
             "exchange": "poloniex",
-            "country": "",
             "bid": parseFloat(body.USDT_ETH.highestBid),
             "ask": parseFloat(body.USDT_ETH.lowestAsk)
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    },
+    function (callback) {
+      request.get({
+        url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-ETH",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "bittrex",
+            "bid": parseFloat(body.result.Bid),
+            "ask": parseFloat(body.result.Ask)
           });
         } catch (e) {
           return callback(null, null);
