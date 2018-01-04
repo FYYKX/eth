@@ -6,16 +6,13 @@ $(function () {
   }
 
   var last = 0;
-  var table = $("#qb").DataTable({
+  var table = $("#bu").DataTable({
     "ajax": {
-      "url": "qqb.json",
-      "data": function (d) {
-        d.currency = "BTC";
-      },
+      "url": "bu.json",
       "dataSrc": function (json) {
         var chance = json.chance;
         if (chance > 0.01 && chance > last) {
-          new Notification("QASHBTC " + (chance * 100).toFixed(2) + "%", {
+          new Notification("BTCUSD " + (chance * 100).toFixed(2) + "%", {
             body: "Sell at " + json.sell + " Buy at " + json.buy,
             icon: "/images/" + json.sell + ".png"
           });
@@ -39,10 +36,13 @@ $(function () {
         "data": "quoine"
       },
       {
-        "data": "qryptos"
+        "data": "bitfinex"
       },
       {
-        "data": "bitfinex"
+        "data": "poloniex"
+      },
+      {
+        "data": "bittrex"
       }
     ],
     "columnDefs": [
@@ -54,7 +54,7 @@ $(function () {
         }
       },
       {
-        "targets": [3, 4, 5],
+        "targets": [3, 4, 5, 6],
         "render": function (data, type, row, meta) {
           if (data) {
             var css = data > 0 ? "label-success" : "label-danger";

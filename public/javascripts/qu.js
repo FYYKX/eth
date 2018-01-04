@@ -39,7 +39,7 @@ $(function () {
         if (chance > 0.05 && chance > last) {
           new Notification("QASHUSD " + (chance * 100).toFixed(2) + "%", {
             body: "Sell QASH at " + exchange,
-            icon: "/images/qash.png"
+            icon: "/images/" + exchange + ".png"
           });
           last = chance;
         }

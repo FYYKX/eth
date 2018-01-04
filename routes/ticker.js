@@ -285,6 +285,80 @@ var ethusd = function (callback) {
   );
 };
 
+
+var btcusd = function (callback) {
+  async.parallel([
+    function (callback) {
+      request.get({
+        url: "https://api.quoine.com/products/1",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "quoine",
+            "bid": body.market_bid,
+            "ask": body.market_ask
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    },
+    function (callback) {
+      request.get({
+        url: "https://api.bitfinex.com/v1/pubticker/btcusd",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "bitfinex",
+            "bid": parseFloat(body.bid),
+            "ask": parseFloat(body.ask)
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    },
+    function (callback) {
+      request.get({
+        url: "https://poloniex.com/public?command=returnTicker",
+        json: true
+      }, function (error, reponse, body) {
+        try {
+          callback(null, {
+            "exchange": "poloniex",
+            "bid": parseFloat(body.USDT_BTC.highestBid),
+            "ask": parseFloat(body.USDT_BTC.lowestAsk)
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    },
+    function (callback) {
+      request.get({
+        url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-BTC",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "bittrex",
+            "bid": parseFloat(body.result.Bid),
+            "ask": parseFloat(body.result.Ask)
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    }
+  ],
+    function (err, results) {
+      callback(results);
+    }
+  );
+};
+
 var qash = function (quoine, qryptos, bitfinex, callback) {
   async.parallel([
     function (callback) {
@@ -434,6 +508,7 @@ var ethbtc = function (callback) {
 module.exports = {
   btc: btc,
   ethusd: ethusd,
+  btcusd: btcusd,
   qash: qash,
   ethbtc: ethbtc
 };

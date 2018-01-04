@@ -17,7 +17,7 @@ $(function () {
         if (chance > 0.01 && chance > last) {
           new Notification("QASHETH " + (chance * 100).toFixed(2) + "%", {
             body: "Sell at " + json.sell + " Buy at " + json.buy,
-            icon: "/images/qash.png"
+            icon: "/images/" + json.sell + ".png"
           });
           last = chance;
         }

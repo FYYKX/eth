@@ -33,14 +33,6 @@ $(function () {
                         ticker[i].ask = "<span class='label label-danger'>" + ticker[i].ask + "</span>";
                     }
                 }
-
-                // if (chance > 0.05 && chance > last) {
-                //     new Notification("QASHUSD " + (chance * 100).toFixed(2) + "%", {
-                //         body: "Sell QASH at " + exchange,
-                //         icon: "/images/qash.png"
-                //     });
-                //     last = chance;
-                // }
                 return ticker;
             }
         },

@@ -63,9 +63,26 @@ block content
             th 
               span.label.bittrex bittrex
 
-    div.col-md-6
+    div.col-md-12
       h3 ETHUSD
       table.display#eu
+        thead
+          tr
+            th Exchange
+            th Ask
+            th Bid
+            th 
+              span.label.quoine quoine
+            th 
+              span.label.bitfinex bitfinex
+            th 
+              span.label.poloniex poloniex
+            th 
+              span.label.bittrex bittrex
+    
+    div.col-md-12
+      h3 BTCUSD
+      table.display#bu
         thead
           tr
             th Exchange
@@ -86,3 +103,4 @@ block script
   script(src='/javascripts/qus.js')
   script(src='/javascripts/eb.js')
   script(src='/javascripts/eu.js')
+  script(src='/javascripts/bu.js')
