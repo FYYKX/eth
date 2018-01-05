@@ -11,7 +11,7 @@ $(function () {
       "url": "bu.json",
       "dataSrc": function (json) {
         var chance = json.chance;
-        if (chance > 0.01 && chance > last) {
+        if (chance > 0.01 && chance > last && $("#" + json.sell + "_qash").val() && $("#" + json.buy + "_eth").val()) {
           new Notification("BTCUSD " + (chance * 100).toFixed(2) + "%", {
             body: "Sell at " + json.sell + " Buy at " + json.buy,
             icon: "/images/" + json.sell + ".png"

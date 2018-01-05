@@ -832,7 +832,9 @@ router.get("/spread.json", function (req, res, next) {
         if (symbol == 'VET') {
           symbol = 'VEN';
         }
-        item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
+        if (results.coinmarketcap != null) {
+          item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
+        }
         return item;
       })
       .filter(item => item.coinmarketcap != null);
