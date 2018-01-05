@@ -57,7 +57,7 @@ $(function () {
         "targets": [3, 4, 5, 6],
         "render": function (data, type, row, meta) {
           if (data) {
-            var css = data > 0 ? "label-success" : "label-danger";
+            var css = data > 0.01 ? "label-info" : data > 0 ? "label-warning" : "label-danger";
             return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
           } else {
             return "";
