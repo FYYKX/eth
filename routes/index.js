@@ -827,8 +827,12 @@ router.get("/spread.json", function (req, res, next) {
     var data = results.quoine
       .map(item => {
         item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
-        item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h
-        item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == item.base_currency);
+        item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h;
+        var symbol = item.base_currency;
+        if (symbol == 'VET') {
+          symbol = 'VEN';
+        }
+        item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
         return item;
       })
       .filter(item => item.coinmarketcap != null);
