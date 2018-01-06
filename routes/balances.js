@@ -93,7 +93,7 @@ router.get('/', function (req, res) {
     }
   ],
     function (err, results) {
-      res.json(results).filter(item => item != null);
+      res.json(results.filter(item => item != null));
     });
 });
 
