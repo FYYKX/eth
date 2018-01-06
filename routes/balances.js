@@ -29,59 +29,71 @@ router.get('/:exchange', function (req, res) {
 router.get('/', function (req, res) {
   async.parallel([
     function (callback) {
-      var quoine = new qqclient(config.quoine);
-      quoine.balances(function (body) {
-        callback(null, {
-          exchange: "quoine",
-          btc: body.find(item => item.currency == 'BTC').balance,
-          eth: body.find(item => item.currency == 'ETH').balance,
-          qash: body.find(item => item.currency == 'QASH').balance,
-          usd: body.find(item => item.currency == 'USD').balance
+      try {
+        var quoine = new qqclient(config.quoine);
+        quoine.balances(function (body) {
+          callback(null, {
+            exchange: "quoine",
+            btc: body.find(item => item.currency == 'BTC').balance,
+            eth: body.find(item => item.currency == 'ETH').balance,
+            qash: body.find(item => item.currency == 'QASH').balance,
+            usd: body.find(item => item.currency == 'USD').balance
+          });
         });
-      });
+      } catch (e) {
+        callback(null, null);
+      }
     },
     function (callback) {
-      var qryptos = new qqclient(config.qryptos);
-      qryptos.balances(function (body) {
-        callback(null, {
-          exchange: "qryptos",
-          btc: body.find(item => item.currency == 'BTC').balance,
-          eth: body.find(item => item.currency == 'ETH').balance,
-          qash: body.find(item => item.currency == 'QASH').balance,
-          usd: 0
+      try {
+        var qryptos = new qqclient(config.qryptos);
+        qryptos.balances(function (body) {
+          callback(null, {
+            exchange: "qryptos",
+            btc: body.find(item => item.currency == 'BTC').balance,
+            eth: body.find(item => item.currency == 'ETH').balance,
+            qash: body.find(item => item.currency == 'QASH').balance,
+            usd: 0
+          });
         });
-      });
+      } catch (e) {
+        callback(null, null);
+      }
     },
     function (callback) {
       bitfinex.balances(function (body) {
-        body = body.filter(item => item.type == 'exchange');
-        callback(null, {
-          exchange: "bitfinex",
-          btc: body.find(item => item.currency == 'btc').available,
-          eth: body.find(item => item.currency == 'eth').available,
-          qash: body.find(item => item.currency == 'qsh').available,
-          usd: body.find(item => item.currency == 'usd').available
-        });
+        try {
+          body = body.filter(item => item.type == 'exchange');
+          callback(null, {
+            exchange: "bitfinex",
+            btc: body.find(item => item.currency == 'btc').available,
+            eth: body.find(item => item.currency == 'eth').available,
+            qash: body.find(item => item.currency == 'qsh').available,
+            usd: body.find(item => item.currency == 'usd').available
+          });
+        } catch (e) {
+          callback(null, null);
+        }
       });
     },
     function (callback) {
-      poloniex.balances(function (body) {
-        callback(null, {
-          exchange: "poloniex",
-          btc: body.BTC,
-          eth: body.ETH,
-          qash: 0,
-          usd: body.USDT
+      try {
+        poloniex.balances(function (body) {
+          callback(null, {
+            exchange: "poloniex",
+            btc: body.BTC,
+            eth: body.ETH,
+            qash: 0,
+            usd: body.USDT
+          });
         });
-      });
+      } catch (e) {
+        callback(null, null);
+      }
     }
   ],
     function (err, results) {
-      if (err) {
-        res.json({});
-      } else {
-        res.json(results);
-      }
+      res.json(results).filter(item => item != null);
     });
 });
 
