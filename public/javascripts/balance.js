@@ -106,16 +106,16 @@ $(function () {
                 }, 0);
 
             $(api.column(1).footer()).html(
-                "<span class='label label-info'>" + btc_total + "</span>"
+                btc_total
             );
             $(api.column(2).footer()).html(
-                "<span class='label label-info'>" + eth_total + "</span>"
+                eth_total
             );
             $(api.column(3).footer()).html(
-                "<span class='label label-info'>" + qash_total + "</span>"
+                qash_total
             );
             $(api.column(4).footer()).html(
-                "<span class='label label-info'>" + usd_total + "</span>"
+                usd_total
             );
         }
     });
