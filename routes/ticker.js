@@ -401,8 +401,8 @@ var qash = function (quoine, qryptos, bitfinex, callback) {
         try {
           callback(null, {
             "exchange": "bitfinex",
-            "bid": body.bid ? body.bid : 0,
-            "ask": body.ask ? body.ask : 0
+            "bid": body.bid,
+            "ask": body.ask
           });
         } catch (e) {
           return callback(null, null);
