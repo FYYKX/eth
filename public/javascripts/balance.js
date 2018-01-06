@@ -73,7 +73,51 @@ $(function () {
                     }
                 }
             }
-        ]
+        ],
+        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(), data;
+
+            btc_total = api
+                .column(1)
+                .data()
+                .reduce(function (a, b) {
+                    return parseFloat(a) + parseFloat(b);
+                }, 0);
+
+            eth_total = api
+                .column(2)
+                .data()
+                .reduce(function (a, b) {
+                    return parseFloat(a) + parseFloat(b);
+                }, 0);
+
+            qash_total = api
+                .column(3)
+                .data()
+                .reduce(function (a, b) {
+                    return parseFloat(a) + parseFloat(b);
+                }, 0);
+
+            usd_total = api
+                .column(4)
+                .data()
+                .reduce(function (a, b) {
+                    return parseFloat(a) + parseFloat(b);
+                }, 0);
+
+            $(api.column(1).footer()).html(
+                "<span class='label label-info'>" + btc_total + "</span>"
+            );
+            $(api.column(2).footer()).html(
+                "<span class='label label-info'>" + eth_total + "</span>"
+            );
+            $(api.column(3).footer()).html(
+                "<span class='label label-info'>" + qash_total + "</span>"
+            );
+            $(api.column(4).footer()).html(
+                "<span class='label label-info'>" + usd_total + "</span>"
+            );
+        }
     });
 
     //API users should not make more than 300 requests per 5 minute
