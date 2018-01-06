@@ -60,7 +60,31 @@ $(function () {
         "targets": [3, 4, 5, 6, 7],
         "render": function (data, type, row, meta) {
           if (data) {
-            var css = data > 0.01 ? "label-info" : data > 0 ? "label-warning" : "label-danger";
+            var css = data > 0 ? "label-warning" : "label-danger";
+            if (data > 0) {
+              var buy;
+              switch (meta.col) {
+                case 3:
+                  buy = "quoine";
+                  break;
+                case 4:
+                  buy = "qryptos";
+                  break;
+                case 5:
+                  buy = "bitfinex";
+                  break;
+                case 6:
+                  buy = "poloniex";
+                  break;
+                default:
+                  buy = "bittrex";
+              }
+
+              if ($("#" + row.exchange + "_eth").val() && $("#" + buy + "_btc").val()) {
+                css = "label-success";
+              }
+            }
+
             return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
           } else {
             return "";
