@@ -411,7 +411,7 @@ var qash = function (quoine, qryptos, bitfinex, callback) {
     }
   ],
     function (err, results) {
-      callback(results.filter(item => item != null));
+      callback(results);
     }
   );
 };
