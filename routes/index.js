@@ -275,8 +275,9 @@ router.get('/eb.json', cache('20 seconds'), function (req, res, next) {
       item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
       item.qryptos = item.exchange != 'qryptos' ? (item.bid - results[1].ask) / results[1].ask : '';
       item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
-      item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
-      item.binance = item.exchange != 'binance' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[3].ask) / results[3].ask : '';
+      item.binance = item.exchange != 'binance' ? (item.bid - results[4].ask) / results[4].ask : '';
+      item.hitbtc = item.exchange != 'hitbtc' ? (item.bid - results[5].ask) / results[5].ask : '';
       return item;
     });
 
@@ -309,6 +310,11 @@ router.get('/eb.json', cache('20 seconds'), function (req, res, next) {
         sell = item.exchange;
         buy = 'binance';
       }
+      if (item.hitbtc > high) {
+        high = item.hitbtc;
+        sell = item.exchange;
+        buy = 'hitbtc';
+      }
     });
 
     res.json({
@@ -324,9 +330,10 @@ router.get('/eu.json', cache('20 seconds'), function (req, res, next) {
   ticker.ethusd(function (results) {
     var data = results.map(item => {
       item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
-      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[1].ask) / results[1].ask : '';
       item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
-      item.binance = item.exchange != 'binance' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.binance = item.exchange != 'binance' ? (item.bid - results[3].ask) / results[3].ask : '';
+      item.hitbtc = item.exchange != 'hitbtc' ? (item.bid - results[4].ask) / results[4].ask : '';
       return item;
     });
 
@@ -353,6 +360,11 @@ router.get('/eu.json', cache('20 seconds'), function (req, res, next) {
         high = item.binance;
         sell = item.exchange;
         buy = 'binance';
+      }
+      if (item.hitbtc > high) {
+        high = item.hitbtc;
+        sell = item.exchange;
+        buy = 'hitbtc';
       }
     });
 
@@ -369,9 +381,10 @@ router.get('/bu.json', cache('20 seconds'), function (req, res, next) {
   ticker.btcusd(function (results) {
     var data = results.map(item => {
       item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
-      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[1].ask) / results[1].ask : '';
       item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
-      item.binance = item.exchange != 'binance' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.binance = item.exchange != 'binance' ? (item.bid - results[3].ask) / results[3].ask : '';
+      item.hitbtc = item.exchange != 'hitbtc' ? (item.bid - results[4].ask) / results[4].ask : '';
       return item;
     });
 
@@ -398,6 +411,11 @@ router.get('/bu.json', cache('20 seconds'), function (req, res, next) {
         high = item.binance;
         sell = item.exchange;
         buy = 'binance';
+      }
+      if (item.hitbtc > high) {
+        high = item.hitbtc;
+        sell = item.exchange;
+        buy = 'hitbtc';
       }
     });
 

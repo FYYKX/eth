@@ -42,7 +42,10 @@ $(function () {
         "data": "poloniex"
       },
       {
-        "data": "bittrex"
+        "data": "binance"
+      },
+      {
+        "data": "hitbtc"
       }
     ],
     "columnDefs": [
@@ -54,7 +57,7 @@ $(function () {
         }
       },
       {
-        "targets": [3, 4, 5, 6],
+        "targets": [3, 4, 5, 6, 7],
         "render": function (data, type, row, meta) {
           if (data) {
             var css = data > 0 ? "label-warning" : "label-danger";
@@ -70,8 +73,11 @@ $(function () {
                 case 5:
                   buy = "poloniex";
                   break;
-                default:
+                case 6:
                   buy = "bittrex";
+                  break;
+                default:
+                  buy = "hitbtc";
               }
 
               if ($("#" + row.exchange + "_btc").val() && $("#" + buy + "_usd").val()) {

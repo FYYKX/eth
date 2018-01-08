@@ -278,6 +278,22 @@ var ethusd = function (callback) {
           return callback(null, null);
         }
       });
+    },
+    function (callback) {
+      request.get({
+        url: "https://api.hitbtc.com/api/2/public/ticker/ETHUSD",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "hitbtc",
+            "bid": body.bid,
+            "ask": body.ask
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
     }
   ],
     function (err, results) {
@@ -347,6 +363,22 @@ var btcusd = function (callback) {
             "exchange": "binance",
             "bid": body.bidPrice,
             "ask": body.askPrice
+          });
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
+    },
+    function (callback) {
+      request.get({
+        url: "https://api.hitbtc.com/api/2/public/ticker/BTCUSD",
+        json: true
+      }, function (error, response, body) {
+        try {
+          callback(null, {
+            "exchange": "hitbtc",
+            "bid": body.bid,
+            "ask": body.ask
           });
         } catch (e) {
           return callback(null, null);
@@ -505,6 +537,23 @@ var ethbtc = function (callback) {
           return callback(null, null);
         }
       });
+    },
+    function (callback) {
+      request.get({
+        url: "https://api.hitbtc.com/api/2/public/ticker/ETHBTC",
+        json: true
+      }, function (error, response, body) {
+        try {
+          var data = {
+            "exchange": "hitbtc",
+            "bid": body.bid,
+            "ask": body.ask
+          };
+          callback(null, data);
+        } catch (e) {
+          return callback(null, null);
+        }
+      });
     }
   ],
     function (err, results) {
@@ -518,8 +567,8 @@ var ethbtc = function (callback) {
 
 module.exports = {
   btc: btc,
+  qash: qash,
   ethusd: ethusd,
   btcusd: btcusd,
-  qash: qash,
   ethbtc: ethbtc
 };

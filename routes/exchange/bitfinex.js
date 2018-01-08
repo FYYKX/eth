@@ -36,11 +36,7 @@ var balances = function (callback) {
     var options = getOptions(url, payload);
 
     baseRequest.post(options, function (error, response, body) {
-        if (error) {
-            callback(null);
-        } else {
-            callback(JSON.parse(body));
-        }
+        callback(JSON.parse(body));
     });
 };
 
