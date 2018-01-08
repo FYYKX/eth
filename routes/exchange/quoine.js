@@ -13,7 +13,8 @@ var quoine = function (config) {
 			'Content-Type': 'application/json',
 			'X-Quoine-API-Version': '2'
 		},
-		baseUrl: config.base_url
+		baseUrl: config.base_url,
+		json: true
 	});
 }
 
@@ -46,7 +47,7 @@ quoine.prototype.balances = function (callback) {
 	var options = getOptions(verb, url, payload);
 
 	this.baseRequest.get(options, function (error, response, body) {
-		callback(JSON.parse(body));
+		callback(body);
 	});
 };
 

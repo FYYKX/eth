@@ -10,7 +10,8 @@ var
         headers: {
             'X-BFX-APIKEY': api_key
         },
-        baseUrl: 'https://api.bitfinex.com/v1'
+        baseUrl: 'https://api.bitfinex.com/v1',
+        json: true
     });
 
 function getOptions(url, payload) {
@@ -36,7 +37,7 @@ var balances = function (callback) {
     var options = getOptions(url, payload);
 
     baseRequest.post(options, function (error, response, body) {
-        callback(JSON.parse(body));
+        callback(body);
     });
 };
 
