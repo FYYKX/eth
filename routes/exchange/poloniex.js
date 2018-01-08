@@ -29,7 +29,7 @@ function getOptions(payload) {
 
 var returnBalances = function (callback) {
     var payload = {
-        'command': 'returnBalances',
+        'command': 'returnBalances1',
         'nonce': Date.now().toString()
     };
 

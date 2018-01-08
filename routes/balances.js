@@ -82,8 +82,8 @@ router.get('/', cache('10 seconds'), function (req, res) {
       });
     },
     function (callback) {
-      try {
-        poloniex.balances(function (body) {
+      poloniex.balances(function (body) {
+        if (body.BTC) {
           callback(null, {
             exchange: "poloniex",
             btc: body.BTC,
@@ -91,10 +91,9 @@ router.get('/', cache('10 seconds'), function (req, res) {
             qash: 0,
             usd: body.USDT
           });
-        });
-      } catch (e) {
+        }
         callback(null, null);
-      }
+      });
     }
   ],
     function (err, results) {
