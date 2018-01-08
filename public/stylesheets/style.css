@@ -10,10 +10,6 @@ a {
   color: #00B7FF;
 }
 
-.bitfinex {
-  background-color: #5cb85c;
-}
-
 .quoine {
   background-color: #337ab7;
 }
@@ -22,10 +18,18 @@ a {
   background-color: #f0ad4e;
 }
 
-.bittrex {
-  background-color: #f05f40;
+.bitfinex {
+  background-color: #5cb85c;
 }
 
 .poloniex {
   background-color: #0a6970;
+}
+
+.bittrex {
+  background-color: #f05f40;
+}
+
+.binance {
+  background-color: #e8b342;
 }

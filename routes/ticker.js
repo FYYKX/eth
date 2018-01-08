@@ -264,14 +264,15 @@ var ethusd = function (callback) {
     },
     function (callback) {
       request.get({
-        url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-ETH",
+        url: "https://api.binance.com/api/v1/ticker/allBookTickers",
         json: true
       }, function (error, response, body) {
         try {
+          body = body.find(item => item.symbol == "ETHUSDT");
           callback(null, {
-            "exchange": "bittrex",
-            "bid": parseFloat(body.result.Bid),
-            "ask": parseFloat(body.result.Ask)
+            "exchange": "binance",
+            "bid": body.bidPrice,
+            "ask": body.askPrice
           });
         } catch (e) {
           return callback(null, null);
@@ -284,7 +285,6 @@ var ethusd = function (callback) {
     }
   );
 };
-
 
 var btcusd = function (callback) {
   async.parallel([
@@ -338,14 +338,15 @@ var btcusd = function (callback) {
     },
     function (callback) {
       request.get({
-        url: "https://bittrex.com/api/v1.1/public/getticker?market=USDT-BTC",
+        url: "https://api.binance.com/api/v1/ticker/allBookTickers",
         json: true
       }, function (error, response, body) {
         try {
+          body = body.find(item => item.symbol == "BTCUSDT");
           callback(null, {
-            "exchange": "bittrex",
-            "bid": parseFloat(body.result.Bid),
-            "ask": parseFloat(body.result.Ask)
+            "exchange": "binance",
+            "bid": body.bidPrice,
+            "ask": body.askPrice
           });
         } catch (e) {
           return callback(null, null);
@@ -399,11 +400,12 @@ var qash = function (quoine, qryptos, bitfinex, callback) {
         json: true
       }, function (error, response, body) {
         try {
-          callback(null, {
+          var data = {
             "exchange": "bitfinex",
             "bid": body.bid ? body.bid : null,
             "ask": body.ask ? body.ask : null
-          });
+          };
+          callback(null, data);
         } catch (e) {
           return callback(null, null);
         }
@@ -488,14 +490,15 @@ var ethbtc = function (callback) {
     },
     function (callback) {
       request.get({
-        url: "https://bittrex.com/api/v1.1/public/getticker?market=BTC-ETH",
+        url: "https://api.binance.com/api/v1/ticker/allBookTickers",
         json: true
       }, function (error, response, body) {
         try {
+          body = body.find(item => item.symbol == "ETHBTC");
           var data = {
-            "exchange": "bittrex",
-            "bid": parseFloat(body.result.Bid),
-            "ask": parseFloat(body.result.Ask)
+            "exchange": "binance",
+            "bid": body.bidPrice,
+            "ask": body.askPrice
           };
           callback(null, data);
         } catch (e) {

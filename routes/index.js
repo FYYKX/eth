@@ -276,7 +276,7 @@ router.get('/eb.json', cache('20 seconds'), function (req, res, next) {
       item.qryptos = item.exchange != 'qryptos' ? (item.bid - results[1].ask) / results[1].ask : '';
       item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
       item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
-      item.bittrex = item.exchange != 'bittrex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.binance = item.exchange != 'binance' ? (item.bid - results[2].ask) / results[2].ask : '';
       return item;
     });
 
@@ -304,10 +304,10 @@ router.get('/eb.json', cache('20 seconds'), function (req, res, next) {
         sell = item.exchange;
         buy = 'poloniex';
       }
-      if (item.bittrex > high) {
-        high = item.bittrex;
+      if (item.binance > high) {
+        high = item.binance;
         sell = item.exchange;
-        buy = 'bittrex';
+        buy = 'binance';
       }
     });
 
@@ -326,7 +326,7 @@ router.get('/eu.json', cache('20 seconds'), function (req, res, next) {
       item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
       item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
       item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
-      item.bittrex = item.exchange != 'bittrex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.binance = item.exchange != 'binance' ? (item.bid - results[2].ask) / results[2].ask : '';
       return item;
     });
 
@@ -349,10 +349,10 @@ router.get('/eu.json', cache('20 seconds'), function (req, res, next) {
         sell = item.exchange;
         buy = 'poloniex';
       }
-      if (item.bittrex > high) {
-        high = item.bittrex;
+      if (item.binance > high) {
+        high = item.binance;
         sell = item.exchange;
-        buy = 'bittrex';
+        buy = 'binance';
       }
     });
 
@@ -371,7 +371,7 @@ router.get('/bu.json', cache('20 seconds'), function (req, res, next) {
       item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
       item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
       item.poloniex = item.exchange != 'poloniex' ? (item.bid - results[2].ask) / results[2].ask : '';
-      item.bittrex = item.exchange != 'bittrex' ? (item.bid - results[2].ask) / results[2].ask : '';
+      item.binance = item.exchange != 'binance' ? (item.bid - results[2].ask) / results[2].ask : '';
       return item;
     });
 
@@ -394,10 +394,10 @@ router.get('/bu.json', cache('20 seconds'), function (req, res, next) {
         sell = item.exchange;
         buy = 'poloniex';
       }
-      if (item.bittrex > high) {
-        high = item.bittrex;
+      if (item.binance > high) {
+        high = item.binance;
         sell = item.exchange;
-        buy = 'bittrex';
+        buy = 'binance';
       }
     });
 

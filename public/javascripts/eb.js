@@ -45,7 +45,7 @@ $(function () {
         "data": "poloniex"
       },
       {
-        "data": "bittrex"
+        "data": "binance"
       }
     ],
     "columnDefs": [
@@ -77,7 +77,7 @@ $(function () {
                   buy = "poloniex";
                   break;
                 default:
-                  buy = "bittrex";
+                  buy = "binance";
               }
 
               if ($("#" + row.exchange + "_eth").val() && $("#" + buy + "_btc").val()) {
