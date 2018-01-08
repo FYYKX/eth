@@ -1,6 +1,7 @@
 
 var express = require('express');
 var async = require('async');
+var apicache = require('apicache');
 
 var config = require('../config');
 var qqclient = require('./exchange/quoine');
@@ -8,6 +9,7 @@ var bitfinex = require('./exchange/bitfinex');
 var poloniex = require('./exchange/poloniex');
 
 var router = express.Router();
+var cache = apicache.middleware;
 
 router.get('/:exchange', function (req, res) {
   var exchange = req.params.exchange;
@@ -26,19 +28,20 @@ router.get('/:exchange', function (req, res) {
   });
 });
 
-router.get('/', function (req, res) {
+router.get('/', cache('10 seconds'), function (req, res) {
   async.parallel([
     function (callback) {
       try {
         var quoine = new qqclient(config.quoine);
         quoine.balances(function (body) {
-          callback(null, {
+          var data = {
             exchange: "quoine",
             btc: body.find(item => item.currency == 'BTC').balance,
             eth: body.find(item => item.currency == 'ETH').balance,
             qash: body.find(item => item.currency == 'QASH').balance,
             usd: body.find(item => item.currency == 'USD').balance
-          });
+          };
+          callback(null, data);
         });
       } catch (e) {
         callback(null, null);
@@ -48,13 +51,14 @@ router.get('/', function (req, res) {
       try {
         var qryptos = new qqclient(config.qryptos);
         qryptos.balances(function (body) {
-          callback(null, {
+          var data = {
             exchange: "qryptos",
             btc: body.find(item => item.currency == 'BTC').balance,
             eth: body.find(item => item.currency == 'ETH').balance,
             qash: body.find(item => item.currency == 'QASH').balance,
             usd: 0
-          });
+          };
+          callback(null, data);
         });
       } catch (e) {
         callback(null, null);
@@ -64,13 +68,14 @@ router.get('/', function (req, res) {
       bitfinex.balances(function (body) {
         try {
           body = body.filter(item => item.type == 'exchange');
-          callback(null, {
+          var data = {
             exchange: "bitfinex",
             btc: body.find(item => item.currency == 'btc').available,
             eth: body.find(item => item.currency == 'eth').available,
             qash: body.find(item => item.currency == 'qsh').available,
             usd: body.find(item => item.currency == 'usd').available
-          });
+          };
+          callback(null, data);
         } catch (e) {
           callback(null, null);
         }

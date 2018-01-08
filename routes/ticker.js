@@ -424,11 +424,12 @@ var ethbtc = function (callback) {
         json: true
       }, function (error, response, body) {
         try {
-          callback(null, {
+          var data = {
             "exchange": "quoine",
             "bid": body.market_bid,
             "ask": body.market_ask
-          });
+          };
+          callback(null, data);
         } catch (e) {
           return callback(null, null);
         }
@@ -440,11 +441,12 @@ var ethbtc = function (callback) {
         json: true
       }, function (error, response, body) {
         try {
-          callback(null, {
+          var data = {
             "exchange": "qryptos",
             "bid": body.market_bid,
             "ask": body.market_ask
-          });
+          };
+          callback(null, data);
         } catch (e) {
           return callback(null, null);
         }
@@ -456,11 +458,12 @@ var ethbtc = function (callback) {
         json: true
       }, function (error, response, body) {
         try {
-          callback(null, {
+          var data = {
             "exchange": "bitfinex",
             "bid": parseFloat(body.bid),
             "ask": parseFloat(body.ask)
-          });
+          };
+          callback(null, data);
         } catch (e) {
           return callback(null, null);
         }
@@ -472,11 +475,12 @@ var ethbtc = function (callback) {
         json: true
       }, function (error, reponse, body) {
         try {
-          callback(null, {
+          var data = {
             "exchange": "poloniex",
             "bid": parseFloat(body.BTC_ETH.highestBid),
             "ask": parseFloat(body.BTC_ETH.lowestAsk)
-          });
+          };
+          callback(null, data);
         } catch (e) {
           return callback(null, null);
         }
@@ -488,11 +492,12 @@ var ethbtc = function (callback) {
         json: true
       }, function (error, response, body) {
         try {
-          callback(null, {
+          var data = {
             "exchange": "bittrex",
             "bid": parseFloat(body.result.Bid),
             "ask": parseFloat(body.result.Ask)
-          });
+          };
+          callback(null, data);
         } catch (e) {
           return callback(null, null);
         }
@@ -500,7 +505,10 @@ var ethbtc = function (callback) {
     }
   ],
     function (err, results) {
-      callback(results);
+      if (err) {
+        console.log(err);
+      }
+      callback(results.filter(item => item != null));
     }
   );
 };
