@@ -79,7 +79,7 @@ $(function () {
                 case 6:
                   buy = "poloniex";
                   break;
-                case 6:
+                case 7:
                   buy = "binance";
                   break;
                 default:
