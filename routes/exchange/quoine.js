@@ -46,11 +46,7 @@ quoine.prototype.balances = function (callback) {
 	var options = getOptions(verb, url, payload);
 
 	this.baseRequest.get(options, function (error, response, body) {
-		try {
-			callback(JSON.parse(body));
-		} catch (e) {
-			callback(null);
-		}
+		callback(JSON.parse(body));
 	});
 };
 
