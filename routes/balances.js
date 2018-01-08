@@ -91,8 +91,10 @@ router.get('/', cache('10 seconds'), function (req, res) {
             qash: 0,
             usd: body.USDT
           });
+        } else {
+          console.log(body);
+          callback(null, null);
         }
-        callback(null, null);
       });
     }
   ],
