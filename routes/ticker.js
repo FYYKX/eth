@@ -87,8 +87,8 @@ var btc = function (callback) {
               callback(null, {
                 "exchange": "quoine",
                 "country": "",
-                "bid": body.market_bid,
-                "ask": body.market_ask
+                "bid": parseFloat(body.market_bid),
+                "ask": parseFloat(body.market_ask)
               });
             } catch (e) {
               return callback(null, null);
@@ -222,8 +222,8 @@ var ethusd = function (callback) {
         try {
           callback(null, {
             "exchange": "quoine",
-            "bid": body.market_bid,
-            "ask": body.market_ask
+            "bid": parseFloat(body.market_bid),
+            "ask": parseFloat(body.market_ask)
           });
         } catch (e) {
           return callback(null, null);
@@ -271,8 +271,8 @@ var ethusd = function (callback) {
           body = body.find(item => item.symbol == "ETHUSDT");
           callback(null, {
             "exchange": "binance",
-            "bid": body.bidPrice,
-            "ask": body.askPrice
+            "bid": parseFloat(body.bidPrice),
+            "ask": parseFloat(body.askPrice)
           });
         } catch (e) {
           return callback(null, null);
@@ -287,8 +287,8 @@ var ethusd = function (callback) {
         try {
           callback(null, {
             "exchange": "hitbtc",
-            "bid": body.bid,
-            "ask": body.ask
+            "bid": parseFloat(body.bid),
+            "ask": parseFloat(body.ask)
           });
         } catch (e) {
           return callback(null, null);
@@ -312,8 +312,8 @@ var btcusd = function (callback) {
         try {
           callback(null, {
             "exchange": "quoine",
-            "bid": body.market_bid,
-            "ask": body.market_ask
+            "bid": parseFloat(body.market_bid),
+            "ask": parseFloat(body.market_ask)
           });
         } catch (e) {
           return callback(null, null);
@@ -361,8 +361,8 @@ var btcusd = function (callback) {
           body = body.find(item => item.symbol == "BTCUSDT");
           callback(null, {
             "exchange": "binance",
-            "bid": body.bidPrice,
-            "ask": body.askPrice
+            "bid": parseFloat(body.bidPrice),
+            "ask": parseFloat(body.askPrice)
           });
         } catch (e) {
           return callback(null, null);
@@ -377,8 +377,8 @@ var btcusd = function (callback) {
         try {
           callback(null, {
             "exchange": "hitbtc",
-            "bid": body.bid,
-            "ask": body.ask
+            "bid": parseFloat(body.bid),
+            "ask": parseFloat(body.ask)
           });
         } catch (e) {
           return callback(null, null);
@@ -402,8 +402,8 @@ var qash = function (quoine, qryptos, bitfinex, callback) {
         try {
           callback(null, {
             "exchange": "quoine",
-            "bid": body.market_bid,
-            "ask": body.market_ask
+            "bid": parseFloat(body.market_bid),
+            "ask": parseFloat(body.market_ask)
           });
         } catch (e) {
           return callback(null, null);
@@ -418,8 +418,8 @@ var qash = function (quoine, qryptos, bitfinex, callback) {
         try {
           callback(null, {
             "exchange": "qryptos",
-            "bid": body.market_bid,
-            "ask": body.market_ask
+            "bid": parseFloat(body.market_bid),
+            "ask": parseFloat(body.market_ask)
           });
         } catch (e) {
           return callback(null, null);
@@ -459,8 +459,8 @@ var ethbtc = function (callback) {
         try {
           var data = {
             "exchange": "quoine",
-            "bid": body.market_bid,
-            "ask": body.market_ask
+            "bid": parseFloat(body.market_bid),
+            "ask": parseFloat(body.market_ask)
           };
           callback(null, data);
         } catch (e) {
@@ -476,8 +476,8 @@ var ethbtc = function (callback) {
         try {
           var data = {
             "exchange": "qryptos",
-            "bid": body.market_bid,
-            "ask": body.market_ask
+            "bid": parseFloat(body.market_bid),
+            "ask": parseFloat(body.market_ask)
           };
           callback(null, data);
         } catch (e) {
@@ -528,8 +528,8 @@ var ethbtc = function (callback) {
           body = body.find(item => item.symbol == "ETHBTC");
           var data = {
             "exchange": "binance",
-            "bid": body.bidPrice,
-            "ask": body.askPrice
+            "bid": parseFloat(body.bidPrice),
+            "ask": parseFloat(body.askPrice)
           };
           callback(null, data);
         } catch (e) {
@@ -545,8 +545,8 @@ var ethbtc = function (callback) {
         try {
           var data = {
             "exchange": "hitbtc",
-            "bid": body.bid,
-            "ask": body.ask
+            "bid": parseFloat(body.bid),
+            "ask": parseFloat(body.ask)
           };
           callback(null, data);
         } catch (e) {
