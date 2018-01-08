@@ -54,7 +54,6 @@ $(function () {
     "columnDefs": [
       {
         "targets": 0,
-        "data": "exchange",
         "render": function (data, type, row, meta) {
           return "<span class='label " + data + "'>" + data + "</span>";
         }
@@ -63,8 +62,8 @@ $(function () {
         "targets": [3, 4, 5, 6, 7, 8],
         "render": function (data, type, row, meta) {
           if (data) {
-            var css = data > 0 ? "label-warning" : "label-danger";
-            if (data > 0) {
+            var css = data > 0.001 ? "label-warning" : "label-danger";
+            if (data > 0.001) {
               var buy;
               switch (meta.col) {
                 case 3:
