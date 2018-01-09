@@ -34,6 +34,7 @@ router.get('/', cache('30 seconds'), function (req, res) {
       try {
         var quoine = new qqclient(config.quoine);
         quoine.balances(function (body) {
+          console.log(body);
           var data = {
             exchange: "quoine",
             btc: body.find(item => item.currency == 'BTC').balance,
