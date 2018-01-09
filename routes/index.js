@@ -1087,14 +1087,10 @@ router.get("/cmc", function (req, res, next) {
 
 router.get("/cmc.json", function (req, res, next) {
   request.get({
-    url: 'https://api.coinmarketcap.com/v1/ticker/?convert=SGD',
+    url: 'https://api.coinmarketcap.com/v1/ticker/?convert=ETH',
     json: true
   }, function (error, response, body) {
-    var data = body.map(item => {
-      item.change_1_24 = (item.percent_change_1h - item.percent_change_24h).toFixed(2);
-      return item;
-    });
-    res.json(data);
+    res.json(body);
   });
 });
 
