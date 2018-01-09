@@ -28,7 +28,7 @@ router.get('/:exchange', function (req, res) {
   });
 });
 
-router.get('/', cache('10 seconds'), function (req, res) {
+router.get('/', cache('30 seconds'), function (req, res) {
   async.parallel([
     function (callback) {
       try {
