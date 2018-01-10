@@ -31,10 +31,9 @@ router.get('/:exchange', function (req, res) {
 router.get('/', cache('30 seconds'), function (req, res) {
   async.parallel([
     function (callback) {
-      try {
-        var quoine = new qqclient(config.quoine);
-        quoine.balances(function (body) {
-          console.log(body);
+      var quoine = new qqclient(config.quoine);
+      quoine.balances(function (body) {
+        try {
           var data = {
             exchange: "quoine",
             btc: body.find(item => item.currency == 'BTC').balance,
@@ -43,10 +42,10 @@ router.get('/', cache('30 seconds'), function (req, res) {
             usd: body.find(item => item.currency == 'USD').balance
           };
           callback(null, data);
-        });
-      } catch (e) {
-        callback(null, null);
-      }
+        } catch (e) {
+          callback(null, null);
+        }
+      });
     },
     function (callback) {
       try {

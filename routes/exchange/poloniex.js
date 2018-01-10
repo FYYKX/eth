@@ -12,10 +12,12 @@ var
             'Content-type': 'application/x-www-form-urlencoded',
             'Key': api_key
         },
-        baseUrl: 'https://poloniex.com'
+        baseUrl: 'https://poloniex.com',
+        json: true
     });
 
 function getOptions(payload) {
+    payload.nonce = Date.now();
     payload = formurlencoded(payload);
     var signature = crypto.createHmac('sha512', api_secret).update(payload).digest('hex');
     return {
@@ -29,14 +31,13 @@ function getOptions(payload) {
 
 var returnBalances = function (callback) {
     var payload = {
-        'command': 'returnBalances',
-        'nonce': Date.now().toString()
+        'command': 'returnBalances'
     };
 
     var options = getOptions(payload);
 
     baseRequest.post(options, function (error, response, body) {
-        callback(JSON.parse(body));
+        callback(body);
     });
 };
 
