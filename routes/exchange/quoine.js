@@ -51,4 +51,38 @@ quoine.prototype.balances = function (callback) {
 	});
 };
 
+quoine.prototype.trades = function (product_id, callback) {
+	var verb = 'GET';
+	var url = '/orders?product_id=' + product_id + '&limit=100';
+
+	var payload = {
+		'path': url,
+		'nonce': Date.now(),
+		'token_id': this.token_id
+	};
+
+	var options = getOptions(verb, url, payload);
+
+	this.baseRequest.get(options, function (error, response, body) {
+		callback(body);
+	});
+};
+
+quoine.prototype.orders = function (product_id, page, callback) {
+	var verb = 'GET';
+	var url = '/orders?product_id=' + product_id + '&limit=100&page=' + page;
+
+	var payload = {
+		'path': url,
+		'nonce': Date.now(),
+		'token_id': this.token_id
+	};
+
+	var options = getOptions(verb, url, payload);
+
+	this.baseRequest.get(options, function (error, response, body) {
+		callback(body);
+	});
+};
+
 module.exports = quoine;

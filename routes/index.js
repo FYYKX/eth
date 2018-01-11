@@ -5,7 +5,9 @@ var apicache = require('apicache');
 
 var ticker = require('./ticker');
 var orderbook = require('./orderbook');
+var config = require('../config');
 
+var qq = require('./exchange/quoine');
 var bitfinex = require('./exchange/bitfinex');
 
 var router = express.Router();
@@ -1097,20 +1099,104 @@ router.get("/cmc.json", function (req, res, next) {
 });
 
 router.get("/price", function (req, res, next) {
-  bitfinex.trades("qsheth", function (data) {
-    data = data.map(item => {
-      item.exchange = "bitfinex";
-      item.currency = "QASHETH";
-      item.type = item.type.toLowerCase();
-      if (item.type == "sell") {
-        item.amount = item.amount * -1;
-      }
-      item.value = item.amount * item.price;
+  async.parallel({
+    bitfinex: function (callback) {
+      bitfinex.trades("qsheth", function (data) {
+        data = data.map(item => {
+          item.exchange = "bitfinex";
+          item.currency = "QASHETH";
+          item.type = item.type.toLowerCase();
+          if (item.type == "sell") {
+            item.amount = item.amount * -1;
+          }
+          item.value = item.amount * item.price;
+          item.timestamp = new Date(parseInt(item.timestamp) * 1000).toLocaleString();
 
-      return item;
-    })
-    res.render("price", { trades: data });
-  })
+          return item;
+        });
+        callback(null, data);
+      })
+    },
+    quoine: function (callback) {
+      var client = new qq(config.quoine);
+      client.trades(51, function (data) {
+        var total_pages = data.total_pages;
+        console.log("quoine total page: " + total_pages);
+        var paging = [];
+        for (let index = 2; index <= total_pages; index++) {
+          paging.push(index);
+        }
+
+        async.concat(paging,
+          function (page, cb) {
+            client.orders(51, page, function (data) {
+              cb(null, data.models);
+            });
+          },
+          function (err, results) {
+            data = data.models
+              .concat(results)
+              .filter(item => item.filled_quantity > 0)
+              .map(item => {
+                item.exchange = "quoine";
+                item.currency = "QASHETH";
+                item.type = item.side;
+                item.amount = item.filled_quantity;
+                item.price = item.average_price;
+                if (item.type == "sell") {
+                  item.amount = item.amount * -1;
+                }
+                item.value = item.amount * item.price;
+                item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
+
+                return item;
+              });
+            callback(null, data);
+          });
+      });
+    },
+    qryptos: function (callback) {
+      var client = new qq(config.qryptos);
+      client.trades(31, function (data) {
+        var total_pages = data.total_pages;
+        total_pages = 10;
+        console.log("qryptos total page: " + total_pages);
+        var paging = [];
+        for (let index = 2; index <= total_pages; index++) {
+          paging.push(index);
+        }
+
+        async.concat(paging,
+          function (page, cb) {
+            client.orders(31, page, function (data) {
+              cb(null, data.models);
+            });
+          },
+          function (err, results) {
+            data = data.models
+              .concat(results)
+              .filter(item => item.filled_quantity > 0)
+              .map(item => {
+                item.exchange = "qryptos";
+                item.currency = "QASHETH";
+                item.type = item.side;
+                item.amount = item.filled_quantity;
+                item.price = item.average_price;
+                if (item.type == "sell") {
+                  item.amount = item.amount * -1;
+                }
+                item.value = item.amount * item.price;
+                item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
+
+                return item;
+              });
+            callback(null, data);
+          });
+      });
+    }
+  }, function (err, results) {
+    res.render("price", { trades: results.bitfinex.concat(results.quoine).concat(results.qryptos) });
+  });
 });
 
 module.exports = router;

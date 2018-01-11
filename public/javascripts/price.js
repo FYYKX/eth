@@ -17,6 +17,8 @@ $(function () {
                     return parseFloat(a) + parseFloat(b);
                 }, 0);
             $(api.column(5).footer()).html(total_value);
+
+            $(api.column(4).footer()).html((total_value / total_amount).toFixed(8));
         }
     });
 });
