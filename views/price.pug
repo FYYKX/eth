@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  table.display#price
+    thead
+      tr
+        th Currency
+        th Exchange
+        th Type
+        th Amount
+        th Price
+        th Value
+        th Timestamp
+
+    tfoot
+      tr
+        th
+        th
+        th
+        th
+        th
+        th
+        th
+
+    tbody
+      for item in trades
+        tr
+          td= item.currency
+          td
+            span.label(class=item.exchange)= item.exchange
+          td
+            span.label(class=item.type)= item.type
+          td= item.amount
+          td= item.price
+          td= item.value
+          td= item.timestamp
+
+block script
+  script(src='/javascripts/price.js')
+      

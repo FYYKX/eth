@@ -6,6 +6,8 @@ var apicache = require('apicache');
 var ticker = require('./ticker');
 var orderbook = require('./orderbook');
 
+var bitfinex = require('./exchange/bitfinex');
+
 var router = express.Router();
 var cache = apicache.middleware;
 
@@ -1092,6 +1094,23 @@ router.get("/cmc.json", function (req, res, next) {
   }, function (error, response, body) {
     res.json(body);
   });
+});
+
+router.get("/price", function (req, res, next) {
+  bitfinex.trades("qsheth", function (data) {
+    data = data.map(item => {
+      item.exchange = "bitfinex";
+      item.currency = "QASHETH";
+      item.type = item.type.toLowerCase();
+      if (item.type == "sell") {
+        item.amount = item.amount * -1;
+      }
+      item.value = item.amount * item.price;
+
+      return item;
+    })
+    res.render("price", { trades: data });
+  })
 });
 
 module.exports = router;

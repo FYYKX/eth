@@ -37,3 +37,11 @@ a {
 .hitbtc {
   background-color: #2da0d2;
 }
+
+.buy {
+  background-color: #5cb85c;
+}
+
+.sell {
+  background-color: #d9534f;
+}

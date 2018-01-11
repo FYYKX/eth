@@ -41,6 +41,23 @@ var balances = function (callback) {
     });
 };
 
+var pasttrades = function (symbol, callback) {
+    var url = '/mytrades';
+    var payload = {
+        'request': '/v1' + url,
+        'nonce': Date.now().toString(),
+        'symbol': symbol,
+        'limit_trades': 1000
+    };
+
+    var options = getOptions(url, payload);
+    
+    baseRequest.post(options, function (error, response, body) {
+        callback(body);
+    });
+};
+
 module.exports = {
-    balances: balances
+    balances: balances,
+    trades: pasttrades
 };

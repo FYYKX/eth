@@ -10,6 +10,7 @@ var index = require('./routes/index');
 var cron = require('node-cron');
 var ticker = require('./routes/ticker');
 var balances = require('./routes/balances');
+var trades = require('./routes/trades');
 
 var request = require('request');
 var async = require('async');
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/balances', balances);
+app.use('/trades', trades);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
