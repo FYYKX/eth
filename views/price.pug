@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  table.display#price
+  h3 QASHETH
+  table.display#price_qe
     thead
       tr
         th Currency
@@ -21,20 +22,78 @@ block content
         th
         th
         th
+  
+  h3 QASHBTC
+  table.display#price_qb
+    thead
+      tr
+        th Currency
+        th Exchange
+        th Type
+        th Amount
+        th Price
+        th Value
+        th Timestamp
 
-    tbody
-      for item in trades
-        tr
-          td= item.currency
-          td
-            span.label(class=item.exchange)= item.exchange
-          td
-            span.label(class=item.type)= item.type
-          td= item.amount
-          td= item.price
-          td= item.value
-          td= item.timestamp
+    tfoot
+      tr
+        th
+        th
+        th
+        th
+        th
+        th
+        th
+  
+  h3 QASHUSD
+  table.display#price_qu
+    thead
+      tr
+        th Currency
+        th Exchange
+        th Type
+        th Amount
+        th Price
+        th Value
+        th Timestamp
 
+    tfoot
+      tr
+        th
+        th
+        th
+        th
+        th
+        th
+        th
+    
+  h3 QASHSGD
+  table.display#price_qs
+    thead
+      tr
+        th Currency
+        th Exchange
+        th Type
+        th Amount
+        th Price
+        th Value
+        th Timestamp
+
+    tfoot
+      tr
+        th
+        th
+        th
+        th
+        th
+        th
+        th
+        
 block script
-  script(src='/javascripts/price.js')
+  script(src='/javascripts/price/price_qe.js')
+  script(src='/javascripts/price/price_qb.js')
+  script(src='/javascripts/price/price_qu.js')
+  script(src='/javascripts/price/price_qs.js')
+  
+  
       

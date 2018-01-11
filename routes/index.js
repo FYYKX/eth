@@ -1098,104 +1098,139 @@ router.get("/cmc.json", function (req, res, next) {
   });
 });
 
-router.get("/price", function (req, res, next) {
+router.get("/price", function (req, res) {
+  res.render("price");
+});
+
+router.get("/price.json/:currency?", function (req, res, next) {
+  var currency = req.query.currency;
+
+  var quoine_id = 51;
+  var qryptos_id = 31;
+  var bitfinex_id = 'qsheth';
+
+  if (currency == 'QASHBTC') {
+    quoine_id = 52;
+    qryptos_id = 32;
+    bitfinex_id = 'qshbtc';
+  } else if (currency == 'QASHUSD') {
+    quoine_id = 57;
+    qryptos_id = null;
+    bitfinex_id = 'qshusd';
+  } else if (currency == 'QASHSGD') {
+    quoine_id = 59;
+    qryptos_id = null;
+    bitfinex_id = null;
+  }
   async.parallel({
     bitfinex: function (callback) {
-      bitfinex.trades("qsheth", function (data) {
-        data = data.map(item => {
-          item.exchange = "bitfinex";
-          item.currency = "QASHETH";
-          item.type = item.type.toLowerCase();
-          if (item.type == "sell") {
-            item.amount = item.amount * -1;
-          }
-          item.value = item.amount * item.price;
-          item.timestamp = new Date(parseInt(item.timestamp) * 1000).toLocaleString();
+      if (bitfinex_id) {
+        bitfinex.trades(bitfinex_id, function (data) {
+          data = data.map(item => {
+            item.exchange = "bitfinex";
+            item.currency = currency;
+            item.type = item.type.toLowerCase();
+            if (item.type == "sell") {
+              item.amount = item.amount * -1;
+            }
+            item.value = item.amount * item.price;
+            item.timestamp = new Date(parseInt(item.timestamp) * 1000).toLocaleString();
 
-          return item;
+            return item;
+          });
+          callback(null, data);
         });
-        callback(null, data);
-      })
+      } else {
+        callback(null, []);
+      }
     },
     quoine: function (callback) {
-      var client = new qq(config.quoine);
-      client.trades(51, function (data) {
-        var total_pages = data.total_pages;
-        console.log("quoine total page: " + total_pages);
-        var paging = [];
-        for (let index = 2; index <= total_pages; index++) {
-          paging.push(index);
-        }
+      if (quoine_id) {
+        var client = new qq(config.quoine);
+        client.trades(quoine_id, function (data) {
+          var total_pages = data.total_pages;
+          console.log("quoine total page: " + total_pages);
+          var paging = [];
+          for (let index = 2; index <= total_pages; index++) {
+            paging.push(index);
+          }
 
-        async.concat(paging,
-          function (page, cb) {
-            client.orders(51, page, function (data) {
-              cb(null, data.models);
-            });
-          },
-          function (err, results) {
-            data = data.models
-              .concat(results)
-              .filter(item => item.filled_quantity > 0)
-              .map(item => {
-                item.exchange = "quoine";
-                item.currency = "QASHETH";
-                item.type = item.side;
-                item.amount = item.filled_quantity;
-                item.price = item.average_price;
-                if (item.type == "sell") {
-                  item.amount = item.amount * -1;
-                }
-                item.value = item.amount * item.price;
-                item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
-
-                return item;
+          async.concat(paging,
+            function (page, cb) {
+              client.orders(quoine_id, page, function (data) {
+                cb(null, data.models);
               });
-            callback(null, data);
-          });
-      });
+            },
+            function (err, results) {
+              data = data.models
+                .concat(results)
+                .filter(item => item.filled_quantity > 0)
+                .map(item => {
+                  item.exchange = "quoine";
+                  item.currency = currency;
+                  item.type = item.side;
+                  item.amount = item.filled_quantity;
+                  item.price = item.average_price;
+                  if (item.type == "sell") {
+                    item.amount = item.amount * -1;
+                  }
+                  item.value = item.amount * item.price;
+                  item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
+
+                  return item;
+                });
+              callback(null, data);
+            });
+        });
+      } else {
+        callback(null, []);
+      }
     },
     qryptos: function (callback) {
-      var client = new qq(config.qryptos);
-      client.trades(31, function (data) {
-        var total_pages = data.total_pages;
-        total_pages = 10;
-        console.log("qryptos total page: " + total_pages);
-        var paging = [];
-        for (let index = 2; index <= total_pages; index++) {
-          paging.push(index);
-        }
+      if (qryptos_id) {
+        var client = new qq(config.qryptos);
+        client.trades(qryptos_id, function (data) {
+          var total_pages = data.total_pages;
+          total_pages = 10;
+          console.log("qryptos total page: " + total_pages);
+          var paging = [];
+          for (let index = 2; index <= total_pages; index++) {
+            paging.push(index);
+          }
 
-        async.concat(paging,
-          function (page, cb) {
-            client.orders(31, page, function (data) {
-              cb(null, data.models);
-            });
-          },
-          function (err, results) {
-            data = data.models
-              .concat(results)
-              .filter(item => item.filled_quantity > 0)
-              .map(item => {
-                item.exchange = "qryptos";
-                item.currency = "QASHETH";
-                item.type = item.side;
-                item.amount = item.filled_quantity;
-                item.price = item.average_price;
-                if (item.type == "sell") {
-                  item.amount = item.amount * -1;
-                }
-                item.value = item.amount * item.price;
-                item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
-
-                return item;
+          async.concat(paging,
+            function (page, cb) {
+              client.orders(qryptos_id, page, function (data) {
+                cb(null, data.models);
               });
-            callback(null, data);
-          });
-      });
+            },
+            function (err, results) {
+              data = data.models
+                .concat(results)
+                .filter(item => item.filled_quantity > 0)
+                .map(item => {
+                  item.exchange = "qryptos";
+                  item.currency = currency;
+                  item.type = item.side;
+                  item.amount = item.filled_quantity;
+                  item.price = item.average_price;
+                  if (item.type == "sell") {
+                    item.amount = item.amount * -1;
+                  }
+                  item.value = item.amount * item.price;
+                  item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
+
+                  return item;
+                });
+              callback(null, data);
+            });
+        });
+      } else {
+        callback(null, []);
+      }
     }
   }, function (err, results) {
-    res.render("price", { trades: results.bitfinex.concat(results.quoine).concat(results.qryptos) });
+    res.json(results.bitfinex.concat(results.quoine).concat(results.qryptos));
   });
 });
 
