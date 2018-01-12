@@ -1,7 +1,7 @@
 $(function () {
-    var table = $("#qryptos").DataTable({
+    var table = $("#binance").DataTable({
         "ajax": {
-            "url": "spread.json?exchange=qryptos",
+            "url": "spread.json?exchange=binance",
             "dataSrc": function (json) {
                 for (var i = 0, ien = json.length; i < ien; i++) {
                     if (json[i].coinmarketcap) {
@@ -35,7 +35,7 @@ $(function () {
         ],
         "columns": [
             {
-                "data": "currency_pair_code"
+                "data": "symbol"
             },
             {
                 "data": "market_ask"
@@ -45,9 +45,6 @@ $(function () {
             },
             {
                 "data": "percentage"
-            },
-            {
-                "data": "volume_24h"
             },
             {
                 "data": "price"
@@ -60,14 +57,11 @@ $(function () {
             },
             {
                 "data": "coinmarketcap.percent_change_24h"
-            },
-            {
-                "data": "disabled"
             }
         ],
         "columnDefs": [
             {
-                "targets": [3, 6, 7],
+                "targets": [3, 5, 6],
                 "render": function (data, type, row, meta) {
                     if (data) {
                         var css = data > 0 ? "label-success" : "label-danger";
@@ -78,7 +72,7 @@ $(function () {
                 }
             },
             {
-                "targets": 8,
+                "targets": 7,
                 "render": function (data, type, row, meta) {
                     if (data) {
                         var css = data > 0 ? "label-success" : "label-danger";
@@ -86,13 +80,6 @@ $(function () {
                     } else {
                         return "";
                     }
-                }
-            },
-            {
-                "targets": 9,
-                "render": function (data, type, row, meta) {
-                    var css = data ? "label-danger" : "label-success";
-                    return "<span class='label " + css + "'>" + data + "</span>"
                 }
             }
         ]

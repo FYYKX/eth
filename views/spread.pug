@@ -17,7 +17,7 @@ block content
     
   div.page-header
     h3
-      span.label.label-warning Qryptos
+      span.label.qryptos qryptos
   table.display#qryptos
     thead
       tr
@@ -46,10 +46,25 @@ block content
         th Change 1h
         th Change 24h
         th Change 7d
+  
+  div.page-header
+    h3
+      span.label.binance binance
+  table.display#binance
+    thead
+      tr
+        th Currency
+        th Ask
+        th Bid
+        th Percentage
+        th Coinmarketcap Price
+        th Coin Ask Percentage
+        th Coin Bid Percentage
+        th Coin 24h Change
 
   div.page-header
     h3
-      span.label.label-primary Quoinex
+      span.label.quoine quoine
   table.display#quoine
     thead
       tr
@@ -65,4 +80,5 @@ block content
 block script
   script(src='/javascripts/spread_qryptos.js')
   script(src='/javascripts/cmc.js')
+  script(src='/javascripts/spread_binance.js')
   script(src='/javascripts/spread_quoine.js')

@@ -839,6 +839,7 @@ router.get("/spread", function (req, res, next) {
 });
 
 router.get("/spread.json", function (req, res, next) {
+  var exchange = req.query.exchange;
   async.parallel({
     coinmarketcap: function (callback) {
       request.get({
@@ -849,33 +850,72 @@ router.get("/spread.json", function (req, res, next) {
       });
     },
     quoine: function (callback) {
-      request.get({
-        url: 'https://api.' + req.query.exchange + '.com/products',
-        json: true
-      }, function (error, response, body) {
-        var data = body
-          .filter(item => item.market_ask > 0)
-          .filter(item => item.volume_24h > 50);
-        callback(null, data);
-      });
+      if (exchange == 'quoine' || exchange == 'qryptos') {
+        request.get({
+          url: 'https://api.' + exchange + '.com/products',
+          json: true
+        }, function (error, response, body) {
+          var data = body
+            .filter(item => item.market_ask > 0)
+            .filter(item => item.volume_24h > 50);
+          callback(null, data);
+        });
+      } else {
+        callback(null, null);
+      }
+    },
+    binance: function (callback) {
+      if (exchange == 'binance') {
+        request.get({
+          url: 'https://api.binance.com/api/v1/ticker/allBookTickers',
+          json: true
+        }, function (error, response, body) {
+          var data = body
+            .filter(item => item.symbol.endsWith('ETH'))
+            .map(item => {
+              item.market_ask = item.askPrice;
+              item.market_bid = item.bidPrice;
+              item.symbol = item.symbol.replace('ETH', '');
+              return item;
+            });
+          callback(null, data);
+        });
+      } else {
+        callback(null, null);
+      }
     }
   }, function (err, results) {
-    var data = results.quoine
-      .map(item => {
-        item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
-        item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h;
-        var symbol = item.base_currency;
-        if (symbol == 'VET') {
-          symbol = 'VEN';
-        }
-        if (results.coinmarketcap != null) {
-          item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
-        }
-        return item;
-      })
-      .filter(item => item.coinmarketcap != null);
+    if (exchange == 'quoine' || exchange == 'qryptos') {
+      var data = results.quoine
+        .map(item => {
+          item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
+          item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h;
+          var symbol = item.base_currency;
+          if (symbol == 'VET') {
+            symbol = 'VEN';
+          }
+          if (results.coinmarketcap != null) {
+            item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
+          }
+          return item;
+        })
+        .filter(item => item.coinmarketcap != null);
 
-    res.json(data);
+      res.json(data);
+    } else {
+      var data = results.binance
+        .map(item => {
+          item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
+          item.quoted_currency = 'ETH';
+          var symbol = item.symbol;
+          if (results.coinmarketcap != null) {
+            item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
+          }
+          return item;
+        })
+        .filter(item => item.coinmarketcap != null);
+      res.json(data);
+    }
   });
 });
 

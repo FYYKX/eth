@@ -56,7 +56,6 @@ $(function () {
     });
 
     $('input[type=search]').on('keyup', function () {
-        console.log('quoine');
         table.search(this.value).draw();
     });
 
