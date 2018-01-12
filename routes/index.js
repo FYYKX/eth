@@ -1121,6 +1121,10 @@ router.get("/price.json/:currency?", function (req, res, next) {
     quoine_id = 59;
     qryptos_id = null;
     bitfinex_id = null;
+  } else if (currency == 'QASHAUD') {
+    quoine_id = 60;
+    qryptos_id = null;
+    bitfinex_id = null;
   }
   async.parallel({
     bitfinex: function (callback) {
