@@ -821,10 +821,25 @@ router.get('/cycle', function (req, res, next) {
 });
 
 router.get("/spread", function (req, res, next) {
-  res.render("spread");
+  request.get({
+    url: 'https://api.coinmarketcap.com/v1/ticker',
+    json: true
+  }, function (error, response, body) {
+    var total = body.length;
+    var up_1h = body.filter(item => item.percent_change_1h > 0).length / total;
+    var up_24h = body.filter(item => item.percent_change_24h > 0).length / total;
+    var up_7d = body.filter(item => item.percent_change_7d > 0).length / total;
+
+    res.render("spread", {
+      up_1h: (up_1h * 100).toFixed(2) + "%",
+      up_24h: (up_24h * 100).toFixed(2) + "%",
+      up_7d: (up_7d * 100).toFixed(2) + "%"
+    });
+  });
 });
 
 router.get("/spread.json", function (req, res, next) {
+  var exchange = req.query.exchange;
   async.parallel({
     coinmarketcap: function (callback) {
       request.get({
@@ -832,36 +847,75 @@ router.get("/spread.json", function (req, res, next) {
         json: true
       }, function (error, response, body) {
         callback(null, body);
-      })
+      });
     },
     quoine: function (callback) {
-      request.get({
-        url: 'https://api.' + req.query.exchange + '.com/products',
-        json: true
-      }, function (error, response, body) {
-        var data = body
-          .filter(item => item.market_ask > 0)
-          .filter(item => item.volume_24h > 50);
-        callback(null, data);
-      });
+      if (exchange == 'quoine' || exchange == 'qryptos') {
+        request.get({
+          url: 'https://api.' + exchange + '.com/products',
+          json: true
+        }, function (error, response, body) {
+          var data = body
+            .filter(item => item.market_ask > 0)
+            .filter(item => item.volume_24h > 50);
+          callback(null, data);
+        });
+      } else {
+        callback(null, null);
+      }
+    },
+    binance: function (callback) {
+      if (exchange == 'binance') {
+        request.get({
+          url: 'https://api.binance.com/api/v1/ticker/allBookTickers',
+          json: true
+        }, function (error, response, body) {
+          var data = body
+            .filter(item => item.symbol.endsWith('ETH'))
+            .map(item => {
+              item.market_ask = item.askPrice;
+              item.market_bid = item.bidPrice;
+              item.symbol = item.symbol.replace('ETH', '');
+              return item;
+            });
+          callback(null, data);
+        });
+      } else {
+        callback(null, null);
+      }
     }
   }, function (err, results) {
-    var data = results.quoine
-      .map(item => {
-        item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
-        item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h;
-        var symbol = item.base_currency;
-        if (symbol == 'VET') {
-          symbol = 'VEN';
-        }
-        if (results.coinmarketcap != null) {
-          item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
-        }
-        return item;
-      })
-      .filter(item => item.coinmarketcap != null);
+    if (exchange == 'quoine' || exchange == 'qryptos') {
+      var data = results.quoine
+        .map(item => {
+          item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
+          item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h;
+          var symbol = item.base_currency;
+          if (symbol == 'VET') {
+            symbol = 'VEN';
+          }
+          if (results.coinmarketcap != null) {
+            item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
+          }
+          return item;
+        })
+        .filter(item => item.coinmarketcap != null);
 
-    res.json(data);
+      res.json(data);
+    } else {
+      var data = results.binance
+        .map(item => {
+          item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
+          item.quoted_currency = 'ETH';
+          var symbol = item.symbol;
+          if (results.coinmarketcap != null) {
+            item.coinmarketcap = results.coinmarketcap.find(c => c.symbol == symbol);
+          }
+          return item;
+        })
+        .filter(item => item.coinmarketcap != null);
+      res.json(data);
+    }
   });
 });
 

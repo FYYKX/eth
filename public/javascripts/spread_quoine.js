@@ -56,12 +56,11 @@ $(function () {
     });
 
     $('input[type=search]').on('keyup', function () {
-        console.log('quoine');
         table.search(this.value).draw();
     });
 
     //API users should not make more than 300 requests per 5 minute
     setInterval(function () {
         table.ajax.reload();
-    }, 30 * 1000);
+    }, 60 * 1000);
 });
