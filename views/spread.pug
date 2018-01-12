@@ -2,6 +2,20 @@ extends layout
 
 block content
   div.page-header
+    h3 
+      span.label.label-info Coin Market Cap Up Coin Percentage
+  div.row
+    div.col-md-4
+      h3 1h
+        span.label.label-info= up_1h
+    div.col-md-4
+      h3 24h
+        span.label.label-info= up_24h
+    div.col-md-4
+      h3 7d
+        span.label.label-info= up_7d
+    
+  div.page-header
     h3
       span.label.label-warning Qryptos
   table.display#qryptos
