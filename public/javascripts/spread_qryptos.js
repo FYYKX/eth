@@ -62,6 +62,9 @@ $(function () {
                 "data": "coinmarketcap.percent_change_24h"
             },
             {
+                "data": "coinmarketcap.price_usd"
+            },
+            {
                 "data": "disabled"
             }
         ],
@@ -89,7 +92,7 @@ $(function () {
                 }
             },
             {
-                "targets": 9,
+                "targets": 10,
                 "render": function (data, type, row, meta) {
                     var css = data ? "label-danger" : "label-success";
                     return "<span class='label " + css + "'>" + data + "</span>"
@@ -105,5 +108,5 @@ $(function () {
     //API users should not make more than 300 requests per 5 minute
     setInterval(function () {
         table.ajax.reload();
-    }, 30 * 1000);
+    }, 60 * 1000);
 });

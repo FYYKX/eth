@@ -48,9 +48,9 @@ router.get('/', cache('30 seconds'), function (req, res) {
       });
     },
     function (callback) {
-      try {
-        var qryptos = new qqclient(config.qryptos);
-        qryptos.balances(function (body) {
+      var qryptos = new qqclient(config.qryptos);
+      qryptos.balances(function (body) {
+        try {
           var data = {
             exchange: "qryptos",
             btc: body.find(item => item.currency == 'BTC').balance,
@@ -59,10 +59,10 @@ router.get('/', cache('30 seconds'), function (req, res) {
             usd: 0
           };
           callback(null, data);
-        });
-      } catch (e) {
-        callback(null, null);
-      }
+        } catch (e) {
+          callback(null, null);
+        }
+      });
     },
     function (callback) {
       bitfinex.balances(function (body) {
