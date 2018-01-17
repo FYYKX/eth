@@ -555,6 +555,68 @@ router.get('/bte.json', cache('10 seconds'), function (req, res, next) {
   });
 });
 
+router.get('/qtq.json', cache('10 seconds'), function (req, res, next) {
+  request.get({
+    url: 'https://api.quoine.com/products',
+    json: true
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var qash_usd = body.find(item => item.currency_pair_code === 'QASHUSD');
+
+      var qash_eth = body.find(item => item.currency_pair_code === 'QASHETH');
+      var eth_usd = body.find(item => item.currency_pair_code === 'ETHUSD');
+
+      var qash_btc = body.find(item => item.currency_pair_code === 'QASHBTC');
+      var btc_usd = body.find(item => item.currency_pair_code === 'BTCUSD');
+
+      var data = [];
+
+      var qash_eth_usd = qash_eth.market_bid * eth_usd.market_bid;
+      var qash_usd_eth = qash_usd.market_bid / eth_usd.market_ask;
+
+      var qash_btc_usd = qash_btc.market_bid * btc_usd.market_bid;
+      var qash_usd_btc = qash_usd.market_bid / btc_usd.market_ask;
+
+      data.push({
+        currency: "QASH_ETH_USD",
+        eth: qash_eth.market_bid,
+        btc: "",
+        usd: qash_eth_usd,
+        qash: qash_eth_usd / qash_usd.market_ask,
+        percentage: (qash_eth_usd / qash_usd.market_ask) - 1
+      });
+
+      data.push({
+        currency: "QASH_USD_ETH",
+        eth: qash_usd_eth,
+        btc: "",
+        usd: qash_usd.market_bid,
+        qash: qash_usd_eth / qash_eth.market_ask,
+        percentage: (qash_usd_eth / qash_eth.market_ask) - 1
+      });
+
+      data.push({
+        currency: "QASH_BTC_USD",
+        eth: "",
+        btc: qash_btc.market_bid,
+        usd: qash_btc_usd,
+        qash: qash_btc_usd / qash_usd.market_ask,
+        percentage: (qash_btc_usd / qash_usd.market_ask) - 1
+      });
+
+      data.push({
+        currency: "QASH_USD_BTC",
+        eth: "",
+        btc: qash_usd_btc,
+        usd: qash_usd.market_bid,
+        qash: qash_usd_btc / qash_btc.market_ask,
+        percentage: (qash_usd_btc / qash_btc.market_ask) - 1
+      });
+      res.json(data);
+    }
+  });
+});
+
 router.get('/ste.json', cache('10 seconds'), function (req, res, next) {
   request.get({
     url: 'https://api.quoine.com/products',

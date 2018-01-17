@@ -1,44 +1,53 @@
 extends layout
 
 block content
-  div.row
-    div.col-md-6
-      div.page-header
-        h1 Quoinex BTC to ETH
-      table.display#bte
-        thead
-          tr
-            th Currency
-            th USD
-            th SGD
-            th ETH
-            th Percentage
+  div.page-header
+    h3 QASH to QASH
+  table.display#qtq
+    thead
+      tr
+        th Currency
+        th ETH
+        th BTC
+        th USD
+        th QASH
+        th Percentage
 
-    div.col-md-6
-      div.page-header
-        h1 Quoine SGD to ETH
-      table.display#ste
-        thead
-          tr
-            th Currency
-            th QASH
-            th ETH
-            th Percentage
+  div.page-header
+    h3 BTC to ETH
+  table.display#bte
+    thead
+      tr
+        th Currency
+        th USD
+        th SGD
+        th ETH
+        th Percentage
+        
+  div.page-header
+    h3 SGD to ETH
+  table.display#ste
+    thead
+      tr
+        th Currency
+        th QASH
+        th ETH
+        th Percentage
 
-    div.col-md-12
-      div.page-header
-        h1 Quoine SGD to QASH
-      table.display#stq
-        thead
-          tr
-            th Currency
-            th ETH
-            th BTC
-            th QASH
-            th SGD
-            th Percentage
+  div.page-header
+    h3 SGD to QASH
+  table.display#stq
+    thead
+      tr
+        th Currency
+        th ETH
+        th BTC
+        th QASH
+        th SGD
+        th Percentage
 
 block script
   script(src='/javascripts/bte.js')
   script(src='/javascripts/ste.js')
   script(src='/javascripts/stq.js')
+  script(src='/javascripts/qtq.js')

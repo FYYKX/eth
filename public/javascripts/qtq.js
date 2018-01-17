@@ -1,31 +1,34 @@
 $(function () {
-  var table = $("#bte").DataTable({
+  var table = $("#qtq").DataTable({
     "ajax": {
-      "url": "bte.json",
+      "url": "qtq.json",
       "dataSrc": ""
     },
     "order": [
-      [3, "desc"]
+      [5, "desc"]
     ],
     "columns": [
       {
         "data": "currency"
       },
       {
+        "data": "eth"
+      },
+      {
+        "data": "btc"
+      },
+      {
         "data": "usd"
       },
       {
-        "data": "sgd"
-      },
-      {
-        "data": "eth"
+        "data": "qash"
       },
       {
         "data": "percentage"
       }
     ],
     "columnDefs": [{
-      "targets": 4,
+      "targets": 5,
       "render": function (data, type, row, meta) {
         if (data != 0) {
           var css = data > 0 ? "label-success" : "label-danger";
@@ -39,5 +42,5 @@ $(function () {
 
   setInterval(function () {
     table.ajax.reload();
-  }, 30 * 1000);
+  }, 10 * 1000);
 });
