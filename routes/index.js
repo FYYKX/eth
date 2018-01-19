@@ -1254,7 +1254,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
               item.amount = item.amount * -1;
             }
             item.value = item.amount * item.price;
-            item.timestamp = new Date(parseInt(item.timestamp) * 1000).toLocaleString('en-US', { timeZone: 'Asia/Singapore' });
+            item.timestamp = new Date(parseInt(item.timestamp) * 1000).toLocaleString();
 
             return item;
           });
@@ -1295,7 +1295,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
                     item.amount = item.amount * -1;
                   }
                   item.value = item.amount * item.price;
-                  item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString('en-US', { timeZone: 'Asia/Singapore' });
+                  item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
 
                   return item;
                 });
@@ -1338,7 +1338,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
                     item.amount = item.amount * -1;
                   }
                   item.value = item.amount * item.price;
-                  item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString('en-US', { timeZone: 'Asia/Singapore' });
+                  item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
 
                   return item;
                 });
