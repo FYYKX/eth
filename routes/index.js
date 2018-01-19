@@ -1311,7 +1311,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
         var client = new qq(config.qryptos);
         client.trades(qryptos_id, function (data) {
           var total_pages = data.total_pages;
-          total_pages = 10;
+          total_pages = 30;
           console.log("qryptos total page: " + total_pages);
           var paging = [];
           for (let index = 2; index <= total_pages; index++) {
