@@ -1290,7 +1290,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
                   item.currency = currency;
                   item.type = item.side;
                   item.amount = item.filled_quantity;
-                  item.price = item.average_price;
+                  item.price = item.average_price == 0 ? item.price : item.average_price;
                   if (item.type == "sell") {
                     item.amount = item.amount * -1;
                   }
@@ -1333,7 +1333,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
                   item.currency = currency;
                   item.type = item.side;
                   item.amount = item.filled_quantity;
-                  item.price = item.average_price;
+                  item.price = item.average_price == 0 ? item.price : item.average_price;
                   if (item.type == "sell") {
                     item.amount = item.amount * -1;
                   }
