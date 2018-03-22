@@ -4,16 +4,12 @@ block content
   div.page-header
     h3 
       span.label.label-info Coin Market Cap Up Coin Percentage
-  div.row
-    div.col-md-4
-      h3 1h
-        span.label.label-info= up_1h
-    div.col-md-4
-      h3 24h
-        span.label.label-info= up_24h
-    div.col-md-4
-      h3 7d
-        span.label.label-info= up_7d
+  table.display#change
+    thead
+      tr
+        th 1Hour
+        th 24Hour
+        th 7Day
     
   div.page-header
     h3
@@ -80,6 +76,7 @@ block content
   
 
 block script
+  script(src='/javascripts/spread_change.js')
   script(src='/javascripts/spread_qryptos.js')
   script(src='/javascripts/cmc.js')
   script(src='/javascripts/spread_binance.js')

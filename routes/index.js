@@ -883,6 +883,10 @@ router.get('/cycle', function (req, res, next) {
 });
 
 router.get("/spread", function (req, res, next) {
+  res.render("spread");
+});
+
+router.get("/change.json", function (req, res, next) {
   request.get({
     url: 'https://api.coinmarketcap.com/v1/ticker',
     json: true
@@ -892,11 +896,14 @@ router.get("/spread", function (req, res, next) {
     var up_24h = body.filter(item => item.percent_change_24h > 0).length / total;
     var up_7d = body.filter(item => item.percent_change_7d > 0).length / total;
 
-    res.render("spread", {
+    var data = [];
+    data.push({
       up_1h: (up_1h * 100).toFixed(2) + "%",
       up_24h: (up_24h * 100).toFixed(2) + "%",
       up_7d: (up_7d * 100).toFixed(2) + "%"
     });
+
+    res.json(data);
   });
 });
 
