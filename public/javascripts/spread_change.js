@@ -4,8 +4,7 @@ $(function () {
       "url": "change.json",
       "dataSrc": ""
     },
-    "columns": [
-      {
+    "columns": [{
         "data": "up_1h"
       },
       {
@@ -21,7 +20,7 @@ $(function () {
         var value = parseFloat(data.replace(".00%", "")) / 100;
         if (value < 0.3 || value > 0.7) {
           var css = value > 0.7 ? "label-success" : "label-danger";
-          return "<h3><span class='label " + css + "'>" + data + "%" + "</span><h3>";
+          return "<h3><span class='label " + css + "'>" + data + "</span><h3>";
         } else {
           return "<h3>" + data + "</h3>";
         }
