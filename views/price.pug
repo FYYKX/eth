@@ -1,50 +1,6 @@
 extends layout
 
 block content
-  h3 QASHETH
-  table.display#price_qe
-    thead
-      tr
-        th Currency
-        th Exchange
-        th Type
-        th Amount
-        th Price
-        th Value
-        th Timestamp
-
-    tfoot
-      tr
-        th
-        th
-        th
-        th
-        th
-        th
-        th
-  
-  h3 QASHBTC
-  table.display#price_qb
-    thead
-      tr
-        th Currency
-        th Exchange
-        th Type
-        th Amount
-        th Price
-        th Value
-        th Timestamp
-
-    tfoot
-      tr
-        th
-        th
-        th
-        th
-        th
-        th
-        th
-  
   h3 QASHUSD
   table.display#price_qu
     thead
@@ -113,8 +69,6 @@ block content
         
         
 block script
-  script(src='/javascripts/price/price_qe.js')
-  script(src='/javascripts/price/price_qb.js')
   script(src='/javascripts/price/price_qu.js')
   script(src='/javascripts/price/price_qs.js')
   script(src='/javascripts/price/price_qa.js')
