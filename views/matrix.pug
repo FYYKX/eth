@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h3 ETHBTC
+  table.display#matrix
+    thead
+      tr
+        th Currency
+        th 
+            span.label.qryptos qryptos
+        th 
+            span.label.bitfinex bitfinex
+        th 
+            span.label.poloniex poloniex
+        th 
+            span.label.binance binance
+
+    tfoot
+      tr
+        th
+        th
+        th
+        th
+        th
+        
+block script
+  script(src='/javascripts/matrix.js')
