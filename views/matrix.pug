@@ -1,27 +1,45 @@
 extends layout
 
 block content
-  h3 ETHBTC
-  table.display#matrix
-    thead
-      tr
-        th Currency
-        th 
-            span.label.qryptos qryptos
-        th 
-            span.label.bitfinex bitfinex
-        th 
-            span.label.poloniex poloniex
-        th 
-            span.label.binance binance
+  div.row
+    each pair in pairs
+      div.col-md-6
+        h3= pair
+        table.display.matrix(id=pair)
+          thead
+            tr
+              th Currency
+              th 
+                span.label.qryptos qryptos
+              th 
+                span.label.bitfinex bitfinex
+              th 
+                span.label.poloniex poloniex
+              th 
+                span.label.binance binance
+              th 
+                span.label.hitbtc hitbtc
+              th 
+                span.label.allcoin allcoin
+              th 
+                span.label.bittrex bittrex
+              th 
+                span.label.yobit yobit
+              th 
+                span.label.exmo exmo
 
-    tfoot
-      tr
-        th
-        th
-        th
-        th
-        th
+          tfoot
+            tr
+              th
+              th
+              th
+              th
+              th
+              th
+              th
+              th
+              th
+              th
         
 block script
   script(src='/javascripts/matrix.js')

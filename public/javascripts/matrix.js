@@ -1,49 +1,71 @@
 $(function () {
-    var table = $("#matrix").DataTable({
-        "ajax": {
-            "url": "matrix/matrix.json",
-            "data": function (d) {
-                d.pair = "ETHBTC";
-            },
-            "dataSrc": ""
-        },
-        "ordering": false,
-        "columns": [
-            {
-                "data": "exchange"
-            },
-            {
-                "data": "qryptos"
-            },
-            {
-                "data": "bitfinex"
-            },
-            {
-                "data": "poloniex"
-            },
-            {
-                "data": "binance"
-            }
-        ],
-        "columnDefs": [
-            {
-                "targets": 0,
-                "data": "exchange",
-                "render": function (data, type, row, meta) {
-                    return "<span class='label " + data + "'>" + data + "</span>";
-                }
-            },
-            {
-                "targets": [1, 2, 3, 4],
-                "render": function (data, type, row, meta) {
-                    var css = data > 0 ? "label label-success" : "";
-                    return "<span class='" + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
-                }
-            }
-        ]
-    });
+    $(".matrix").each(function () {
+        var pair = $(this).attr('id');
 
-    setInterval(function () {
-        table.ajax.reload();
-    }, 60 * 1000);
+        var table = $(this).DataTable({
+            "ajax": {
+                "url": "matrix/matrix.json",
+                "data": function (d) {
+                    d.pair = pair;
+                },
+                "dataSrc": ""
+            },
+            "ordering": false,
+            "columns": [
+                {
+                    "data": "exchange"
+                },
+                {
+                    "data": "qryptos"
+                },
+                {
+                    "data": "bitfinex"
+                },
+                {
+                    "data": "poloniex"
+                },
+                {
+                    "data": "binance"
+                },
+                {
+                    "data": "hitbtc"
+                },
+                {
+                    "data": "allcoin"
+                },
+                {
+                    "data": "bittrex"
+                },
+                {
+                    "data": "yobit"
+                },
+                {
+                    "data": "exmo"
+                }
+            ],
+            "columnDefs": [
+                {
+                    "targets": 0,
+                    "data": "exchange",
+                    "render": function (data, type, row, meta) {
+                        return "<span class='label " + data + "'>" + data + "</span>";
+                    }
+                },
+                {
+                    "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    "render": function (data, type, row, meta) {
+                        if (data == "" || data <= 0) {
+                            return "";
+                        } else {
+                            return "<span class='label label-danger' style='opacity: " + (data * 75) + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
+                        }
+                    }
+                }
+            ]
+        });
+
+        setInterval(function () {
+            table.ajax.reload();
+        }, 60 * 1000);
+    });
 });
