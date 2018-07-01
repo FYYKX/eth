@@ -7,6 +7,17 @@ var router = express.Router();
 var cache = apicache.middleware;
 
 var products = {
+    default: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "",
+        hitbtc: "",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: ""
+    },
     BTCUSD: {
         qryptos: "",
         bitfinex: "btcusd",
@@ -62,6 +73,138 @@ var products = {
         yobit: "trx_usd",
         exmo: "TRX_USD"
     },
+    XLMUSD: {
+        qryptos: "",
+        bitfinex: "xlmusd",
+        poloniex: "USDT-STR",
+        binance: "XLMUSDT",
+        hitbtc: "XLMUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: ""
+    },
+    BCHUSD: {
+        qryptos: "",
+        bitfinex: "bchusd",
+        poloniex: "USDT-BCH",
+        binance: "BCCUSDT",
+        hitbtc: "BCHUSD",
+        allcoin: "",
+        bittrex: "USDT-BCH",
+        yobit: "bcc_usd",
+        exmo: "BCH_USD"
+    },
+    LTCUSD: {
+        qryptos: "",
+        bitfinex: "ltcusd",
+        poloniex: "USDT-LTC",
+        binance: "LTCUSDT",
+        hitbtc: "LTCUSD",
+        allcoin: "",
+        bittrex: "USDT-LTC",
+        yobit: "ltc_usd",
+        exmo: "LTC_USD"
+    },
+    NEOUSD: {
+        qryptos: "",
+        bitfinex: "neousd",
+        poloniex: "",
+        binance: "NEOUSDT",
+        hitbtc: "NEOUSD",
+        allcoin: "",
+        bittrex: "USDT-NEO",
+        yobit: "",
+        exmo: ""
+    },
+    VENUSD: {
+        qryptos: "",
+        bitfinex: "venusd",
+        poloniex: "",
+        binance: "VENUSDT",
+        hitbtc: "VENUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "ven_usd",
+        exmo: ""
+    },
+    MIOTAUSD: {
+        qryptos: "",
+        bitfinex: "iotusd",
+        poloniex: "",
+        binance: "IOTAUSDT",
+        hitbtc: "IOTAUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: ""
+    },
+    XMRUSD: {
+        qryptos: "",
+        bitfinex: "xmrusd",
+        poloniex: "USDT_XMR",
+        binance: "",
+        hitbtc: "XMRUSD",
+        allcoin: "",
+        bittrex: "USDT-XMR",
+        yobit: "",
+        exmo: "XMR_USD"
+    },
+    QTUMUSD: {
+        qryptos: "",
+        bitfinex: "qtmusd",
+        poloniex: "",
+        binance: "QTUMUSDT",
+        hitbtc: "QTUMUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: ""
+    },
+    ETCUSD: {
+        qryptos: "",
+        bitfinex: "etcusd",
+        poloniex: "USDT-ETC",
+        binance: "ETCUSDT",
+        hitbtc: "ETCUSD",
+        allcoin: "",
+        bittrex: "USDT-ETC",
+        yobit: "etc_usd",
+        exmo: "ETC_USD"
+    },
+    ZECUSD: {
+        qryptos: "",
+        bitfinex: "zecusd",
+        poloniex: "USDT_ZEC",
+        binance: "",
+        hitbtc: "ZECUSD",
+        allcoin: "",
+        bittrex: "USDT-ZEC",
+        yobit: "zec_usd",
+        exmo: "ZEC_USD"
+    },
+    ZRXUSD: {
+        qryptos: "",
+        bitfinex: "zrxusd",
+        poloniex: "",
+        binance: "",
+        hitbtc: "ZRXUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "zrx_usd",
+        exmo: ""
+    },
+    REPUSD: {
+        qryptos: "",
+        bitfinex: "repusd",
+        poloniex: "USDT_REP",
+        binance: "",
+        hitbtc: "REPUSDT",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: ""
+    },
     ETHBTC: {
         qryptos: "ETHBTC",
         bitfinex: "ethbtc",
@@ -86,14 +229,74 @@ var products = {
     },
 };
 
-router.get('/', function (req, res) {
+router.get('/usd', function (req, res) {
     res.render("matrix", {
         pairs: [
+            "BCHUSD",
             "BTCUSD",
-            "ETHUSD",
             "EOSUSD",
+            "ETCUSD",
+            "ETHUSD",
+            "LTCUSD",
+            "MIOTAUSD",
+            "NEOUSD",
+            "QTUMUSD",
+            "REPUSD",
+            "TRXUSD",
+            "VENUSD",
+            "XLMUSD",
+            "XMRUSD",
             "XRPUSD",
-            "TRXUSD"
+            "ZECUSD",
+            "ZRXUSD"
+        ]
+    });
+});
+
+router.get('/btc', function (req, res) {
+    res.render("matrix", {
+        pairs: [
+            "BCHBTC",
+            "DASHBTC",
+            "EOSBTC",
+            "ETCBTC",
+            "ETHBTC",
+            "LTCBTC",
+            "MIOTABTC",
+            "NEOBTC",
+            "QTUMBTC",
+            "REPBTC",
+            "TRXBTC",
+            "VENBTC",
+            "XLMBTC",
+            "XRPBTC",
+            "XMRBTC",
+            "ZECBTC",
+            "ZRXBTC"
+        ]
+    });
+});
+
+router.get('/eth', function (req, res) {
+    res.render("matrix", {
+        pairs: [
+            "BCHETH",
+            "BTCETH",
+            "DASHETH",
+            "EOSETH",
+            "ETCETH",
+            "LTCETH",
+            "MIOTAETH",
+            "NEOETH",
+            "QTUMETH",
+            "REPETH",
+            "TRXETH",
+            "VENETH",
+            "XLMETH",
+            "XRPETH",
+            "XMRETH",
+            "ZECETH",
+            "ZRXETH"
         ]
     });
 });
@@ -107,7 +310,7 @@ router.get('/paris', function (req, res) {
     });
 });
 
-router.get('/matrix.json/:pair?', cache('10 seconds'), function (req, res) {
+router.get('/matrix.json/:pair?', cache('30 seconds'), function (req, res) {
     var pair = products[req.query.pair];
     async.parallel([
         function (callback) {

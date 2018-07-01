@@ -23,7 +23,15 @@ html
               li
                 a(class='nav-link', href='/eth') ETH
               li
-                a(class='nav-link', href='/matrix') Matrix
+                a(href="#", class="dropdown-toggle", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Matrix
+                  span(class="caret")
+                ul(class='dropdown-menu')
+                  li
+                    a(class='dropdown-item', href='/matrix/usd', target='_blank') USD
+                  li
+                    a(class='dropdown-item', href='/matrix/usd', target='_blank') ETH
+                  li
+                    a(class='dropdown-item', href='/matrix/usd', target='_blank') BTC
               li(class='dropdown')
                 a(href="#", class="dropdown-toggle", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Exchange
                   span(class="caret")

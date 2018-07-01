@@ -4,7 +4,7 @@ $(function () {
 
         var table = $(this).DataTable({
             "ajax": {
-                "url": "matrix/matrix.json",
+                "url": "/matrix/matrix.json",
                 "data": function (d) {
                     d.pair = pair;
                 },
@@ -57,7 +57,8 @@ $(function () {
                         if (data == "" || data <= 0) {
                             return "";
                         } else {
-                            return "<span class='label label-danger' style='opacity: " + (data * 75) + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
+                            var css = data > 0.05 ? "label-success" : "label-danger";
+                            return "<span class='label " + css + "' style='opacity: " + (data * 75) + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
                         }
                     }
                 }
