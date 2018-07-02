@@ -205,16 +205,27 @@ var products = {
         yobit: "",
         exmo: ""
     },
-    ETHBTC: {
-        qryptos: "ETHBTC",
-        bitfinex: "ethbtc",
-        poloniex: "BTC_ETH",
-        binance: "ETHBTC",
-        hitbtc: "ETHBTC",
-        allcoin: "eth2btc",
-        bittrex: "BTC-ETH",
-        yobit: "eth_btc",
-        exmo: "ETH_BTC"
+    BCHBTC: {
+        qryptos: "BCHBTC",
+        bitfinex: "bchbtc",
+        poloniex: "BTC_BCH",
+        binance: "BCCBTC",
+        hitbtc: "BCHBTC",
+        allcoin: "bch2btc",
+        bittrex: "BTC-BCH",
+        yobit: "bcc_btc",
+        exmo: "BCH_BTC"
+    },
+    DASHBTC: {
+        qryptos: "DASHBTC",
+        bitfinex: "",
+        poloniex: "BTC_DASH",
+        binance: "DASHBTC",
+        hitbtc: "DASHBTC",
+        allcoin: "",
+        bittrex: "BTC-DASH",
+        yobit: "dash_btc",
+        exmo: "DASH_BTC"
     },
     EOSBTC: {
         qryptos: "",
@@ -227,6 +238,336 @@ var products = {
         yobit: "eos_btc",
         exmo: "EOS_BTC"
     },
+    ETCBTC: {
+        qryptos: "ETCBTC",
+        bitfinex: "etcbtc",
+        poloniex: "BTC_ETC",
+        binance: "ETCBTC",
+        hitbtc: "ETCBTC",
+        allcoin: "",
+        bittrex: "BTC-ETC",
+        yobit: "etc_btc",
+        exmo: "ETC_BTC"
+    },
+    ETHBTC: {
+        qryptos: "ETHBTC",
+        bitfinex: "ethbtc",
+        poloniex: "BTC_ETH",
+        binance: "ETHBTC",
+        hitbtc: "ETHBTC",
+        allcoin: "eth2btc",
+        bittrex: "BTC-ETH",
+        yobit: "eth_btc",
+        exmo: "ETH_BTC"
+    },
+    LTCBTC: {
+        qryptos: "LTCBTC",
+        bitfinex: "ltcbtc",
+        poloniex: "BTC_LTC",
+        binance: "LTCBTC",
+        hitbtc: "LTCBTC",
+        allcoin: "ltc2btc",
+        bittrex: "BTC-LTC",
+        yobit: "ltc_btc",
+        exmo: "LTC_BTC"
+    },
+    MIOTABTC: {
+        qryptos: "",
+        bitfinex: "iotbtc",
+        poloniex: "",
+        binance: "IOTABTC",
+        hitbtc: "IOTABTC",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: ""
+    },
+    NEOBTC: {
+        qryptos: "NEOBTC",
+        bitfinex: "neobtc",
+        poloniex: "",
+        binance: "NEOBTC",
+        hitbtc: "NEOBTC",
+        allcoin: "",
+        bittrex: "BTC-NEO",
+        yobit: "",
+        exmo: ""
+    },
+    QTUMBTC: {
+        qryptos: "QTUMBTC",
+        bitfinex: "QTMBTC",
+        poloniex: "",
+        binance: "QTUMBTC",
+        hitbtc: "QTUMBTC",
+        allcoin: "qtum2btc",
+        bittrex: "BTC-QTUM",
+        yobit: "",
+        exmo: ""
+    },
+    REPBTC: {
+        qryptos: "REPBTC",
+        bitfinex: "repbtc",
+        poloniex: "BTC_REP",
+        binance: "REPBTC",
+        hitbtc: "REPBTC",
+        allcoin: "",
+        bittrex: "BTC-REP",
+        yobit: "",
+        exmo: ""
+    },
+    TRXBTC: {
+        qryptos: "TRXBTC",
+        bitfinex: "trxbtc",
+        poloniex: "",
+        binance: "TRXBTC",
+        hitbtc: "TRXBTC",
+        allcoin: "",
+        bittrex: "BTC-TRX",
+        yobit: "trx_btc",
+        exmo: ""
+    },
+    VENBTC: {
+        qryptos: "",
+        bitfinex: "venbtc",
+        poloniex: "",
+        binance: "VENBTC",
+        hitbtc: "VENBTC",
+        allcoin: "",
+        bittrex: "",
+        yobit: "ven_btc",
+        exmo: ""
+    },
+    XLMBTC: {
+        qryptos: "XLMBTC",
+        bitfinex: "xlmbtc",
+        poloniex: "BTC_STR",
+        binance: "XLMBTC",
+        hitbtc: "XLMBTC",
+        allcoin: "",
+        bittrex: "BTC-XLM",
+        yobit: "",
+        exmo: ""
+    },
+    XRPBTC: {
+        qryptos: "XRPBTC",
+        bitfinex: "xrpbtc",
+        poloniex: "BTC_XRP",
+        binance: "XRPBTC",
+        hitbtc: "XRPBTC",
+        allcoin: "",
+        bittrex: "BTC-XRP",
+        yobit: "",
+        exmo: "XRP_BTC"
+    },
+    XMRBTC: {
+        qryptos: "XMRBTC",
+        bitfinex: "xmrbtc",
+        poloniex: "BTC_XMR",
+        binance: "XMRBTC",
+        hitbtc: "XMRBTC",
+        allcoin: "",
+        bittrex: "BTC-XMR",
+        yobit: "",
+        exmo: "XMR_BTC"
+    },
+    ZECBTC: {
+        qryptos: "ZECBTC",
+        bitfinex: "zecbtc",
+        poloniex: "BTC_ZEC",
+        binance: "ZECBTC",
+        hitbtc: "ZECBTC",
+        allcoin: "zec2btc",
+        bittrex: "BTC-ZEC",
+        yobit: "zec_btc",
+        exmo: "ZEC_BTC"
+    },
+    ZRXBTC: {
+        qryptos: "",
+        bitfinex: "zrxbtc",
+        poloniex: "BTC_ZRX",
+        binance: "ZRXBTC",
+        hitbtc: "ZRXBTC",
+        allcoin: "",
+        bittrex: "BTC-ZRX",
+        yobit: "zrx_btc",
+        exmo: ""
+    },
+    BCHETH: {
+        qryptos: "",
+        bitfinex: "bcheth",
+        poloniex: "ETH_BCH",
+        binance: "BCCETH",
+        hitbtc: "BCHETH",
+        allcoin: "",
+        bittrex: "ETH-BCH",
+        yobit: "bcc_eth",
+        exmo: "BCH_ETH"
+    },
+    DASHETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "DASHETH",
+        hitbtc: "DASHETH",
+        allcoin: "",
+        bittrex: "ETH-DASH",
+        yobit: "dash_eth",
+        exmo: ""
+    },
+    EOSETH: {
+        qryptos: "",
+        bitfinex: "eoseth",
+        poloniex: "",
+        binance: "EOSETH",
+        hitbtc: "EOSETH",
+        allcoin: "",
+        bittrex: "",
+        yobit: "eos_eth",
+        exmo: ""
+    },
+    ETCETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "ETH_ETC",
+        binance: "ETCETH",
+        hitbtc: "ETCETH",
+        allcoin: "",
+        bittrex: "ETH-ETC",
+        yobit: "etc_eth",
+        exmo: ""
+    },
+    LTCETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "LTCETH",
+        hitbtc: "LTCETH",
+        allcoin: "",
+        bittrex: "ETH-LTC",
+        yobit: "ltc_eth",
+        exmo: ""
+    },
+    MIOTAETH: {
+        qryptos: "",
+        bitfinex: "ioteth",
+        poloniex: "",
+        binance: "IOTAETH",
+        hitbtc: "IOTAETH",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: ""
+    },
+    NEOETH: {
+        qryptos: "NEOETH",
+        bitfinex: "neoeth",
+        poloniex: "",
+        binance: "NEOETH",
+        hitbtc: "NEOETH",
+        allcoin: "",
+        bittrex: "ETH-NEO",
+        yobit: "",
+        exmo: ""
+    },
+    QTUMETH: {
+        qryptos: "QTUMETH",
+        bitfinex: "qtmeth",
+        poloniex: "",
+        binance: "QTUMETH",
+        hitbtc: "QTUMETH",
+        allcoin: "",
+        bittrex: "ETH-QTUM",
+        yobit: "",
+        exmo: ""
+    },
+    REPETH: {
+        qryptos: "",
+        bitfinex: "repeth",
+        poloniex: "ETH_REP",
+        binance: "REPETH",
+        hitbtc: "REPETH",
+        allcoin: "",
+        bittrex: "ETH-REP",
+        yobit: "",
+        exmo: ""
+    },
+    TRXETH: {
+        qryptos: "TRXETH",
+        bitfinex: "trxeth",
+        poloniex: "",
+        binance: "TRXETH",
+        hitbtc: "TRXETH",
+        allcoin: "",
+        bittrex: "ETH-TRX",
+        yobit: "trx_eth",
+        exmo: ""
+    },
+    VENETH: {
+        qryptos: "",
+        bitfinex: "veneth",
+        poloniex: "",
+        binance: "VENETH",
+        hitbtc: "VENETH",
+        allcoin: "",
+        bittrex: "-",
+        yobit: "ven_eth",
+        exmo: ""
+    },
+    XLMETH: {
+        qryptos: "XLMETH",
+        bitfinex: "xlmeth",
+        poloniex: "",
+        binance: "XLMETH",
+        hitbtc: "XLMETH",
+        allcoin: "",
+        bittrex: "ETH-XLM",
+        yobit: "",
+        exmo: ""
+    },
+    XRPETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "XRPETH",
+        hitbtc: "XRPETH",
+        allcoin: "",
+        bittrex: "ETH-XRP",
+        yobit: "",
+        exmo: ""
+    },
+    XMRETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "XMRETH",
+        hitbtc: "XMRETH",
+        allcoin: "",
+        bittrex: "ETH-XMR",
+        yobit: "",
+        exmo: ""
+    },
+    ZECETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "ETH_ZEC",
+        binance: "ZECETH",
+        hitbtc: "ZECETH",
+        allcoin: "",
+        bittrex: "ETH-ZEC",
+        yobit: "zec_eth",
+        exmo: ""
+    },
+    ZRXETH: {
+        qryptos: "",
+        bitfinex: "zrxeth",
+        poloniex: "ETH_ZRX",
+        binance: "ZRXETH",
+        hitbtc: "ZRXETH",
+        allcoin: "",
+        bittrex: "ETH-ZRX",
+        yobit: "zrx_eth",
+        exmo: ""
+    }
 };
 
 router.get('/usd', function (req, res) {
@@ -281,7 +622,6 @@ router.get('/eth', function (req, res) {
     res.render("matrix", {
         pairs: [
             "BCHETH",
-            "BTCETH",
             "DASHETH",
             "EOSETH",
             "ETCETH",
