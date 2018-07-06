@@ -54,8 +54,10 @@ $(function () {
                 {
                     "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9],
                     "render": function (data, type, row, meta) {
-                        if (data == "" || data <= 0) {
+                        if (data == null || data == "" || data == -1) {
                             return "";
+                        } else if (data <= 0) {
+                            return (data * 100).toFixed(2) + "%";
                         } else {
                             var css = data > 0.05 ? "label-success" : "label-danger";
                             return "<span class='label " + css + "' style='opacity: " + (data * 75) + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
