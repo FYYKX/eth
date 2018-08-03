@@ -11,6 +11,10 @@ $(function () {
                 "dataSrc": ""
             },
             "ordering": false,
+            "select": {
+                "style": "os",
+                "items": "cell"
+            },
             "columns": [
                 {
                     "data": "exchange"
@@ -60,14 +64,21 @@ $(function () {
                         if (data == null || data == "" || data == -1) {
                             return "";
                         } else if (data <= 0) {
-                            return (data * 100).toFixed(2) + "%";
+                            return "<span class='" + meta.row + meta.col + "'>" + (data * 100).toFixed(2) + "%</span>";
                         } else {
                             var css = data > 0.05 ? "label-success" : "label-danger";
-                            return "<span class='label " + css + "' style='opacity: " + (data * 75) + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
+                            return "<span class='label " + css + " " + meta.row + meta.col + "' style='opacity: " + (data * 75) + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
                         }
                     }
                 }
             ]
+        });
+
+        table.on('select', function (e, dt, type, indexes) {
+            var item = (indexes[0].column - 1).toString() + (indexes[0].row + 1).toString();
+            $("span." + item).each(function () {
+                $(this).parent().addClass("selected");
+            });
         });
 
         setInterval(function () {
