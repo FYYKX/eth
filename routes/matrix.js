@@ -655,193 +655,265 @@ router.get('/matrix.json/:pair?', cache('30 seconds'), function (req, res) {
     async.parallel([
         function (callback) {
             var qryptos_pair = pair.qryptos;
-            request.get({
-                url: "https://api.qryptos.com/products",
-                json: true
-            }, function (error, response, body) {
-                try {
-                    var data = body.find(item => item.currency_pair_code == qryptos_pair);
-                    callback(null, {
-                        exchange: "qryptos",
-                        ask: data.market_ask,
-                        bid: data.market_bid
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "qryptos",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (qryptos_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.get({
+                    url: "https://api.qryptos.com/products",
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        var data = body.find(item => item.currency_pair_code == qryptos_pair);
+                        callback(null, {
+                            exchange: "qryptos",
+                            ask: data.market_ask,
+                            bid: data.market_bid
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "qryptos",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var bitfinex_pair = pair.bitfinex;
-            request.get({
-                url: "https://api.bitfinex.com/v1/pubticker/" + bitfinex_pair,
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "bitfinex",
-                        ask: body.ask,
-                        bid: body.bid
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "bitfinex",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (bitfinex_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.get({
+                    url: "https://api.bitfinex.com/v1/pubticker/" + bitfinex_pair,
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "bitfinex",
+                            ask: body.ask,
+                            bid: body.bid
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "bitfinex",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var poloniex_pair = pair.poloniex;
-            request.get({
-                url: "https://poloniex.com/public?command=returnTicker",
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "poloniex",
-                        ask: body[poloniex_pair].lowestAsk,
-                        bid: body[poloniex_pair].highestBid
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "poloniex",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (poloniex_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.get({
+                    url: "https://poloniex.com/public?command=returnTicker",
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "poloniex",
+                            ask: body[poloniex_pair].lowestAsk,
+                            bid: body[poloniex_pair].highestBid
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "poloniex",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var binance_pair = pair.binance;
-            request.get({
-                url: "https://api.binance.com/api/v3/ticker/bookTicker?symbol=" + binance_pair,
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "binance",
-                        ask: body.askPrice,
-                        bid: body.bidPrice
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "binance",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (binance_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.get({
+                    url: "https://api.binance.com/api/v3/ticker/bookTicker?symbol=" + binance_pair,
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "binance",
+                            ask: body.askPrice,
+                            bid: body.bidPrice
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "binance",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var hitbtc_pair = pair.hitbtc;
-            request.get({
-                url: "https://api.hitbtc.com/api/2/public/ticker/" + hitbtc_pair,
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "hitbtc",
-                        ask: body.ask,
-                        bid: body.bid
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "hitbtc",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (hitbtc_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.get({
+                    url: "https://api.hitbtc.com/api/2/public/ticker/" + hitbtc_pair,
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "hitbtc",
+                            ask: body.ask,
+                            bid: body.bid
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "hitbtc",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var allcoin_pair = pair.allcoin;
-            request.post({
-                url: "https://www.allcoin.ca/Api_Order/ticker?symbol=" + allcoin_pair,
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "allcoin",
-                        ask: body.data.sell,
-                        bid: body.data.buy
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "allcoin",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (allcoin_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.post({
+                    url: "https://www.allcoin.ca/Api_Order/ticker?symbol=" + allcoin_pair,
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "allcoin",
+                            ask: body.data.sell,
+                            bid: body.data.buy
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "allcoin",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var bittrex_pair = pair.bittrex;
-            request.post({
-                url: "https://bittrex.com/api/v1.1/public/getticker?market=" + bittrex_pair,
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "bittrex",
-                        ask: body.result.Ask,
-                        bid: body.result.Bid
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "bittrex",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (bittrex_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.post({
+                    url: "https://bittrex.com/api/v1.1/public/getticker?market=" + bittrex_pair,
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "bittrex",
+                            ask: body.result.Ask,
+                            bid: body.result.Bid
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "bittrex",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var yobit_pair = pair.yobit;
-            request.post({
-                url: "https://yobit.net/api/3/ticker/" + yobit_pair,
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "yobit",
-                        ask: body[yobit_pair].sell,
-                        bid: body[yobit_pair].buy
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "yobit",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (yobit_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.post({
+                    url: "https://yobit.net/api/3/ticker/" + yobit_pair,
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "yobit",
+                            ask: body[yobit_pair].sell,
+                            bid: body[yobit_pair].buy
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "yobit",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         },
         function (callback) {
             var exmo_pair = pair.exmo;
-            request.post({
-                url: "https://api.exmo.com/v1/ticker/",
-                json: true
-            }, function (error, response, body) {
-                try {
-                    callback(null, {
-                        exchange: "exmo",
-                        ask: body[exmo_pair].sell_price,
-                        bid: body[exmo_pair].buy_price
-                    });
-                } catch (e) {
-                    return callback(null, {
-                        exchange: "exmo",
-                        ask: 0,
-                        bid: 0
-                    });
-                }
-            });
+            if (exmo_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.post({
+                    url: "https://api.exmo.com/v1/ticker/",
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "exmo",
+                            ask: body[exmo_pair].sell_price,
+                            bid: body[exmo_pair].buy_price
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "exmo",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         }
     ], function (err, results) {
         if (err) {

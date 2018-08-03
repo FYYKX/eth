@@ -48,6 +48,9 @@ $(function () {
                     "targets": 0,
                     "data": "exchange",
                     "render": function (data, type, row, meta) {
+                        if (data == "notsupport") {
+                            $(table.column(meta.row + 1).header()).children().css("opacity", 0)
+                        }
                         return "<span class='label " + data + "'>" + data + "</span>";
                     }
                 },
