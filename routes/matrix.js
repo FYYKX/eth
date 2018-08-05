@@ -16,7 +16,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     BTCUSD: {
         qryptos: "",
@@ -27,7 +28,8 @@ var products = {
         allcoin: "",
         bittrex: "USD-BTC",
         yobit: "btc_usd",
-        exmo: "BTC_USD"
+        exmo: "BTC_USD",
+        bitforex: "coin-usdt-btc"
     },
     ETHUSD: {
         qryptos: "",
@@ -38,7 +40,8 @@ var products = {
         allcoin: "",
         bittrex: "USD-ETH",
         yobit: "eth_usd",
-        exmo: "ETH_USD"
+        exmo: "ETH_USD",
+        bitforex: "coin-usdt-eth"
     },
     EOSUSD: {
         qryptos: "",
@@ -49,7 +52,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "eos_usd",
-        exmo: "EOS_USD"
+        exmo: "EOS_USD",
+        bitforex: ""
     },
     XRPUSD: {
         qryptos: "",
@@ -60,7 +64,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-XRP",
         yobit: "",
-        exmo: "XRP_USD"
+        exmo: "XRP_USD",
+        bitforex: ""
     },
     TRXUSD: {
         qryptos: "",
@@ -71,7 +76,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-TRX",
         yobit: "trx_usd",
-        exmo: "TRX_USD"
+        exmo: "TRX_USD",
+        bitforex: "coin-usdt-trx"
     },
     XLMUSD: {
         qryptos: "",
@@ -82,7 +88,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     BCHUSD: {
         qryptos: "",
@@ -93,7 +100,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-BCH",
         yobit: "bcc_usd",
-        exmo: "BCH_USD"
+        exmo: "BCH_USD",
+        bitforex: "coin-usdt-bch"
     },
     LTCUSD: {
         qryptos: "",
@@ -104,7 +112,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-LTC",
         yobit: "ltc_usd",
-        exmo: "LTC_USD"
+        exmo: "LTC_USD",
+        bitforex: "coin-usdt-ltc"
     },
     NEOUSD: {
         qryptos: "",
@@ -115,7 +124,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-NEO",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: "coin-usdt-neo"
     },
     VENUSD: {
         qryptos: "",
@@ -126,7 +136,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "ven_usd",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     MIOTAUSD: {
         qryptos: "",
@@ -137,7 +148,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     XMRUSD: {
         qryptos: "",
@@ -148,7 +160,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-XMR",
         yobit: "",
-        exmo: "XMR_USD"
+        exmo: "XMR_USD",
+        bitforex: ""
     },
     QTUMUSD: {
         qryptos: "",
@@ -159,7 +172,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: "coin-usdt-qtum"
     },
     ETCUSD: {
         qryptos: "",
@@ -170,7 +184,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-ETC",
         yobit: "etc_usd",
-        exmo: "ETC_USD"
+        exmo: "ETC_USD",
+        bitforex: "coin-usdt-etc"
     },
     ZECUSD: {
         qryptos: "",
@@ -181,7 +196,8 @@ var products = {
         allcoin: "",
         bittrex: "USDT-ZEC",
         yobit: "zec_usd",
-        exmo: "ZEC_USD"
+        exmo: "ZEC_USD",
+        bitforex: ""
     },
     ZRXUSD: {
         qryptos: "",
@@ -192,7 +208,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "zrx_usd",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     REPUSD: {
         qryptos: "",
@@ -203,7 +220,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     BCHBTC: {
         qryptos: "BCHBTC",
@@ -214,7 +232,8 @@ var products = {
         allcoin: "bch2btc",
         bittrex: "BTC-BCH",
         yobit: "bcc_btc",
-        exmo: "BCH_BTC"
+        exmo: "BCH_BTC",
+        bitforex: ""
     },
     DASHBTC: {
         qryptos: "DASHBTC",
@@ -225,7 +244,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-DASH",
         yobit: "dash_btc",
-        exmo: "DASH_BTC"
+        exmo: "DASH_BTC",
+        bitforex: ""
     },
     EOSBTC: {
         qryptos: "",
@@ -236,7 +256,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "eos_btc",
-        exmo: "EOS_BTC"
+        exmo: "EOS_BTC",
+        bitforex: ""
     },
     ETCBTC: {
         qryptos: "ETCBTC",
@@ -247,7 +268,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-ETC",
         yobit: "etc_btc",
-        exmo: "ETC_BTC"
+        exmo: "ETC_BTC",
+        bitforex: ""
     },
     ETHBTC: {
         qryptos: "ETHBTC",
@@ -258,7 +280,8 @@ var products = {
         allcoin: "eth2btc",
         bittrex: "BTC-ETH",
         yobit: "eth_btc",
-        exmo: "ETH_BTC"
+        exmo: "ETH_BTC",
+        bitforex: "coin-eth-btc"
     },
     LTCBTC: {
         qryptos: "LTCBTC",
@@ -324,7 +347,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-TRX",
         yobit: "trx_btc",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     VENBTC: {
         qryptos: "",
@@ -335,7 +359,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "ven_btc",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     XLMBTC: {
         qryptos: "XLMBTC",
@@ -346,7 +371,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-XLM",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     XRPBTC: {
         qryptos: "XRPBTC",
@@ -357,7 +383,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-XRP",
         yobit: "",
-        exmo: "XRP_BTC"
+        exmo: "XRP_BTC",
+        bitforex: ""
     },
     XMRBTC: {
         qryptos: "XMRBTC",
@@ -368,7 +395,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-XMR",
         yobit: "",
-        exmo: "XMR_BTC"
+        exmo: "XMR_BTC",
+        bitforex: ""
     },
     ZECBTC: {
         qryptos: "ZECBTC",
@@ -379,7 +407,8 @@ var products = {
         allcoin: "zec2btc",
         bittrex: "BTC-ZEC",
         yobit: "zec_btc",
-        exmo: "ZEC_BTC"
+        exmo: "ZEC_BTC",
+        bitforex: ""
     },
     ZRXBTC: {
         qryptos: "",
@@ -390,7 +419,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-ZRX",
         yobit: "zrx_btc",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     BCHETH: {
         qryptos: "",
@@ -401,7 +431,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-BCH",
         yobit: "bcc_eth",
-        exmo: "BCH_ETH"
+        exmo: "BCH_ETH",
+        bitforex: ""
     },
     DASHETH: {
         qryptos: "",
@@ -412,7 +443,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-DASH",
         yobit: "dash_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     EOSETH: {
         qryptos: "",
@@ -423,7 +455,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "eos_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     ETCETH: {
         qryptos: "",
@@ -434,7 +467,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-ETC",
         yobit: "etc_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     LTCETH: {
         qryptos: "",
@@ -445,7 +479,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-LTC",
         yobit: "ltc_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     MIOTAETH: {
         qryptos: "",
@@ -456,7 +491,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     NEOETH: {
         qryptos: "NEOETH",
@@ -467,7 +503,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-NEO",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: "coin-eth-neo"
     },
     QTUMETH: {
         qryptos: "QTUMETH",
@@ -478,7 +515,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-QTUM",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: "coin-eth-qtum"
     },
     REPETH: {
         qryptos: "",
@@ -489,7 +527,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-REP",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     TRXETH: {
         qryptos: "TRXETH",
@@ -500,7 +539,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-TRX",
         yobit: "trx_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     VENETH: {
         qryptos: "",
@@ -511,7 +551,8 @@ var products = {
         allcoin: "",
         bittrex: "-",
         yobit: "ven_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     XLMETH: {
         qryptos: "XLMETH",
@@ -522,7 +563,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-XLM",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     XRPETH: {
         qryptos: "",
@@ -533,7 +575,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-XRP",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     XMRETH: {
         qryptos: "",
@@ -544,7 +587,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-XMR",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     ZECETH: {
         qryptos: "",
@@ -555,7 +599,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-ZEC",
         yobit: "zec_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     ZRXETH: {
         qryptos: "",
@@ -566,7 +611,8 @@ var products = {
         allcoin: "",
         bittrex: "ETH-ZRX",
         yobit: "zrx_eth",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     }
 };
 
@@ -641,12 +687,12 @@ router.get('/eth', function (req, res) {
     });
 });
 
-router.get('/paris', function (req, res) {
+router.get('/symbols', function (req, res) {
     request.get({
-        url: "https://api.exmo.com/v1/ticker/",
+        url: "https://api.bitforex.com/api/v1/market/symbols",
         json: true
     }, function (error, response, body) {
-        res.json(Object.keys(body));
+        res.json(body.data.map(item => item.symbol));
     });
 });
 
@@ -914,6 +960,35 @@ router.get('/matrix.json/:pair?', cache('30 seconds'), function (req, res) {
                     }
                 });
             }
+        },
+        function (callback) {
+            var bitforex_pair = pair.bitforex;
+            if (bitforex_pair == "") {
+                return callback(null, {
+                    exchange: "notsupport",
+                    ask: 0,
+                    bid: 0
+                });
+            } else {
+                request.get({
+                    url: "https://api.bitforex.com/api/v1/market/ticker?symbol=" + bitforex_pair,
+                    json: true
+                }, function (error, response, body) {
+                    try {
+                        callback(null, {
+                            exchange: "bitforex",
+                            ask: body.data.sell,
+                            bid: body.data.buy
+                        });
+                    } catch (e) {
+                        return callback(null, {
+                            exchange: "bitforex",
+                            ask: 0,
+                            bid: 0
+                        });
+                    }
+                });
+            }
         }
     ], function (err, results) {
         if (err) {
@@ -931,6 +1006,7 @@ router.get('/matrix.json/:pair?', cache('30 seconds'), function (req, res) {
                 item.bittrex = item.exchange != 'bittrex' ? (item.bid - results[6].ask) / results[6].ask : '';
                 item.yobit = item.exchange != 'yobit' ? (item.bid - results[7].ask) / results[7].ask : '';
                 item.exmo = item.exchange != 'exmo' ? (item.bid - results[8].ask) / results[8].ask : '';
+                item.bitforex = item.exchange != 'bitforex' ? (item.bid - results[9].ask) / results[9].ask : '';
                 return item;
             });
 

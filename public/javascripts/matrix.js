@@ -45,6 +45,9 @@ $(function () {
                 },
                 {
                     "data": "exmo"
+                },
+                {
+                    "data": "bitforex"
                 }
             ],
             "columnDefs": [
@@ -59,7 +62,7 @@ $(function () {
                     }
                 },
                 {
-                    "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                     "render": function (data, type, row, meta) {
                         if (data == null || data == "" || data == -1) {
                             return "";
