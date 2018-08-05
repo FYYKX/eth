@@ -223,6 +223,66 @@ var products = {
         exmo: "",
         bitforex: ""
     },
+    ADAUSD: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "ADAUSDT",
+        hitbtc: "ADAUSD",
+        allcoin: "",
+        bittrex: "USDT-ADA",
+        yobit: "",
+        exmo: "",
+        bitforex: ""
+    },
+    XEMUSD: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "",
+        hitbtc: "XEMUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "xem_usd",
+        exmo: "",
+        bitforex: ""
+    },
+    OMGUSD: {
+        qryptos: "",
+        bitfinex: "omgusd",
+        poloniex: "",
+        binance: "",
+        hitbtc: "OMGUSD",
+        allcoin: "",
+        bittrex: "USDT-OMG",
+        yobit: "",
+        exmo: "",
+        bitforex: "coin-usdt-omg"
+    },
+    ZILUSD: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "",
+        hitbtc: "ZILUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "zil_usd",
+        exmo: "",
+        bitforex: "coin-usdt-zil"
+    },
+    BCNUSD: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "",
+        hitbtc: "BCNUSD",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: "",
+        bitforex: ""
+    },
     BCHBTC: {
         qryptos: "BCHBTC",
         bitfinex: "bchbtc",
@@ -292,7 +352,8 @@ var products = {
         allcoin: "ltc2btc",
         bittrex: "BTC-LTC",
         yobit: "ltc_btc",
-        exmo: "LTC_BTC"
+        exmo: "LTC_BTC",
+        bitforex: ""
     },
     MIOTABTC: {
         qryptos: "",
@@ -303,7 +364,8 @@ var products = {
         allcoin: "",
         bittrex: "",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     NEOBTC: {
         qryptos: "NEOBTC",
@@ -314,7 +376,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-NEO",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     QTUMBTC: {
         qryptos: "QTUMBTC",
@@ -325,7 +388,8 @@ var products = {
         allcoin: "qtum2btc",
         bittrex: "BTC-QTUM",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     REPBTC: {
         qryptos: "REPBTC",
@@ -336,7 +400,8 @@ var products = {
         allcoin: "",
         bittrex: "BTC-REP",
         yobit: "",
-        exmo: ""
+        exmo: "",
+        bitforex: ""
     },
     TRXBTC: {
         qryptos: "TRXBTC",
@@ -419,6 +484,66 @@ var products = {
         allcoin: "",
         bittrex: "BTC-ZRX",
         yobit: "zrx_btc",
+        exmo: "",
+        bitforex: ""
+    },
+    ADABTC: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "ADABTC",
+        hitbtc: "ADABTC",
+        allcoin: "",
+        bittrex: "BTC-ADA",
+        yobit: "",
+        exmo: "",
+        bitforex: ""
+    },
+    XEMBTC: {
+        qryptos: "XEMBTC",
+        bitfinex: "",
+        poloniex: "BTC_XEM",
+        binance: "XEMBTC",
+        hitbtc: "XEMBTC",
+        allcoin: "",
+        bittrex: "BTC-XEM",
+        yobit: "xem_btc",
+        exmo: "",
+        bitforex: ""
+    },
+    OMGBTC: {
+        qryptos: "OMGBTC",
+        bitfinex: "omgbtc",
+        poloniex: "BTC_OMG",
+        binance: "OMGBTC",
+        hitbtc: "OMGBTC",
+        allcoin: "",
+        bittrex: "BTC-OMG",
+        yobit: "omg_btc",
+        exmo: "",
+        bitforex: ""
+    },
+    ZILBTC: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "ZILBTC",
+        hitbtc: "ZILBTC",
+        allcoin: "",
+        bittrex: "",
+        yobit: "zil_btc",
+        exmo: "",
+        bitforex: ""
+    },
+    BCNBTC: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "BTC_BCN",
+        binance: "BCNBTC",
+        hitbtc: "BCNBTC",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
         exmo: "",
         bitforex: ""
     },
@@ -613,6 +738,66 @@ var products = {
         yobit: "zrx_eth",
         exmo: "",
         bitforex: ""
+    },
+    ADAETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "ADAETH",
+        hitbtc: "ADAETH",
+        allcoin: "",
+        bittrex: "ETH-ADA",
+        yobit: "",
+        exmo: "",
+        bitforex: ""
+    },
+    XEMETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "XEMETH",
+        hitbtc: "XEMETH",
+        allcoin: "",
+        bittrex: "ETH-XEM",
+        yobit: "xem_eth",
+        exmo: "",
+        bitforex: ""
+    },
+    OMGETH: {
+        qryptos: "OMGETH",
+        bitfinex: "omgeth",
+        poloniex: "ETH_OMG",
+        binance: "OMGETH",
+        hitbtc: "OMGETH",
+        allcoin: "",
+        bittrex: "ETH-OMG",
+        yobit: "omg_eth",
+        exmo: "",
+        bitforex: ""
+    },
+    ZILETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "ZILETH",
+        hitbtc: "",
+        allcoin: "",
+        bittrex: "",
+        yobit: "zil_eth",
+        exmo: "",
+        bitforex: ""
+    },
+    BCNETH: {
+        qryptos: "",
+        bitfinex: "",
+        poloniex: "",
+        binance: "BCNETH",
+        hitbtc: "BCNETH",
+        allcoin: "",
+        bittrex: "",
+        yobit: "",
+        exmo: "",
+        bitforex: ""
     }
 };
 
@@ -635,7 +820,12 @@ router.get('/usd', function (req, res) {
             "XMRUSD",
             "XRPUSD",
             "ZECUSD",
-            "ZRXUSD"
+            "ZRXUSD",
+            "ADAUSD",
+            "XEMUSD",
+            "OMGUSD",
+            "ZILUSD",
+            "BCNUSD"
         ]
     });
 });
@@ -659,7 +849,12 @@ router.get('/btc', function (req, res) {
             "XRPBTC",
             "XMRBTC",
             "ZECBTC",
-            "ZRXBTC"
+            "ZRXBTC",
+            "ADABTC",
+            "XEMBTC",
+            "OMGBTC",
+            "ZILBTC",
+            "BCNBTC"
         ]
     });
 });
@@ -682,7 +877,12 @@ router.get('/eth', function (req, res) {
             "XRPETH",
             "XMRETH",
             "ZECETH",
-            "ZRXETH"
+            "ZRXETH",
+            "ADAETH",
+            "XEMETH",
+            "OMGETH",
+            "ZILETH",
+            "BCNETH"
         ]
     });
 });
