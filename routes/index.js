@@ -151,43 +151,43 @@ router.get('/qu.json', cache('20 seconds'), function (req, res, next) {
 
 router.get('/qus.json', cache('10 seconds'), function (req, res, next) {
   async.parallel({
-    rates: function (callback) {
-      request.get({
-        url: "http://api.fixer.io/latest?base=SGD&symbols=USD",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, body);
-        } catch (e) {
-          return callback(e);
-        }
-      });
+      rates: function (callback) {
+        request.get({
+          url: "http://api.fixer.io/latest?base=SGD&symbols=USD",
+          json: true
+        }, function (error, response, body) {
+          try {
+            callback(null, body);
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      },
+      quoine: function (callback) {
+        request.get({
+          url: "https://api.quoine.com/products",
+          json: true
+        }, function (error, response, body) {
+          try {
+            callback(null, body);
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      },
+      bitfinex: function (callback) {
+        request.get({
+          url: "https://api.bitfinex.com/v1/pubticker/QSHUSD",
+          json: true
+        }, function (error, response, body) {
+          try {
+            callback(null, body);
+          } catch (e) {
+            return callback(e);
+          }
+        });
+      }
     },
-    quoine: function (callback) {
-      request.get({
-        url: "https://api.quoine.com/products",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, body);
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    },
-    bitfinex: function (callback) {
-      request.get({
-        url: "https://api.bitfinex.com/v1/pubticker/QSHUSD",
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, body);
-        } catch (e) {
-          return callback(e);
-        }
-      });
-    }
-  },
     function (err, results) {
       var data = [];
       var qash_usd = results.quoine.find(item => item.currency_pair_code == 'QASHUSD');
@@ -440,29 +440,29 @@ router.get('/qes', function (req, res, next) {
 
 router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
   async.parallel({
-    qryptos: function (callback) {
-      request.get({
-        url: 'https://api.qryptos.com/products/31',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
+      qryptos: function (callback) {
+        request.get({
+          url: 'https://api.qryptos.com/products/31',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      quoine: function (callback) {
+        request.get({
+          url: 'https://api.quoine.com/products',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            var ethqash = body
+              .filter(item => ['ETHSGD', 'QASHSGD'].includes(item.currency_pair_code));
+            callback(null, ethqash);
+          }
+        });
+      }
     },
-    quoine: function (callback) {
-      request.get({
-        url: 'https://api.quoine.com/products',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          var ethqash = body
-            .filter(item => ['ETHSGD', 'QASHSGD'].includes(item.currency_pair_code));
-          callback(null, ethqash);
-        }
-      });
-    }
-  },
     function (err, result) {
       var data = [];
 
@@ -707,37 +707,37 @@ router.get('/bitfinex', function (req, res, next) {
 
 router.get('/qtb.json', cache('10 seconds'), function (req, res, next) {
   async.parallel({
-    qsheth: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
+      qsheth: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      qshbtc: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      ethbtc: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/ethbtc',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      }
     },
-    qshbtc: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
-    },
-    ethbtc: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/ethbtc',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
-    }
-  },
     function (err, result) {
       var data = [];
 
@@ -763,37 +763,37 @@ router.get('/qtb.json', cache('10 seconds'), function (req, res, next) {
 
 router.get('/btq.json', cache('10 seconds'), function (req, res, next) {
   async.parallel({
-    qshbtc: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
+      qshbtc: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshbtc',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      btcusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/btcusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      qshusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      }
     },
-    btcusd: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/btcusd',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
-    },
-    qshusd: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/qshusd',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
-    }
-  },
     function (err, result) {
       var data = [];
 
@@ -821,37 +821,37 @@ router.get('/btq.json', cache('10 seconds'), function (req, res, next) {
 
 router.get('/etq.json', cache('10 seconds'), function (req, res, next) {
   async.parallel({
-    qsheth: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
+      qsheth: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qsheth',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      ethusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/ethusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      },
+      qshusd: function (callback) {
+        request.get({
+          url: 'https://api.bitfinex.com/v1/pubticker/qshusd',
+          json: true
+        }, function (error, response, body) {
+          if (!error && response.statusCode === 200) {
+            callback(null, body);
+          }
+        });
+      }
     },
-    ethusd: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/ethusd',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
-    },
-    qshusd: function (callback) {
-      request.get({
-        url: 'https://api.bitfinex.com/v1/pubticker/qshusd',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, body);
-        }
-      });
-    }
-  },
     function (err, result) {
       var data = [];
 
@@ -917,10 +917,10 @@ router.get("/spread.json", function (req, res, next) {
         callback(null, body);
       });
     },
-    quoine: function (callback) {
-      if (exchange == 'quoine' || exchange == 'qryptos') {
+    liquid: function (callback) {
+      if (exchange == 'liquid') {
         request.get({
-          url: 'https://api.' + exchange + '.com/products',
+          url: 'https://api.liquid.com/products',
           json: true
         }, function (error, response, body) {
           var data = body
@@ -953,8 +953,8 @@ router.get("/spread.json", function (req, res, next) {
       }
     }
   }, function (err, results) {
-    if (exchange == 'quoine' || exchange == 'qryptos') {
-      var data = results.quoine
+    if (exchange == 'liquid') {
+      var data = results.liquid
         .map(item => {
           item.percentage = (item.market_ask - item.market_bid) / item.market_bid;
           item.change_24h = (item.market_bid - item.last_price_24h) / item.last_price_24h;
@@ -1093,30 +1093,30 @@ router.get("/qqbp.json", function (req, res, next) {
     },
     bitfinex: function (callback) {
       async.map([
-        'btcusd',
-        'bchusd',
-        'neousd',
-        'ethbtc',
-        'ethusd',
-        'btceur',
-        'zecbtc',
-        'xmrbtc',
-        'ethbtc',
-        'etcbtc',
-        'xrpbtc',
-        'ltcbtc',
-        'bchbtc',
-        'neobtc',
-        'omgbtc',
-        'omgeth',
-        'neoeth',
-        'qtmusd',
-        'qtmbtc',
-        'qtmeth',
-        'qshusd',
-        'qshbtc',
-        'qsheth'
-      ],
+          'btcusd',
+          'bchusd',
+          'neousd',
+          'ethbtc',
+          'ethusd',
+          'btceur',
+          'zecbtc',
+          'xmrbtc',
+          'ethbtc',
+          'etcbtc',
+          'xrpbtc',
+          'ltcbtc',
+          'bchbtc',
+          'neobtc',
+          'omgbtc',
+          'omgeth',
+          'neoeth',
+          'qtmusd',
+          'qtmbtc',
+          'qtmeth',
+          'qshusd',
+          'qshbtc',
+          'qsheth'
+        ],
         fetch,
         function (err, results) {
           callback(null, results);
@@ -1134,17 +1134,17 @@ router.get("/qqbp.json", function (req, res, next) {
   }, function (err, results) {
     var data =
       results.quoine.concat(results.qryptos)
-        .map(item => {
-          return {
-            pair: item.currency_pair_code,
-            quoine: {
-              ask: item.market_ask,
-              bid: item.market_bid
-            },
-            bitfinex: getBitfinex(item, results.bitfinex),
-            poloniex: getPoloniex(item, results.poloniex)
-          };
-        });
+      .map(item => {
+        return {
+          pair: item.currency_pair_code,
+          quoine: {
+            ask: item.market_ask,
+            bid: item.market_bid
+          },
+          bitfinex: getBitfinex(item, results.bitfinex),
+          poloniex: getPoloniex(item, results.poloniex)
+        };
+      });
 
     res.json(data);
   });
