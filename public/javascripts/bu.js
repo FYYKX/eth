@@ -33,7 +33,7 @@ $(function () {
         "data": "bid"
       },
       {
-        "data": "quoine"
+        "data": "liquid"
       },
       {
         "data": "bitfinex"
@@ -64,7 +64,7 @@ $(function () {
               var buy;
               switch (meta.col) {
                 case 3:
-                  buy = "quoine";
+                  buy = "liquid";
                   break;
                 case 4:
                   buy = "bitfinex";

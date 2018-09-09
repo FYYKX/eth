@@ -36,10 +36,7 @@ $(function () {
         "data": "bid"
       },
       {
-        "data": "quoine"
-      },
-      {
-        "data": "qryptos"
+        "data": "liquid"
       },
       {
         "data": "bitfinex"
@@ -53,7 +50,7 @@ $(function () {
         }
       },
       {
-        "targets": [3, 4, 5],
+        "targets": [3, 4],
         "render": function (data, type, row, meta) {
           if (data) {
             var css = data > 0.001 ? "label-warning" : "label-danger";
@@ -61,10 +58,7 @@ $(function () {
               var buy;
               switch (meta.col) {
                 case 3:
-                  buy = "quoine";
-                  break;
-                case 4:
-                  buy = "qryptos";
+                  buy = "liquid";
                   break;
                 default:
                   buy = "bitfinex";

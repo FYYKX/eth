@@ -209,12 +209,12 @@ var ethusd = function (callback) {
   async.parallel([
     function (callback) {
       request.get({
-        url: "https://api.quoine.com/products/27",
+        url: "https://api.liquid.com/products/27",
         json: true
       }, function (error, response, body) {
         try {
           callback(null, {
-            "exchange": "quoine",
+            "exchange": "liquid",
             "bid": parseFloat(body.market_bid),
             "ask": parseFloat(body.market_ask)
           });
@@ -385,38 +385,19 @@ var btcusd = function (callback) {
   );
 };
 
-var qash = function (quoine, qryptos, bitfinex, callback) {
+var qash = function (liquid, bitfinex, callback) {
   async.parallel([
     function (callback) {
       request.get({
-        url: "https://api.quoine.com/products/" + quoine,
+        url: "https://api.liquid.com/products/" + liquid,
         json: true
       }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "quoine",
-            "bid": parseFloat(body.market_bid),
-            "ask": parseFloat(body.market_ask)
-          });
-        } catch (e) {
-          return callback(null, null);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.qryptos.com/products/" + qryptos,
-        json: true
-      }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "qryptos",
-            "bid": parseFloat(body.market_bid),
-            "ask": parseFloat(body.market_ask)
-          });
-        } catch (e) {
-          return callback(null, null);
-        }
+        console.log(body);
+        callback(null, {
+          "exchange": "liquid",
+          "bid": parseFloat(body.market_bid),
+          "ask": parseFloat(body.market_ask)
+        });
       });
     },
     function (callback) {
@@ -424,15 +405,12 @@ var qash = function (quoine, qryptos, bitfinex, callback) {
         url: "https://api.bitfinex.com/v1/pubticker/" + bitfinex,
         json: true
       }, function (error, response, body) {
-        try {
-          callback(null, {
-            "exchange": "bitfinex",
-            "bid": parseFloat(body.bid),
-            "ask": parseFloat(body.ask)
-          });
-        } catch (e) {
-          return callback(null, null);
-        }
+        console.log(body);
+        callback(null, {
+          "exchange": "bitfinex",
+          "bid": parseFloat(body.bid),
+          "ask": parseFloat(body.ask)
+        });
       });
     }
   ],
@@ -446,29 +424,12 @@ var ethbtc = function (callback) {
   async.parallel([
     function (callback) {
       request.get({
-        url: "https://api.quoine.com/products/37",
+        url: "https://api.liquid.com/products/37",
         json: true
       }, function (error, response, body) {
         try {
           var data = {
-            "exchange": "quoine",
-            "bid": parseFloat(body.market_bid),
-            "ask": parseFloat(body.market_ask)
-          };
-          callback(null, data);
-        } catch (e) {
-          return callback(null, null);
-        }
-      });
-    },
-    function (callback) {
-      request.get({
-        url: "https://api.qryptos.com/products/4",
-        json: true
-      }, function (error, response, body) {
-        try {
-          var data = {
-            "exchange": "qryptos",
+            "exchange": "liquid",
             "bid": parseFloat(body.market_bid),
             "ask": parseFloat(body.market_ask)
           };
@@ -535,16 +496,12 @@ var ethbtc = function (callback) {
         url: "https://api.hitbtc.com/api/2/public/ticker/ETHBTC",
         json: true
       }, function (error, response, body) {
-        try {
-          var data = {
-            "exchange": "hitbtc",
-            "bid": parseFloat(body.bid),
-            "ask": parseFloat(body.ask)
-          };
-          callback(null, data);
-        } catch (e) {
-          return callback(null, null);
-        }
+        var data = {
+          "exchange": "hitbtc",
+          "bid": parseFloat(body.bid),
+          "ask": parseFloat(body.ask)
+        };
+        callback(null, data);
       });
     }
   ],

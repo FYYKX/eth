@@ -31,32 +31,15 @@ router.get('/:exchange', function (req, res) {
 router.get('/', cache('30 seconds'), function (req, res) {
   async.parallel([
     function (callback) {
-      var quoine = new qqclient(config.quoine);
-      quoine.balances(function (body) {
+      var liquid = new qqclient(config.quoine);
+      liquid.balances(function (body) {
         try {
           var data = {
-            exchange: "quoine",
+            exchange: "liquid",
             btc: body.find(item => item.currency == 'BTC').balance,
             eth: body.find(item => item.currency == 'ETH').balance,
             qash: body.find(item => item.currency == 'QASH').balance,
             usd: body.find(item => item.currency == 'USD').balance
-          };
-          callback(null, data);
-        } catch (e) {
-          callback(null, null);
-        }
-      });
-    },
-    function (callback) {
-      var qryptos = new qqclient(config.qryptos);
-      qryptos.balances(function (body) {
-        try {
-          var data = {
-            exchange: "qryptos",
-            btc: body.find(item => item.currency == 'BTC').balance,
-            eth: body.find(item => item.currency == 'ETH').balance,
-            qash: body.find(item => item.currency == 'QASH').balance,
-            usd: 0
           };
           callback(null, data);
         } catch (e) {
