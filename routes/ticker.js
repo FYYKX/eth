@@ -299,12 +299,12 @@ var btcusd = function (callback) {
   async.parallel([
     function (callback) {
       request.get({
-        url: "https://api.quoine.com/products/1",
+        url: "https://api.liquid.com/products/1",
         json: true
       }, function (error, response, body) {
         try {
           callback(null, {
-            "exchange": "quoine",
+            "exchange": "liquid",
             "bid": parseFloat(body.market_bid),
             "ask": parseFloat(body.market_ask)
           });
