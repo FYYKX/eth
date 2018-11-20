@@ -3,8 +3,7 @@ var express = require('express');
 var async = require('async');
 var apicache = require('apicache');
 
-var config = require('../config');
-var qqclient = require('./exchange/quoine');
+var liquid = require('./exchange/liquid');
 var bitfinex = require('./exchange/bitfinex');
 var poloniex = require('./exchange/poloniex');
 
@@ -13,16 +12,7 @@ var cache = apicache.middleware;
 
 router.get('/:exchange', function (req, res) {
   var exchange = req.params.exchange;
-  var qq = 'quoine';
-  if (exchange == 'qryptos') {
-    exchange = 'quoine';
-    qq = 'qryptos';
-  }
-
   var client = require('./exchange/' + exchange);
-  if (exchange == 'quoine') {
-    client = new client(config[qq]);
-  }
   client.balances(function (body) {
     res.json(body);
   });
@@ -31,7 +21,6 @@ router.get('/:exchange', function (req, res) {
 router.get('/', cache('30 seconds'), function (req, res) {
   async.parallel([
     function (callback) {
-      var liquid = new qqclient(config.quoine);
       liquid.balances(function (body) {
         try {
           var data = {
@@ -75,7 +64,6 @@ router.get('/', cache('30 seconds'), function (req, res) {
             usd: body.USDT
           });
         } else {
-          console.log(body);
           callback(null, null);
         }
       });

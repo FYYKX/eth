@@ -74,12 +74,12 @@ var btc = function (callback) {
       },
       function (callback) {
         request.get({
-          url: "https://api.quoine.com/products/1",
+          url: "https://api.liquid.com/products/1",
           json: true
         }, function (error, response, body) {
           try {
             callback(null, {
-              "exchange": "quoine",
+              "exchange": "liquid",
               "country": "",
               "bid": parseFloat(body.market_bid),
               "ask": parseFloat(body.market_ask)
@@ -392,7 +392,6 @@ var qash = function (liquid, bitfinex, callback) {
         url: "https://api.liquid.com/products/" + liquid,
         json: true
       }, function (error, response, body) {
-        console.log(body);
         callback(null, {
           "exchange": "liquid",
           "bid": parseFloat(body.market_bid),
@@ -405,7 +404,6 @@ var qash = function (liquid, bitfinex, callback) {
         url: "https://api.bitfinex.com/v1/pubticker/" + bitfinex,
         json: true
       }, function (error, response, body) {
-        console.log(body);
         callback(null, {
           "exchange": "bitfinex",
           "bid": parseFloat(body.bid),

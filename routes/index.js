@@ -7,7 +7,7 @@ var ticker = require('./ticker');
 var orderbook = require('./orderbook');
 var config = require('../config');
 
-var qq = require('./exchange/quoine');
+var liquid = require('./exchange/liquid');
 var bitfinex = require('./exchange/bitfinex');
 
 var router = express.Router();
@@ -82,8 +82,7 @@ router.get('/qe_qq.json', cache('10 seconds'), function (req, res, next) {
 router.get('/qb.json', cache('20 seconds'), function (req, res, next) {
   ticker.qash(52, 32, 'QSHBTC', function (results) {
     var data = results.map(item => {
-      item.quoine = item.exchange != 'quoine' ? (item.bid - results[0].ask) / results[0].ask : '';
-      item.qryptos = item.exchange != 'qryptos' ? (item.bid - results[1].ask) / results[1].ask : '';
+      item.liquid = item.exchange != 'liquid' ? (item.bid - results[0].ask) / results[0].ask : '';
       item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[2].ask) / results[2].ask : '';
       return item;
     });
@@ -92,10 +91,10 @@ router.get('/qb.json', cache('20 seconds'), function (req, res, next) {
     var buy = '';
     var sell = '';
     data.forEach(function (item) {
-      if (item.quoine > high) {
-        high = item.quoine;
+      if (item.liquid > high) {
+        high = item.liquid;
         sell = item.exchange;
-        buy = 'quoine';
+        buy = 'liquid';
       }
       if (item.qryptos > high) {
         high = item.qryptos;
@@ -163,9 +162,9 @@ router.get('/qus.json', cache('10 seconds'), function (req, res, next) {
         }
       });
     },
-    quoine: function (callback) {
+    liquid: function (callback) {
       request.get({
-        url: "https://api.quoine.com/products",
+        url: "https://api.liquid.com/products",
         json: true
       }, function (error, response, body) {
         try {
@@ -190,17 +189,17 @@ router.get('/qus.json', cache('10 seconds'), function (req, res, next) {
   },
     function (err, results) {
       var data = [];
-      var qash_usd = results.quoine.find(item => item.currency_pair_code == 'QASHUSD');
-      var qash_sgd = results.quoine.find(item => item.currency_pair_code == 'QASHSGD');
+      var qash_usd = results.liquid.find(item => item.currency_pair_code == 'QASHUSD');
+      var qash_sgd = results.liquid.find(item => item.currency_pair_code == 'QASHSGD');
       var sgd_usd = results.rates.rates.USD;
 
       data.push({
-        exchange: "quoine",
+        exchange: "liquid",
         ask: qash_usd.market_ask,
         bid: qash_usd.market_bid
       });
       data.push({
-        exchange: "quoine",
+        exchange: "liquid",
         sgd_usd: sgd_usd,
         ask_sgd: qash_sgd.market_ask,
         ask: qash_sgd.market_ask * sgd_usd,
@@ -237,7 +236,7 @@ router.get('/qqb.json/:currency?', cache('10 seconds'), function (req, res, next
 
   ticker.qash(liquid, bitfinex, function (results) {
     var data = results.map(item => {
-      item.quoine = item.exchange != 'liquid' ? (item.bid - results[0].ask) / results[0].ask : '';
+      item.liquid = item.exchange != 'liquid' ? (item.bid - results[0].ask) / results[0].ask : '';
       item.bitfinex = item.exchange != 'bitfinex' ? (item.bid - results[1].ask) / results[1].ask : '';
       return item;
     });
@@ -436,9 +435,9 @@ router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
         }
       });
     },
-    quoine: function (callback) {
+    liquid: function (callback) {
       request.get({
-        url: 'https://api.quoine.com/products',
+        url: 'https://api.liquid.com/products',
         json: true
       }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
@@ -454,8 +453,8 @@ router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
 
       var qash_eth = result.qryptos.market_bid;
 
-      var eth_sgd = result.quoine[0].market_bid;
-      var qash_sgd = result.quoine[1].market_ask;
+      var eth_sgd = result.liquid[0].market_bid;
+      var qash_sgd = result.liquid[1].market_ask;
 
       var sell = qash_eth * eth_sgd;
       var buy = qash_sgd;
@@ -473,8 +472,8 @@ router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
 
       qash_eth = result.qryptos.market_ask;
 
-      eth_sgd = result.quoine[0].market_ask;
-      qash_sgd = result.quoine[1].market_bid;
+      eth_sgd = result.liquid[0].market_ask;
+      qash_sgd = result.liquid[1].market_bid;
 
       sell = qash_sgd;
       buy = qash_eth * eth_sgd;
@@ -494,13 +493,13 @@ router.get('/qes.json', cache('10 seconds'), function (req, res, next) {
     });
 });
 
-router.get('/quoine', function (req, res, next) {
-  res.render('quoine');
+router.get('/liquid', function (req, res, next) {
+  res.render('liquid');
 });
 
 router.get('/bte.json', cache('10 seconds'), function (req, res, next) {
   request.get({
-    url: 'https://api.quoine.com/products',
+    url: 'https://api.liquid.com/products',
     json: true
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -545,7 +544,7 @@ router.get('/bte.json', cache('10 seconds'), function (req, res, next) {
 
 router.get('/qtq.json', cache('10 seconds'), function (req, res, next) {
   request.get({
-    url: 'https://api.quoine.com/products',
+    url: 'https://api.liquid.com/products',
     json: true
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -607,7 +606,7 @@ router.get('/qtq.json', cache('10 seconds'), function (req, res, next) {
 
 router.get('/ste.json', cache('10 seconds'), function (req, res, next) {
   request.get({
-    url: 'https://api.quoine.com/products',
+    url: 'https://api.liquid.com/products',
     json: true
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -640,7 +639,7 @@ router.get('/ste.json', cache('10 seconds'), function (req, res, next) {
 
 router.get('/stq.json', cache('10 seconds'), function (req, res, next) {
   request.get({
-    url: 'https://api.quoine.com/products',
+    url: 'https://api.liquid.com/products',
     json: true
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -1025,7 +1024,7 @@ router.get("/order", function (req, res, next) {
 
 router.get("/order.json", function (req, res, next) {
   request.get({
-    url: 'https://api.quoine.com/products/' + req.query.id + '/price_levels?full=1',
+    url: 'https://api.liquid.com/products/' + req.query.id + '/price_levels?full=1',
     json: true
   }, function (error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -1061,9 +1060,9 @@ router.get("/qqbp", function (req, res, next) {
 
 router.get("/qqbp.json", function (req, res, next) {
   async.parallel({
-    quoine: function (callback) {
+    liquid: function (callback) {
       request.get({
-        url: "https://api.quoine.com/products",
+        url: "https://api.liquid.com/products",
         json: true
       }, function (error, response, body) {
         callback(null, body);
@@ -1119,11 +1118,11 @@ router.get("/qqbp.json", function (req, res, next) {
     }
   }, function (err, results) {
     var data =
-      results.quoine.concat(results.qryptos)
+      results.liquid.concat(results.qryptos)
         .map(item => {
           return {
             pair: item.currency_pair_code,
-            quoine: {
+            liquid: {
               ask: item.market_ask,
               bid: item.market_bid
             },
@@ -1222,25 +1221,20 @@ router.get("/price", function (req, res) {
 router.get("/price.json/:currency?", function (req, res, next) {
   var currency = req.query.currency;
 
-  var quoine_id = 51;
-  var qryptos_id = 31;
+  var liquid_id = 51;
   var bitfinex_id = 'qsheth';
 
   if (currency == 'QASHBTC') {
-    quoine_id = 52;
-    qryptos_id = 32;
+    liquid_id = 52;
     bitfinex_id = 'qshbtc';
   } else if (currency == 'QASHUSD') {
-    quoine_id = 57;
-    qryptos_id = null;
+    liquid_id = 57;
     bitfinex_id = 'qshusd';
   } else if (currency == 'QASHSGD') {
-    quoine_id = 59;
-    qryptos_id = null;
+    liquid_id = 59;
     bitfinex_id = null;
   } else if (currency == 'QASHAUD') {
-    quoine_id = 60;
-    qryptos_id = null;
+    liquid_id = 60;
     bitfinex_id = null;
   }
   async.parallel({
@@ -1265,12 +1259,11 @@ router.get("/price.json/:currency?", function (req, res, next) {
         callback(null, []);
       }
     },
-    quoine: function (callback) {
-      if (quoine_id) {
-        var client = new qq(config.quoine);
-        client.trades(quoine_id, function (data) {
+    liquid: function (callback) {
+      if (liquid_id) {
+        liquid.trades(liquid_id, function (data) {
           var total_pages = data.total_pages;
-          console.log("quoine total page: " + total_pages);
+          console.log("liquid total page: " + total_pages);
           if (total_pages > 50) {
             total_pages = 50;
           }
@@ -1281,7 +1274,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
 
           async.concat(paging,
             function (page, cb) {
-              client.orders(quoine_id, page, function (data) {
+              liquid.orders(liquid_id, page, function (data) {
                 cb(null, data.models);
               });
             },
@@ -1290,50 +1283,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
                 .concat(results)
                 .filter(item => item.filled_quantity > 0)
                 .map(item => {
-                  item.exchange = "quoine";
-                  item.currency = currency;
-                  item.type = item.side;
-                  item.amount = item.filled_quantity;
-                  item.price = item.average_price == 0 ? item.price : item.average_price;
-                  if (item.type == "sell") {
-                    item.amount = item.amount * -1;
-                  }
-                  item.value = item.amount * item.price;
-                  item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
-
-                  return item;
-                });
-              callback(null, data);
-            });
-        });
-      } else {
-        callback(null, []);
-      }
-    },
-    qryptos: function (callback) {
-      if (qryptos_id) {
-        var client = new qq(config.qryptos);
-        client.trades(qryptos_id, function (data) {
-          var total_pages = data.total_pages;
-          total_pages = 30;
-          console.log("qryptos total page: " + total_pages);
-          var paging = [];
-          for (let index = 2; index <= total_pages; index++) {
-            paging.push(index);
-          }
-
-          async.concat(paging,
-            function (page, cb) {
-              client.orders(qryptos_id, page, function (data) {
-                cb(null, data.models);
-              });
-            },
-            function (err, results) {
-              data = data.models
-                .concat(results)
-                .filter(item => item.filled_quantity > 0)
-                .map(item => {
-                  item.exchange = "qryptos";
+                  item.exchange = "liquid";
                   item.currency = currency;
                   item.type = item.side;
                   item.amount = item.filled_quantity;
@@ -1354,7 +1304,7 @@ router.get("/price.json/:currency?", function (req, res, next) {
       }
     }
   }, function (err, results) {
-    res.json(results.bitfinex.concat(results.quoine).concat(results.qryptos));
+    res.json([...results.bitfinex, ...results.liquid]);
   });
 });
 

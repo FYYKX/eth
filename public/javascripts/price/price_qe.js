@@ -11,32 +11,34 @@ $(function () {
       [6, "desc"]
     ],
     "columns": [{
-        "data": "currency"
-      },
-      {
-        "data": "exchange"
-      },
-      {
-        "data": "type"
-      },
-      {
-        "data": "amount"
-      },
-      {
-        "data": "price"
-      },
-      {
-        "data": "value"
-      },
-      {
-        "data": "timestamp"
-      }
-    ],
+      "data": "currency"
+    },
+    {
+      "data": "exchange"
+    },
+    {
+      "data": "type"
+    },
+    {
+      "data": "amount"
+    },
+    {
+      "data": "price"
+    },
+    {
+      "data": "value"
+    },
+    {
+      "data": "timestamp"
+    }],
     "columnDefs": [{
       "targets": [1, 2],
       "render": function (data, type, row, meta) {
         return "<span class='label " + data + "'>" + data + "</span>";
       }
+    }, {
+      "type": "date",
+      "targets": 6
     }],
     "footerCallback": function (row, data, start, end, display) {
       var api = this.api(),

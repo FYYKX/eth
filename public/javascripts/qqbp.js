@@ -4,11 +4,11 @@ $(function () {
             "url": "qqbp.json",
             "dataSrc": function (json) {
                 for (var i = 0, ien = json.length; i < ien; i++) {
-                    if (json[i].bitfinex.bid > json[i].quoine.ask) {
+                    if (json[i].bitfinex.bid > json[i].liquid.ask) {
                         json[i].bitfinex.bid = "<span class='label label-success'>" + json[i].bitfinex.bid + "</span>";
                     }
 
-                    if (json[i].poloniex.bid > json[i].quoine.ask) {
+                    if (json[i].poloniex.bid > json[i].liquid.ask) {
                         json[i].poloniex.bid = "<span class='label label-success'>" + json[i].poloniex.bid + "</span>";
                     }
                 }
@@ -24,10 +24,10 @@ $(function () {
                 "data": "pair"
             },
             {
-                "data": "quoine.ask"
+                "data": "liquid.ask"
             },
             {
-                "data": "quoine.bid"
+                "data": "liquid.bid"
             },
             {
                 "data": "bitfinex.ask"
