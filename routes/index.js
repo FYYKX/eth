@@ -1249,8 +1249,8 @@ router.get("/price.json/:currency?", function (req, res, next) {
               item.amount = item.amount * -1;
             }
             item.value = item.amount * item.price;
+            item.time = item.timestamp;
             item.timestamp = new Date(parseInt(item.timestamp) * 1000).toLocaleString();
-
             return item;
           });
           callback(null, data);
@@ -1292,8 +1292,8 @@ router.get("/price.json/:currency?", function (req, res, next) {
                     item.amount = item.amount * -1;
                   }
                   item.value = item.amount * item.price;
+                  item.time = item.updated_at;
                   item.timestamp = new Date(parseInt(item.updated_at) * 1000).toLocaleString();
-
                   return item;
                 });
               callback(null, data);
@@ -1304,7 +1304,11 @@ router.get("/price.json/:currency?", function (req, res, next) {
       }
     }
   }, function (err, results) {
-    res.json([...results.bitfinex, ...results.liquid]);
+    let data = [...results.bitfinex, ...results.liquid];
+    data.sort(function (a, b) {
+      return b.time - a.time;
+    })
+    res.json(data);
   });
 });
 
