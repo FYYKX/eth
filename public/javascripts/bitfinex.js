@@ -23,12 +23,8 @@ $(function () {
             "data": "percentage",
             "render": function (data, type, row, meta) {
                 var css = data > 0 ? "label-success" : "label-danger";
-                return "<h3><span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span></h3>";
+                return "<span class='label " + css + "'>" + (data * 100).toFixed(2) + "%" + "</span>";
             }
         }]
     });
-
-    setInterval(function () {
-        table.ajax.reload();
-    }, 5 * 60 * 1000);
 });

@@ -721,7 +721,7 @@ var candle = function (symbol, callback) {
   })
 }
 
-router.get('/bitfinex.json', cache('5 minutes'), function (req, res, next) {
+router.get('/bitfinex.json', function (req, res, next) {
   async.map(
     [
       "ADA",
