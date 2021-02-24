@@ -1,0 +1,1 @@
+GET http://localhost:3001/bitfinex.json HTTP/1.1

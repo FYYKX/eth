@@ -690,6 +690,71 @@ router.get('/bitfinex', function (req, res, next) {
   res.render('bitfinex');
 });
 
+var candle = function (symbol, callback) {
+  async.parallel({
+    c1: function (callback) {
+      request.get({
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:4h:t' + symbol + 'USD/last',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, (body[2] - body[1]) / body[1]);
+        }
+      });
+    },
+    c2: function (callback) {
+      request.get({
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:12h:t' + symbol + 'USD/last',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, (body[2] - body[1]) / body[1]);
+        }
+      });
+    },
+  }, function (err, result) {
+    callback(null, {
+      'symbol': symbol,
+      'c1': result.c1,
+      'c2': result.c2
+    });
+  })
+}
+
+router.get('/bitfinex.json', cache('5 minutes'), function (req, res, next) {
+  async.map(
+    [
+      "ADA",
+      "ALG",
+      "ATO",
+      "BCHN:",
+      "BTC",
+      "DOT",
+      "DSH",
+      "EOS",
+      "ETH",
+      "IOT",
+      "LINK:",
+      "LTC",
+      "MKR",
+      "NEO",
+      "OMG",
+      "SUSHI:",
+      "TRX",
+      "UNI",
+      "XLM",
+      "XMR",
+      "XRP",
+      "XTZ",
+      "ZRX",
+    ],
+    candle,
+    function (err, results) {
+      res.json(results);
+    }
+  );
+});
+
 router.get('/qtb.json', cache('10 seconds'), function (req, res, next) {
   async.parallel({
     qsheth: function (callback) {

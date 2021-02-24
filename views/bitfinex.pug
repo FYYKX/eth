@@ -2,42 +2,15 @@ extends layout
 
 block content
   div.row
-    div.col-md-6
+    div.col-md-12
       div.page-header
-        h1 Bitfinex QASH to BTC
-      table.display#qtb
+        h1 Bitfinex
+      table.display#bitfinex
         thead
           tr
-            th Currency
-            th ETH
-            th BTC
-            th Percentage
-
-    div.col-md-6
-      div.page-header
-        h1 Bitfinex BTC to QASH
-      table.display#btq
-        thead
-          tr
-            th Currency
-            th USD
-            th QASH
-            th Percentage
-            th QASHUSD
-
-    div.col-md-6
-      div.page-header
-        h1 Bitfinex ETH to QASH
-      table.display#etq
-        thead
-          tr
-            th Currency
-            th USD
-            th QASH
-            th Percentage
-            th QASHUSD
+            th Symbol
+            th 4H
+            th 12H
 
 block script
-  script(src='/javascripts/qtb.js')
-  script(src='/javascripts/btq.js')
-  script(src='/javascripts/etq.js')
+  script(src='/javascripts/bitfinex.js')
