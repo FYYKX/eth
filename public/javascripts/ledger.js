@@ -7,7 +7,7 @@ $(function () {
         "order": [
             [3, "desc"]
         ],
-        "lengthMenu": [[10, -1], [10, "All"]],
+        "lengthMenu": [[25, -1], [25, "All"]],
         "columnDefs": [
             {
                 "targets": [0, 2, 4, 7],
