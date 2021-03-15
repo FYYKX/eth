@@ -20,7 +20,13 @@ html
           div(class='navbar-collapse collapse', id='navbar')
             ul(class='nav navbar-nav')
               li
-                a(class='nav-link', href='/bitfinex') BITFINEX
+                a(href="#", class="dropdown-toggle", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") BITFINEX
+                  span(class="caret")
+                ul(class='dropdown-menu')
+                  li
+                    a(class='dropdown-item', href='/bitfinex', target='_blank') Ticker
+                  li
+                    a(class='dropdown-item', href='/ledger', target='_blank') Ledger
               li
                 a(class='nav-link', href='/') BTC
               li

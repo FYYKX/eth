@@ -1,63 +1,56 @@
 var request = require('request');
 var crypto = require('crypto');
-
 var config = require('../../config');
 
 var
-    api_key = config.bitfinex.api_key,
-    api_secret = config.bitfinex.api_secret,
+    apiKey = config.bitfinex.api_key,
+    apiSecret = config.bitfinex.api_secret,
     baseRequest = request.defaults({
         headers: {
-            'X-BFX-APIKEY': api_key
+            'bfx-apikey': apiKey,
         },
-        baseUrl: 'https://api.bitfinex.com/v1',
+        baseUrl: 'https://api.bitfinex.com',
         json: true
     });
 
-function getOptions(url, payload) {
-    payload = new Buffer(JSON.stringify(payload)).toString('base64');
-    var signature = crypto.createHmac('sha384', api_secret).update(payload).digest('hex');
+function getOptions(apiPath, body) {
+    const nonce = (Date.now() * 1000).toString()
+    let signature = `/api/${apiPath}${nonce}${JSON.stringify(body)}`
+    var sig = crypto.createHmac('sha384', apiSecret).update(signature).digest('hex');
     return {
-        url: url,
+        url: apiPath,
         headers: {
-            'X-BFX-PAYLOAD': payload,
-            'X-BFX-SIGNATURE': signature
+            'bfx-nonce': nonce,
+            'bfx-signature': sig
         },
-        body: payload
+        body: body
     };
 }
 
-var balances = function (callback) {
-    var url = '/balances';
-    var payload = {
-        'request': '/v1' + url,
-        'nonce': Date.now().toString()
-    };
+var wallets = function (callback) {
+    var apiPath = 'v2/auth/r/wallets';
+    var payload = {};
 
-    var options = getOptions(url, payload);
-
+    var options = getOptions(apiPath, payload);
     baseRequest.post(options, function (error, response, body) {
         callback(body);
     });
 };
 
-var pasttrades = function (symbol, callback) {
-    var url = '/mytrades';
+var ledgers = function (callback) {
+    var apiPath = 'v2/auth/r/ledgers/hist';
     var payload = {
-        'request': '/v1' + url,
-        'nonce': Date.now().toString(),
-        'symbol': symbol,
-        'limit_trades': 1000
+        start: Date.now() - (7 * 24 * 3600 * 1000),
+        limit: 2500
     };
 
-    var options = getOptions(url, payload);
-    
+    var options = getOptions(apiPath, payload);
     baseRequest.post(options, function (error, response, body) {
         callback(body);
     });
 };
 
 module.exports = {
-    balances: balances,
-    trades: pasttrades
+    balances: wallets,
+    trades: ledgers
 };

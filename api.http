@@ -1,1 +1,13 @@
-GET http://localhost:3001/bitfinex.json HTTP/1.1
+@baseUrl = http://localhost:3001
+
+###
+
+GET {{baseUrl}}/bitfinex.json HTTP/1.1
+
+###
+
+GET {{baseUrl}}/balances/bitfinex HTTP/1.1
+
+###
+
+GET {{baseUrl}}/trades/bitfinex HTTP/1.1

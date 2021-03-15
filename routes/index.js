@@ -694,7 +694,7 @@ var candle = function (symbol, callback) {
   async.parallel({
     c1: function (callback) {
       request.get({
-        url: 'https://api-pub.bitfinex.com/v2/candles/trade:4h:t' + symbol + 'USD/last',
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:15m:t' + symbol + 'USD/last',
         json: true
       }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
@@ -703,6 +703,26 @@ var candle = function (symbol, callback) {
       });
     },
     c2: function (callback) {
+      request.get({
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:1h:t' + symbol + 'USD/last',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, (body[2] - body[1]) / body[1]);
+        }
+      });
+    },
+    c3: function (callback) {
+      request.get({
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:4h:t' + symbol + 'USD/last',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, (body[2] - body[1]) / body[1]);
+        }
+      });
+    },
+    c4: function (callback) {
       request.get({
         url: 'https://api-pub.bitfinex.com/v2/candles/trade:12h:t' + symbol + 'USD/last',
         json: true
@@ -716,10 +736,16 @@ var candle = function (symbol, callback) {
     callback(null, {
       'symbol': symbol,
       'c1': result.c1,
-      'c2': result.c2
+      'c2': result.c2,
+      'c3': result.c3,
+      'c4': result.c4,
     });
   })
 }
+
+router.get('/ledger', function (req, res, next) {
+  res.render("ledger");
+});
 
 router.get('/bitfinex.json', function (req, res, next) {
   async.map(
