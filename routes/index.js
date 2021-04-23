@@ -692,27 +692,17 @@ router.get('/bitfinex', function (req, res, next) {
 
 var candle = function (symbol, callback) {
   async.parallel({
+    price: function (callback) {
+      request.get({
+        url: 'https://api-pub.bitfinex.com/v2/ticker/t' + symbol + 'USD',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, body[9]);
+        }
+      });
+    },
     c1: function (callback) {
-      request.get({
-        url: 'https://api-pub.bitfinex.com/v2/candles/trade:15m:t' + symbol + 'USD/last',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, (body[2] - body[1]) / body[1]);
-        }
-      });
-    },
-    c2: function (callback) {
-      request.get({
-        url: 'https://api-pub.bitfinex.com/v2/candles/trade:1h:t' + symbol + 'USD/last',
-        json: true
-      }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-          callback(null, (body[2] - body[1]) / body[1]);
-        }
-      });
-    },
-    c3: function (callback) {
       request.get({
         url: 'https://api-pub.bitfinex.com/v2/candles/trade:4h:t' + symbol + 'USD/last',
         json: true
@@ -722,9 +712,29 @@ var candle = function (symbol, callback) {
         }
       });
     },
+    c2: function (callback) {
+      request.get({
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:1D:t' + symbol + 'USD/last',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, (body[2] - body[1]) / body[1]);
+        }
+      });
+    },
+    c3: function (callback) {
+      request.get({
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:7D:t' + symbol + 'USD/last',
+        json: true
+      }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          callback(null, (body[2] - body[1]) / body[1]);
+        }
+      });
+    },
     c4: function (callback) {
       request.get({
-        url: 'https://api-pub.bitfinex.com/v2/candles/trade:12h:t' + symbol + 'USD/last',
+        url: 'https://api-pub.bitfinex.com/v2/candles/trade:1M:t' + symbol + 'USD/last',
         json: true
       }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
@@ -735,6 +745,7 @@ var candle = function (symbol, callback) {
   }, function (err, result) {
     callback(null, {
       'symbol': symbol,
+      'price': result.price,
       'c1': result.c1,
       'c2': result.c2,
       'c3': result.c3,

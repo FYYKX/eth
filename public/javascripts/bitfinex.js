@@ -12,6 +12,9 @@ $(function () {
                 "data": "symbol"
             },
             {
+                "data": "price"
+            },
+            {
                 "data": "c1"
             },
             {
@@ -25,7 +28,7 @@ $(function () {
             },
         ],
         "columnDefs": [{
-            "targets": [1, 2, 3, 4],
+            "targets": [2, 3, 4, 5],
             "data": "percentage",
             "render": function (data, type, row, meta) {
                 var price = (data * 100).toFixed(2)
