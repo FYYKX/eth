@@ -15,6 +15,7 @@ $(function () {
             },
             {
                 "targets": 3,
+                "type": "date",
                 "render": function (data, type, row, meta) {
                     var date = new Date(data);
                     return date.toLocaleString();
@@ -24,17 +25,17 @@ $(function () {
                 "targets": 5,
                 "render": function (data, type, row, meta) {
                     var amount = data.toFixed(2)
-                    var css = "label-danger";
+                    var css = "label-warning";
                     if (amount > 1) {
                         css = "label-success";
-                    } else if (amount == 0) {
-                        return data
+                    } else if (amount < -1) {
+                        css = "label-danger"
                     }
                     return "<span class='label " + css + "'>" + amount + "</span>";
                 }
             },
         ],
-        "footerCallback": function (row, data, start, end, display) {
+        "headerCallback": function (row, data, start, end, display) {
             var api = this.api();
 
             // Total over all pages
@@ -53,8 +54,8 @@ $(function () {
                     return parseFloat(a) + parseFloat(b);
                 }, 0);
 
-            // Update footer
-            $(api.column(5).footer()).html(
+            // Update header
+            $(api.column(5).header()).html(
                 '$' + pageTotal.toFixed(2) + ' ( $' + total.toFixed(2) + ' total)'
             );
         }

@@ -40,7 +40,7 @@ var wallets = function (callback) {
 var ledgers = function (callback) {
     var apiPath = 'v2/auth/r/ledgers/hist';
     var payload = {
-        start: Date.now() - (7 * 24 * 3600 * 1000),
+        start: Date.now() - (14 * 24 * 3600 * 1000),
         limit: 2500
     };
 
