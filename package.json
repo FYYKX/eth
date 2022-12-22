@@ -13,7 +13,7 @@
     "debug": "~2.6.9",
     "express": "^4.16.4",
     "form-urlencoded": "^2.0.4",
-    "jsonwebtoken": "^8.1.0",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.9.1",
     "node-cron": "^1.2.1",
     "nodemailer": "^4.4.0",
